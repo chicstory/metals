@@ -10,6 +10,20 @@ import shutil
 import glob
 import re
 
+
+# 3-1. GA4 Measurement Snippet
+GA4_SNIPPET = """
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3PFHN6VW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K3PFHN6VW7');
+    </script>
+"""
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLOGTOOL_DIR = os.path.join(BASE_DIR, "blogtool")
 ENGINES_DIR = os.path.join(BASE_DIR, "engines")
@@ -38,8 +52,13 @@ for tf in table_files:
     src = os.path.join(BLOGTOOL_DIR, tf)
     dst = os.path.join(ENGINES_DIR, tf)
     if os.path.exists(src):
-        shutil.copy2(src, dst)
-        print(f"Copied table file: {tf}")
+        with open(src, 'r', encoding='utf-8') as rfp:
+            t_content = rfp.read()
+        if 'G-K3PFHN6VW7' not in t_content and '<head>' in t_content:
+            t_content = t_content.replace('<head>', '<head>\n' + GA4_SNIPPET, 1)
+        with open(dst, 'w', encoding='utf-8') as wfp:
+            wfp.write(t_content)
+        print(f"Copied and injected table file: {tf}")
 
 # 3. Google Translate Widget snippet (for head and navigation)
 TRANSLATE_HEAD_SNIPPET = """
@@ -259,6 +278,8 @@ for root, dirs, files in os.walk(ENGINES_DIR):
                 elif '</body>' in content:
                     content = content.replace('</body>', f'{COMMENT_BOX_HTML}\n</body>')
 
+                if 'G-K3PFHN6VW7' not in content and '<head>' in content:
+                    content = content.replace('<head>', '<head>\n' + GA4_SNIPPET, 1)
                 with open(filepath, 'w', encoding='utf-8') as fp:
                     fp.write(content)
                 modified_count += 1
@@ -275,6 +296,8 @@ if os.path.exists(src_index):
         idx_content = fp.read()
     
     # Inject Translate head snippet
+    if 'G-K3PFHN6VW7' not in idx_content and '<head>' in idx_content:
+        idx_content = idx_content.replace('<head>', '<head>\n' + GA4_SNIPPET, 1)
     if 'google_translate_element' not in idx_content:
         idx_content = idx_content.replace('</head>', TRANSLATE_HEAD_SNIPPET + '\n</head>')
     
