@@ -27,7 +27,7 @@ if /i "%AUTO_PUSH%"=="n" (
 ) else (
     echo.
     echo >> GitHub 웹사이트로 배포(Push) 진행 중...
-    git add -A
+    git add index.html resources/
     git commit -m "Auto update daily briefing" > nul 2>&1
     git push origin main
     echo.
