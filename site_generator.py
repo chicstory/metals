@@ -1294,7 +1294,9 @@ def build_website_index() -> str:
             <div class="header-meta">
                 <div class="meta-tag">기준 일시: <strong>{data['date_str']}</strong></div>
                 <div class="meta-tag">적용 환율: <strong style="color: #38bdf8;">1 USD = {data['usd_rate']:,.1f}원</strong></div>
-                <a href="https://blog.naver.com/thepathlab" target="_blank" rel="noopener" class="btn-sm btn-outline">더패스랩 블로그 ↗</a>
+                <a href="https://chicstory.github.io/" class="btn-sm btn-outline" style="border-color:#38bdf8; color:#38bdf8;"><i class="bi-house"></i> 포털 홈</a>
+                <a href="https://chicstory.github.io/engines/" class="btn-sm btn-outline"><i class="bi-cpu"></i> 엔진 백과</a>
+                <a href="https://blog.naver.com/thepathlab" target="_blank" rel="noopener" class="btn-sm btn-outline">블로그 ↗</a>
             </div>
         </div>
     </header>
