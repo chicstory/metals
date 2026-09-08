@@ -139,6 +139,16 @@ COMMENT_BOX_HTML = """
         } catch(e) { return []; }
     }
 
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
     function renderComments() {
         const listEl = document.getElementById('commentsList');
         if (!listEl) return;
@@ -150,10 +160,10 @@ COMMENT_BOX_HTML = """
         listEl.innerHTML = comments.slice().reverse().map(c => `
             <div style="background:rgba(11,15,25,0.5); border:1px solid rgba(255,255,255,0.06); padding:0.65rem 0.95rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
                 <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
-                    <strong style="color:var(--accent-cyan); font-size:0.85rem; white-space:nowrap;">${c.author}</strong>
-                    <span style="color:#e2e8f0; font-size:0.86rem; word-break:break-all;">${c.text}</span>
+                    <strong style="color:var(--accent-cyan); font-size:0.85rem; white-space:nowrap;">${escapeHtml(c.author)}</strong>
+                    <span style="color:#e2e8f0; font-size:0.86rem; word-break:break-all;">${escapeHtml(c.text)}</span>
                 </div>
-                <span style="font-size:0.75rem; color:#64748b; white-space:nowrap;">${c.time}</span>
+                <span style="font-size:0.75rem; color:#64748b; white-space:nowrap;">${escapeHtml(c.time)}</span>
             </div>
         `).join('');
     }
