@@ -49,14 +49,12 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
     pps_img = f"조달청_원자재_판매가격_{date_str}.png"
     has_pps = os.path.exists(os.path.join(date_folder, pps_img))
 
-    # Parse MD for AI commentary and news
     metals_info = []
     md_content = ""
     if os.path.exists(md_path):
         with open(md_path, "r", encoding="utf-8") as f:
             md_content = f.read()
 
-    # Pre-defined metadata
     METALS_META = [
         {"key": "steel_scrap", "idx": 1, "name_kr": "철·철스크랩", "name_en": "Steel Scrap", "emoji": "🔩", "cat": "steel", "type_label": "철·스크랩", "unit_krw": "원/kg"},
         {"key": "aluminum", "idx": 2, "name_kr": "알루미늄", "name_en": "Aluminum", "emoji": "🥫", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
@@ -77,7 +75,6 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         scrap_80 = int(float(c_row["스크랩추정_80%(원)"])) if c_row and c_row.get("스크랩추정_80%(원)") not in ["-", ""] else 0
         raw_price = f"{float(c_row['국제종가']):,.2f} {c_row['국제단위']}" if c_row and c_row.get("국제종가") not in ["-", ""] else "-"
 
-        # Extract AI analysis
         ai_content = ""
         articles = []
         if md_content:
@@ -1067,7 +1064,7 @@ def build_website_index() -> str:
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header (GitHub link removed, replaced with official Blog link) -->
     <header>
         <div class="container header-inner">
             <div>
@@ -1077,7 +1074,7 @@ def build_website_index() -> str:
             <div class="header-meta">
                 <div class="meta-tag">기준 일시: <strong>{data['date_str']}</strong></div>
                 <div class="meta-tag">적용 환율: <strong style="color: #38bdf8;">1 USD = {data['usd_rate']:,.1f}원</strong></div>
-                <a href="https://github.com/chicstory/metals" target="_blank" class="btn-sm btn-outline">GitHub ↗</a>
+                <a href="https://blog.naver.com/thepathlab" target="_blank" rel="noopener" class="btn-sm btn-outline">더패스랩 공식 블로그 ↗</a>
             </div>
         </div>
     </header>
