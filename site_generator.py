@@ -151,7 +151,7 @@ def generate_sitemap(archived_dates: List[str]):
 
 
 def build_website_index() -> str:
-    """메인 웹사이트 index.html 생성 (대시보드 + 계산기 + 아카이브 + 완벽 SEO)"""
+    """메인 웹사이트 index.html 생성 (대시보드 + 계산기 + 캘린더/스크롤 아카이브 + 완벽 SEO)"""
     archived_dates = get_archived_dates()
     if not archived_dates:
         print("[경고] resources 폴더에 브리핑 데이터가 없습니다.")
@@ -283,20 +283,43 @@ def build_website_index() -> str:
             </div>
         </article>""")
 
-    # 3. 아카이브 목록
-    archive_rows = []
+    # 3. 아카이브 데이터 구조화 (캘린더 및 스크롤 박스용)
+    archived_data_list = []
     for d in archived_dates:
-        is_today = " (최신)" if d == latest_date else ""
-        report_link = f"./resources/{d}/{urllib.parse.quote(f'[통합브리핑] 7대_금속원자재_{d}.html')}"
-        csv_link = f"./resources/{d}/{urllib.parse.quote(f'7대자원_환산시세_{d}.csv')}"
-        archive_rows.append(f"""
-        <div class="archive-item">
-            <div class="arch-date">📅 <strong>{d}</strong><span class="arch-badge">{is_today}</span></div>
-            <div class="arch-links">
-                <a href="{report_link}" target="_blank" class="btn-sm btn-outline">리포트 보기 ↗</a>
-                <a href="{csv_link}" download class="btn-sm btn-sub">CSV 다운로드</a>
-            </div>
-        </div>""")
+        c_path = os.path.join(RESOURCES_DIR, d, f"7대자원_환산시세_{d}.csv")
+        rate_val = 1344.4
+        steel_p = "-"
+        copper_p = "-"
+        pd_p = "-"
+        if os.path.exists(c_path):
+            with open(c_path, "r", encoding="utf-8-sig") as cf:
+                c_rows = list(csv.DictReader(cf))
+                if c_rows:
+                    try:
+                        rate_val = float(c_rows[0].get("적용환율(원/달러)", 1344.4))
+                    except Exception:
+                        pass
+                    for cr in c_rows:
+                        if cr.get("자원명") == "철·철스크랩":
+                            steel_p = f"{int(float(cr['원화시장단가(원)'])):,}원/kg"
+                        elif cr.get("자원명") == "구리":
+                            copper_p = f"{int(float(cr['원화시장단가(원)'])):,}원/kg"
+                        elif cr.get("자원명") == "팔라듐":
+                            pd_p = f"{int(float(cr['원화시장단가(원)'])):,}원/g"
+        report_url = f"./resources/{d}/{urllib.parse.quote(f'[통합브리핑] 7대_금속원자재_{d}.html')}"
+        csv_url = f"./resources/{d}/{urllib.parse.quote(f'7대자원_환산시세_{d}.csv')}"
+        archived_data_list.append({
+            "date": d,
+            "rate": rate_val,
+            "steel": steel_p,
+            "copper": copper_p,
+            "palladium": pd_p,
+            "report_url": report_url,
+            "csv_url": csv_url,
+            "is_latest": (d == latest_date)
+        })
+
+    archive_json = json.dumps(archived_data_list, ensure_ascii=False)
 
     # 4. 전체 HTML 빌드
     index_html = f"""<!DOCTYPE html>
@@ -486,6 +509,7 @@ def build_website_index() -> str:
             background: var(--surface);
             color: var(--text-main);
             cursor: pointer;
+            transition: background 0.15s;
         }}
         .btn-sm:hover {{
             background: var(--surface-hover);
@@ -817,28 +841,203 @@ def build_website_index() -> str:
             line-height: 1.4;
         }}
 
-        /* Archives */
-        .archive-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 14px;
-            margin-top: 14px;
-        }}
-        .archive-item {{
+        /* 📅 New Archive Section: Calendar + Scrollbox */
+        .archive-box {{
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 16px;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 50px;
+        }}
+        .archive-panes {{
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }}
+        @media (max-width: 950px) {{
+            .archive-panes {{ grid-template-columns: 1fr; }}
+        }}
+
+        /* Calendar Widget */
+        .cal-card {{
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+        }}
+        .cal-nav {{
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 14px;
         }}
-        .arch-badge {{
-            color: #34d399;
+        .cal-title {{
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }}
+        .cal-btn {{
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+        .cal-btn:hover {{ background: var(--surface-hover); }}
+        .cal-grid {{
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }}
+        .cal-day-head {{
             font-size: 12px;
-            margin-left: 6px;
-            font-weight: bold;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 6px 0;
         }}
+        .cal-day-head.sun {{ color: #f87171; }}
+        .cal-day-head.sat {{ color: #60a5fa; }}
+        .cal-cell {{
+            height: 38px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 13.5px;
+            position: relative;
+            cursor: default;
+            color: #64748b;
+        }}
+        .cal-cell.empty {{ background: transparent; }}
+        .cal-cell.has-data {{
+            color: var(--text-main);
+            font-weight: 700;
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            cursor: pointer;
+            transition: all 0.15s;
+        }}
+        .cal-cell.has-data:hover {{
+            background: #2563eb;
+            color: white;
+            transform: scale(1.05);
+        }}
+        .cal-cell.selected {{
+            background: #059669 !important;
+            border-color: #34d399 !important;
+            color: white !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }}
+        .cal-dot {{
+            width: 4px;
+            height: 4px;
+            background: #34d399;
+            border-radius: 50%;
+            margin-top: 1px;
+        }}
+
+        /* Scroll Box List Widget */
+        .scroll-card {{
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+        }}
+        .scroll-top {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }}
+        .search-input {{
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            width: 180px;
+        }}
+        .search-input:focus {{ border-color: var(--primary); }}
+        
+        .scroll-list-wrap {{
+            max-height: 310px;
+            overflow-y: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }}
+        /* Custom Scrollbar */
+        .scroll-list-wrap::-webkit-scrollbar {{
+            width: 8px;
+        }}
+        .scroll-list-wrap::-webkit-scrollbar-track {{
+            background: #0f172a;
+        }}
+        .scroll-list-wrap::-webkit-scrollbar-thumb {{
+            background: #334155;
+            border-radius: 4px;
+        }}
+        .scroll-list-wrap::-webkit-scrollbar-thumb:hover {{
+            background: #475569;
+        }}
+
+        .scroll-table {{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }}
+        .scroll-table th {{
+            background: #1e293b;
+            padding: 10px 12px;
+            font-size: 12.5px;
+            color: #94a3b8;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }}
+        .scroll-table td {{
+            padding: 10px 12px;
+            border-bottom: 1px solid #1e293b;
+        }}
+        .scroll-table tr:hover td {{
+            background: #1e293b;
+        }}
+
+        /* Selected Date Preview Bar */
+        .date-preview-bar {{
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-left: 4px solid #10b981;
+        }}
+        .preview-left strong {{ font-size: 15px; color: white; }}
+        .preview-prices {{
+            display: flex;
+            gap: 14px;
+            font-size: 13px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }}
+        .preview-prices span strong {{ color: #38bdf8; }}
 
         /* Toast */
         .toast {{
@@ -984,14 +1183,68 @@ def build_website_index() -> str:
             {''.join(cards_html)}
         </section>
 
-        <!-- 📅 지난 브리핑 아카이브 -->
-        <section style="margin-top: 50px;">
-            <div class="section-header">
-                <h2 class="section-title">📅 브리핑 일자별 아카이브</h2>
-                <span style="font-size: 13px; color: var(--text-sub);">총 {len(archived_dates)}일차 리포트 보관 중</span>
+        <!-- 📅 일자별 아카이브: 월간 캘린더 & 스크롤 박스 -->
+        <section class="archive-box">
+            <div class="section-header" style="margin-bottom: 8px;">
+                <div>
+                    <h2 class="section-title">📅 일자별 시황 브리핑 아카이브</h2>
+                    <span style="font-size: 13px; color: var(--text-sub);">날짜를 클릭하거나 스크롤 박스에서 과거 브리핑과 CSV를 손쉽게 열람하세요.</span>
+                </div>
             </div>
-            <div class="archive-grid">
-                {''.join(archive_rows)}
+
+            <div class="archive-panes">
+                <!-- 좌측: 월간 캘린더 -->
+                <div class="cal-card">
+                    <div class="cal-nav">
+                        <button class="cal-btn" onclick="prevMonth()">◀</button>
+                        <span id="cal-month-title" class="cal-title">2026년 9월</span>
+                        <button class="cal-btn" onclick="nextMonth()">▶</button>
+                    </div>
+                    <div class="cal-grid" id="cal-grid">
+                        <!-- JS injected days -->
+                    </div>
+                </div>
+
+                <!-- 우측: 콤팩트 스크롤 박스 -->
+                <div class="scroll-card">
+                    <div class="scroll-top">
+                        <span style="font-size: 14.5px; font-weight: 700; color: #93c5fd;">📋 브리핑 목록 (<span id="arch-count">0</span>건)</span>
+                        <input type="text" id="arch-search" class="search-input" placeholder="날짜 검색 (예: 2026-09)" oninput="filterArchiveList()">
+                    </div>
+                    <div class="scroll-list-wrap">
+                        <table class="scroll-table">
+                            <thead>
+                                <tr>
+                                    <th>발행일</th>
+                                    <th>철스크랩</th>
+                                    <th>구리</th>
+                                    <th>팔라듐</th>
+                                    <th>도구</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scroll-tbody">
+                                <!-- JS injected rows -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 선택된 날짜 상세 프리뷰 바 -->
+                    <div id="date-preview-bar" class="date-preview-bar">
+                        <div class="preview-left">
+                            <strong id="prev-date-label">-</strong>
+                            <span id="prev-badge" style="font-size: 11px; background: #059669; padding: 2px 6px; border-radius: 4px; margin-left: 6px; color: white;"></span>
+                        </div>
+                        <div class="preview-prices">
+                            <span>철스크랩: <strong id="prev-steel">-</strong></span>
+                            <span>구리: <strong id="prev-copper">-</strong></span>
+                            <span>팔라듐: <strong id="prev-pd">-</strong></span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <a id="prev-report-btn" href="#" target="_blank" class="btn-sm btn-outline">리포트 열람 ↗</a>
+                            <a id="prev-csv-btn" href="#" download class="btn-sm btn-sub">CSV</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1011,6 +1264,19 @@ def build_website_index() -> str:
 
     <script>
         const METALS = {calc_json};
+        const ARCHIVES = {archive_json};
+
+        // Current calendar view state
+        let currentYear = 2026;
+        let currentMonth = 9; // 1-indexed
+        let selectedDate = "{latest_date}";
+
+        if (ARCHIVES.length > 0) {{
+            const p = ARCHIVES[0].date.split("-");
+            currentYear = parseInt(p[0]);
+            currentMonth = parseInt(p[1]);
+            selectedDate = ARCHIVES[0].date;
+        }}
 
         // Initialize Calculator
         function initCalculator() {{
@@ -1075,6 +1341,131 @@ def build_website_index() -> str:
             }});
         }}
 
+        // Calendar Logic
+        function renderCalendar() {{
+            document.getElementById('cal-month-title').innerText = `${{currentYear}}년 ${{currentMonth}}월`;
+            const grid = document.getElementById('cal-grid');
+            grid.innerHTML = '';
+
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            dayNames.forEach((d, idx) => {{
+                const h = document.createElement('div');
+                h.className = 'cal-day-head' + (idx === 0 ? ' sun' : idx === 6 ? ' sat' : '');
+                h.innerText = d;
+                grid.appendChild(h);
+            }});
+
+            const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
+            const totalDays = new Date(currentYear, currentMonth, 0).getDate();
+
+            // Leading blanks
+            for (let i = 0; i < firstDay; i++) {{
+                const blank = document.createElement('div');
+                blank.className = 'cal-cell empty';
+                grid.appendChild(blank);
+            }}
+
+            // Days
+            for (let d = 1; d <= totalDays; d++) {{
+                const cell = document.createElement('div');
+                cell.className = 'cal-cell';
+                const dateStr = `${{currentYear}}-${{String(currentMonth).padStart(2, '0')}}-${{String(d).padStart(2, '0')}}`;
+                cell.innerText = d;
+
+                const found = ARCHIVES.find(a => a.date === dateStr);
+                if (found) {{
+                    cell.classList.add('has-data');
+                    const dot = document.createElement('div');
+                    dot.className = 'cal-dot';
+                    cell.appendChild(dot);
+                    if (dateStr === selectedDate) {{
+                        cell.classList.add('selected');
+                    }}
+                    cell.onclick = () => selectDate(dateStr);
+                }}
+
+                grid.appendChild(cell);
+            }}
+        }}
+
+        function prevMonth() {{
+            currentMonth--;
+            if (currentMonth < 1) {{
+                currentMonth = 12;
+                currentYear--;
+            }}
+            renderCalendar();
+        }}
+
+        function nextMonth() {{
+            currentMonth++;
+            if (currentMonth > 12) {{
+                currentMonth = 1;
+                currentYear++;
+            }}
+            renderCalendar();
+        }}
+
+        // Scroll Box Logic
+        function renderScrollList(filterText = '') {{
+            const tbody = document.getElementById('scroll-tbody');
+            tbody.innerHTML = '';
+            const filtered = ARCHIVES.filter(a => a.date.includes(filterText.trim()));
+            document.getElementById('arch-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {{
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b; padding:20px;">일치하는 브리핑 일자가 없습니다.</td></tr>';
+                return;
+            }}
+
+            filtered.forEach(a => {{
+                const tr = document.createElement('tr');
+                tr.style.cursor = 'pointer';
+                tr.innerHTML = `
+                    <td><strong>${{a.date}}</strong> ${{a.is_latest ? '<span style="font-size:10px; background:#059669; color:white; padding:1px 5px; border-radius:3px; margin-left:3px;">최신</span>' : ''}}</td>
+                    <td style="color:#60a5fa; font-weight:600;">${{a.steel}}</td>
+                    <td style="color:#60a5fa; font-weight:600;">${{a.copper}}</td>
+                    <td style="color:#fbbf24; font-weight:600;">${{a.palladium}}</td>
+                    <td>
+                        <a href="${{a.report_url}}" target="_blank" class="btn-sm btn-outline" style="padding:2px 6px; font-size:11.5px;">열람 ↗</a>
+                        <a href="${{a.csv_url}}" download class="btn-sm btn-sub" style="padding:2px 6px; font-size:11.5px;">CSV</a>
+                    </td>
+                `;
+                tr.onclick = (e) => {{
+                    if (e.target.tagName !== 'A') {{
+                        selectDate(a.date);
+                    }}
+                }};
+                tbody.appendChild(tr);
+            }});
+        }}
+
+        function filterArchiveList() {{
+            const val = document.getElementById('arch-search').value;
+            renderScrollList(val);
+        }}
+
+        function selectDate(dateStr) {{
+            selectedDate = dateStr;
+            const found = ARCHIVES.find(a => a.date === dateStr);
+            if (!found) return;
+
+            // Update preview bar
+            document.getElementById('prev-date-label').innerText = `📅 ${{found.date}} 브리핑`;
+            document.getElementById('prev-badge').innerText = found.is_latest ? '오늘자 최신' : '과거 아카이브';
+            document.getElementById('prev-steel').innerText = found.steel;
+            document.getElementById('prev-copper').innerText = found.copper;
+            document.getElementById('prev-pd').innerText = found.palladium;
+            document.getElementById('prev-report-btn').href = found.report_url;
+            document.getElementById('prev-csv-btn').href = found.csv_url;
+
+            // Sync calendar month if needed
+            const p = dateStr.split("-");
+            currentYear = parseInt(p[0]);
+            currentMonth = parseInt(p[1]);
+            renderCalendar();
+        }}
+
         function showToast(msg) {{
             const t = document.getElementById('toast');
             t.innerText = msg;
@@ -1098,7 +1489,14 @@ def build_website_index() -> str:
             }}
         }}
 
-        window.addEventListener('DOMContentLoaded', initCalculator);
+        window.addEventListener('DOMContentLoaded', () => {{
+            initCalculator();
+            renderCalendar();
+            renderScrollList();
+            if (ARCHIVES.length > 0) {{
+                selectDate(ARCHIVES[0].date);
+            }}
+        }});
     </script>
 </body>
 </html>

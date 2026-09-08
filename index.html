@@ -185,6 +185,7 @@
             background: var(--surface);
             color: var(--text-main);
             cursor: pointer;
+            transition: background 0.15s;
         }
         .btn-sm:hover {
             background: var(--surface-hover);
@@ -516,28 +517,203 @@
             line-height: 1.4;
         }
 
-        /* Archives */
-        .archive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 14px;
-            margin-top: 14px;
-        }
-        .archive-item {
+        /* 📅 New Archive Section: Calendar + Scrollbox */
+        .archive-box {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 16px;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 50px;
+        }
+        .archive-panes {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        @media (max-width: 950px) {
+            .archive-panes { grid-template-columns: 1fr; }
+        }
+
+        /* Calendar Widget */
+        .cal-card {
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+        }
+        .cal-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 14px;
         }
-        .arch-badge {
-            color: #34d399;
+        .cal-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .cal-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cal-btn:hover { background: var(--surface-hover); }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+        .cal-day-head {
             font-size: 12px;
-            margin-left: 6px;
-            font-weight: bold;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 6px 0;
         }
+        .cal-day-head.sun { color: #f87171; }
+        .cal-day-head.sat { color: #60a5fa; }
+        .cal-cell {
+            height: 38px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 13.5px;
+            position: relative;
+            cursor: default;
+            color: #64748b;
+        }
+        .cal-cell.empty { background: transparent; }
+        .cal-cell.has-data {
+            color: var(--text-main);
+            font-weight: 700;
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .cal-cell.has-data:hover {
+            background: #2563eb;
+            color: white;
+            transform: scale(1.05);
+        }
+        .cal-cell.selected {
+            background: #059669 !important;
+            border-color: #34d399 !important;
+            color: white !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+        .cal-dot {
+            width: 4px;
+            height: 4px;
+            background: #34d399;
+            border-radius: 50%;
+            margin-top: 1px;
+        }
+
+        /* Scroll Box List Widget */
+        .scroll-card {
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+        .scroll-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            width: 180px;
+        }
+        .search-input:focus { border-color: var(--primary); }
+        
+        .scroll-list-wrap {
+            max-height: 310px;
+            overflow-y: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        /* Custom Scrollbar */
+        .scroll-list-wrap::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scroll-list-wrap::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .scroll-list-wrap::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .scroll-list-wrap::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .scroll-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+        .scroll-table th {
+            background: #1e293b;
+            padding: 10px 12px;
+            font-size: 12.5px;
+            color: #94a3b8;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        .scroll-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #1e293b;
+        }
+        .scroll-table tr:hover td {
+            background: #1e293b;
+        }
+
+        /* Selected Date Preview Bar */
+        .date-preview-bar {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-left: 4px solid #10b981;
+        }
+        .preview-left strong { font-size: 15px; color: white; }
+        .preview-prices {
+            display: flex;
+            gap: 14px;
+            font-size: 13px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+        .preview-prices span strong { color: #38bdf8; }
 
         /* Toast */
         .toast {
@@ -1233,28 +1409,68 @@
         </article>
         </section>
 
-        <!-- 📅 지난 브리핑 아카이브 -->
-        <section style="margin-top: 50px;">
-            <div class="section-header">
-                <h2 class="section-title">📅 브리핑 일자별 아카이브</h2>
-                <span style="font-size: 13px; color: var(--text-sub);">총 2일차 리포트 보관 중</span>
+        <!-- 📅 일자별 아카이브: 월간 캘린더 & 스크롤 박스 -->
+        <section class="archive-box">
+            <div class="section-header" style="margin-bottom: 8px;">
+                <div>
+                    <h2 class="section-title">📅 일자별 시황 브리핑 아카이브</h2>
+                    <span style="font-size: 13px; color: var(--text-sub);">날짜를 클릭하거나 스크롤 박스에서 과거 브리핑과 CSV를 손쉽게 열람하세요.</span>
+                </div>
             </div>
-            <div class="archive-grid">
-                
-        <div class="archive-item">
-            <div class="arch-date">📅 <strong>2026-09-08</strong><span class="arch-badge"> (최신)</span></div>
-            <div class="arch-links">
-                <a href="./resources/2026-09-08/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%207%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-08.html" target="_blank" class="btn-sm btn-outline">리포트 보기 ↗</a>
-                <a href="./resources/2026-09-08/7%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-08.csv" download class="btn-sm btn-sub">CSV 다운로드</a>
-            </div>
-        </div>
-        <div class="archive-item">
-            <div class="arch-date">📅 <strong>2026-09-07</strong><span class="arch-badge"></span></div>
-            <div class="arch-links">
-                <a href="./resources/2026-09-07/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%207%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-07.html" target="_blank" class="btn-sm btn-outline">리포트 보기 ↗</a>
-                <a href="./resources/2026-09-07/7%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-07.csv" download class="btn-sm btn-sub">CSV 다운로드</a>
-            </div>
-        </div>
+
+            <div class="archive-panes">
+                <!-- 좌측: 월간 캘린더 -->
+                <div class="cal-card">
+                    <div class="cal-nav">
+                        <button class="cal-btn" onclick="prevMonth()">◀</button>
+                        <span id="cal-month-title" class="cal-title">2026년 9월</span>
+                        <button class="cal-btn" onclick="nextMonth()">▶</button>
+                    </div>
+                    <div class="cal-grid" id="cal-grid">
+                        <!-- JS injected days -->
+                    </div>
+                </div>
+
+                <!-- 우측: 콤팩트 스크롤 박스 -->
+                <div class="scroll-card">
+                    <div class="scroll-top">
+                        <span style="font-size: 14.5px; font-weight: 700; color: #93c5fd;">📋 브리핑 목록 (<span id="arch-count">0</span>건)</span>
+                        <input type="text" id="arch-search" class="search-input" placeholder="날짜 검색 (예: 2026-09)" oninput="filterArchiveList()">
+                    </div>
+                    <div class="scroll-list-wrap">
+                        <table class="scroll-table">
+                            <thead>
+                                <tr>
+                                    <th>발행일</th>
+                                    <th>철스크랩</th>
+                                    <th>구리</th>
+                                    <th>팔라듐</th>
+                                    <th>도구</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scroll-tbody">
+                                <!-- JS injected rows -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 선택된 날짜 상세 프리뷰 바 -->
+                    <div id="date-preview-bar" class="date-preview-bar">
+                        <div class="preview-left">
+                            <strong id="prev-date-label">-</strong>
+                            <span id="prev-badge" style="font-size: 11px; background: #059669; padding: 2px 6px; border-radius: 4px; margin-left: 6px; color: white;"></span>
+                        </div>
+                        <div class="preview-prices">
+                            <span>철스크랩: <strong id="prev-steel">-</strong></span>
+                            <span>구리: <strong id="prev-copper">-</strong></span>
+                            <span>팔라듐: <strong id="prev-pd">-</strong></span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <a id="prev-report-btn" href="#" target="_blank" class="btn-sm btn-outline">리포트 열람 ↗</a>
+                            <a id="prev-csv-btn" href="#" download class="btn-sm btn-sub">CSV</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1274,6 +1490,19 @@
 
     <script>
         const METALS = [{"key": "steel_scrap", "name": "철·철스크랩", "unit": "kg", "unit_label": "원/kg", "price": 542, "scrap_70": 380, "scrap_80": 434, "emoji": "🔩", "cat": "steel"}, {"key": "aluminum", "name": "알루미늄", "unit": "kg", "unit_label": "원/kg", "price": 4457, "scrap_70": 3120, "scrap_80": 3566, "emoji": "🥫", "cat": "nonferrous"}, {"key": "copper", "name": "구리", "unit": "kg", "unit_label": "원/kg", "price": 19828, "scrap_70": 13880, "scrap_80": 15862, "emoji": "🔌", "cat": "nonferrous"}, {"key": "lead", "name": "납", "unit": "kg", "unit_label": "원/kg", "price": 2557, "scrap_70": 1790, "scrap_80": 2045, "emoji": "🔋", "cat": "nonferrous"}, {"key": "palladium", "name": "팔라듐", "unit": "g", "unit_label": "원/g", "price": 60556, "scrap_70": 42389, "scrap_80": 48445, "emoji": "🚗", "cat": "pgm"}, {"key": "rhodium", "name": "로듐", "unit": "g", "unit_label": "원/g", "price": 409542, "scrap_70": 286680, "scrap_80": 327634, "emoji": "💎", "cat": "pgm"}, {"key": "platinum", "name": "백금", "unit": "g", "unit_label": "원/g", "price": 79034, "scrap_70": 55324, "scrap_80": 63227, "emoji": "💍", "cat": "pgm"}];
+        const ARCHIVES = [{"date": "2026-09-08", "rate": 1344.4, "steel": "542원/kg", "copper": "19,828원/kg", "palladium": "60,556원/g", "report_url": "./resources/2026-09-08/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%207%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-08.html", "csv_url": "./resources/2026-09-08/7%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-08.csv", "is_latest": true}];
+
+        // Current calendar view state
+        let currentYear = 2026;
+        let currentMonth = 9; // 1-indexed
+        let selectedDate = "2026-09-08";
+
+        if (ARCHIVES.length > 0) {
+            const p = ARCHIVES[0].date.split("-");
+            currentYear = parseInt(p[0]);
+            currentMonth = parseInt(p[1]);
+            selectedDate = ARCHIVES[0].date;
+        }
 
         // Initialize Calculator
         function initCalculator() {
@@ -1338,6 +1567,131 @@
             });
         }
 
+        // Calendar Logic
+        function renderCalendar() {
+            document.getElementById('cal-month-title').innerText = `${currentYear}년 ${currentMonth}월`;
+            const grid = document.getElementById('cal-grid');
+            grid.innerHTML = '';
+
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            dayNames.forEach((d, idx) => {
+                const h = document.createElement('div');
+                h.className = 'cal-day-head' + (idx === 0 ? ' sun' : idx === 6 ? ' sat' : '');
+                h.innerText = d;
+                grid.appendChild(h);
+            });
+
+            const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
+            const totalDays = new Date(currentYear, currentMonth, 0).getDate();
+
+            // Leading blanks
+            for (let i = 0; i < firstDay; i++) {
+                const blank = document.createElement('div');
+                blank.className = 'cal-cell empty';
+                grid.appendChild(blank);
+            }
+
+            // Days
+            for (let d = 1; d <= totalDays; d++) {
+                const cell = document.createElement('div');
+                cell.className = 'cal-cell';
+                const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                cell.innerText = d;
+
+                const found = ARCHIVES.find(a => a.date === dateStr);
+                if (found) {
+                    cell.classList.add('has-data');
+                    const dot = document.createElement('div');
+                    dot.className = 'cal-dot';
+                    cell.appendChild(dot);
+                    if (dateStr === selectedDate) {
+                        cell.classList.add('selected');
+                    }
+                    cell.onclick = () => selectDate(dateStr);
+                }
+
+                grid.appendChild(cell);
+            }
+        }
+
+        function prevMonth() {
+            currentMonth--;
+            if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear--;
+            }
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+
+        // Scroll Box Logic
+        function renderScrollList(filterText = '') {
+            const tbody = document.getElementById('scroll-tbody');
+            tbody.innerHTML = '';
+            const filtered = ARCHIVES.filter(a => a.date.includes(filterText.trim()));
+            document.getElementById('arch-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b; padding:20px;">일치하는 브리핑 일자가 없습니다.</td></tr>';
+                return;
+            }
+
+            filtered.forEach(a => {
+                const tr = document.createElement('tr');
+                tr.style.cursor = 'pointer';
+                tr.innerHTML = `
+                    <td><strong>${a.date}</strong> ${a.is_latest ? '<span style="font-size:10px; background:#059669; color:white; padding:1px 5px; border-radius:3px; margin-left:3px;">최신</span>' : ''}</td>
+                    <td style="color:#60a5fa; font-weight:600;">${a.steel}</td>
+                    <td style="color:#60a5fa; font-weight:600;">${a.copper}</td>
+                    <td style="color:#fbbf24; font-weight:600;">${a.palladium}</td>
+                    <td>
+                        <a href="${a.report_url}" target="_blank" class="btn-sm btn-outline" style="padding:2px 6px; font-size:11.5px;">열람 ↗</a>
+                        <a href="${a.csv_url}" download class="btn-sm btn-sub" style="padding:2px 6px; font-size:11.5px;">CSV</a>
+                    </td>
+                `;
+                tr.onclick = (e) => {
+                    if (e.target.tagName !== 'A') {
+                        selectDate(a.date);
+                    }
+                };
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterArchiveList() {
+            const val = document.getElementById('arch-search').value;
+            renderScrollList(val);
+        }
+
+        function selectDate(dateStr) {
+            selectedDate = dateStr;
+            const found = ARCHIVES.find(a => a.date === dateStr);
+            if (!found) return;
+
+            // Update preview bar
+            document.getElementById('prev-date-label').innerText = `📅 ${found.date} 브리핑`;
+            document.getElementById('prev-badge').innerText = found.is_latest ? '오늘자 최신' : '과거 아카이브';
+            document.getElementById('prev-steel').innerText = found.steel;
+            document.getElementById('prev-copper').innerText = found.copper;
+            document.getElementById('prev-pd').innerText = found.palladium;
+            document.getElementById('prev-report-btn').href = found.report_url;
+            document.getElementById('prev-csv-btn').href = found.csv_url;
+
+            // Sync calendar month if needed
+            const p = dateStr.split("-");
+            currentYear = parseInt(p[0]);
+            currentMonth = parseInt(p[1]);
+            renderCalendar();
+        }
+
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.innerText = msg;
@@ -1361,7 +1715,14 @@
             }
         }
 
-        window.addEventListener('DOMContentLoaded', initCalculator);
+        window.addEventListener('DOMContentLoaded', () => {
+            initCalculator();
+            renderCalendar();
+            renderScrollList();
+            if (ARCHIVES.length > 0) {
+                selectDate(ARCHIVES[0].date);
+            }
+        });
     </script>
 </body>
 </html>
