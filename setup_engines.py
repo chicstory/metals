@@ -10,7 +10,7 @@ import shutil
 import glob
 import re
 
-BASE_DIR = r"c:\Users\chics\OneDrive\문서\gemini"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLOGTOOL_DIR = os.path.join(BASE_DIR, "blogtool")
 ENGINES_DIR = os.path.join(BASE_DIR, "engines")
 
