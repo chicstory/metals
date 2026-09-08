@@ -386,6 +386,12 @@ def build_website_index() -> str:
     }}
     </script>
 
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <style>
         :root {{
             --bg: #0f172a;
@@ -1296,7 +1302,6 @@ def build_website_index() -> str:
                 <div class="meta-tag">적용 환율: <strong style="color: #38bdf8;">1 USD = {data['usd_rate']:,.1f}원</strong></div>
                 <a href="https://chicstory.github.io/" class="btn-sm btn-outline" style="border-color:#38bdf8; color:#38bdf8;"><i class="bi-house"></i> 포털 홈</a>
                 <a href="https://chicstory.github.io/engines/" class="btn-sm btn-outline"><i class="bi-cpu"></i> 엔진 백과</a>
-                <a href="https://blog.naver.com/thepathlab" target="_blank" rel="noopener" class="btn-sm btn-outline">블로그 ↗</a>
             </div>
         </div>
     </header>
