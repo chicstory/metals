@@ -102,46 +102,238 @@ TRANSLATE_BTN_HTML = """
 
 # 4. Anonymous Comment Box snippet with Honeypot + Math Captcha
 COMMENT_BOX_HTML = """
-<!-- ==================== ANONYMOUS OWNER & MECHANIC MEMO BOX ==================== -->
-<section class="memo-section" style="margin-top: 3.5rem; background: rgba(18, 26, 43, 0.9); border: 1px solid rgba(0, 242, 254, 0.25); border-radius: 18px; padding: 1.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:1.2rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.8rem;">
-        <div style="display:flex; align-items:center; gap:8px;">
-            <i class="bi-chat-dots-fill" style="color:var(--accent-cyan); font-size:1.3rem;"></i>
-            <h3 style="font-size:1.15rem; font-weight:700; color:#ffffff; margin:0;">차주 & 정비사 한줄 실전 메모장</h3>
-            <span style="background:rgba(0,242,254,0.15); color:var(--accent-cyan); font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:12px;">익명 실시간</span>
-        </div>
-        <span style="font-size:0.8rem; color:#94a3b8;">오일 추천, 고질병 해결법, 정비 꿀팁을 자유롭게 남겨주세요</span>
-    </div>
-
-    <!-- Input Form -->
-    <form id="commentForm" onsubmit="handleCommentSubmit(event)" style="display:grid; grid-template-columns: 1fr; gap:12px; margin-bottom:1.5rem;">
-        <!-- Honeypot (Spam trap) -->
-        <input type="text" id="hp_url_check" name="website_url" style="display:none !important;" tabindex="-1" autocomplete="off">
-        
-        <div style="display:grid; grid-template-columns: 160px 1fr 140px; gap:10px;" class="memo-form-inputs">
-            <input type="text" id="commentAuthor" placeholder="닉네임 (예: 520d차주)" maxlength="15" required
-                   style="background:rgba(11,15,25,0.8); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:0.65rem 0.85rem; border-radius:8px; font-size:0.88rem; outline:none;">
-            <input type="text" id="commentText" placeholder="엔진 경험담, 오일 점도, 정비 주기 팁 (최대 120자)" maxlength="120" required
-                   style="background:rgba(11,15,25,0.8); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:0.65rem 0.85rem; border-radius:8px; font-size:0.88rem; outline:none;">
-            <div style="display:flex; gap:6px; align-items:center;">
-                <span id="mathQuizLabel" style="font-size:0.82rem; color:var(--accent-cyan); font-weight:700; white-space:nowrap; font-family:'JetBrains Mono';">3 + 4 =</span>
-                <input type="number" id="mathAnswer" placeholder="정답" required
-                       style="width:55px; background:rgba(11,15,25,0.8); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:0.65rem 0.4rem; border-radius:8px; font-size:0.88rem; text-align:center; outline:none;">
-                <button type="submit" id="btnSubmitMemo"
-                        style="background:linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); color:#0b0f19; font-weight:700; border:none; padding:0.65rem 1rem; border-radius:8px; cursor:pointer; font-size:0.88rem; white-space:nowrap; transition:0.2s;">
-                    등록
-                </button>
+    <!-- ==================== ANONYMOUS OWNER & MECHANIC MEMO BOX ==================== -->
+    <div class="section-card memo-section" id="ownerMemoSection">
+        <div class="memo-header">
+            <div class="memo-header-left">
+                <i class="bi-chat-dots-fill"></i>
+                <h3 class="memo-title">차주 & 정비사 한줄 실전 메모장</h3>
+                <span class="memo-badge">익명 실시간</span>
             </div>
+            <span class="memo-guide-text">오일 점도 추천, 고질병 해결법, 실전 정비 팁을 자유롭게 남겨주세요</span>
         </div>
-    </form>
 
-    <!-- Comments List -->
-    <div id="commentsList" style="display:flex; flex-direction:column; gap:8px;">
-        <!-- Dynamic Items will be rendered here -->
+        <!-- Input Form -->
+        <form id="commentForm" onsubmit="handleCommentSubmit(event)" class="memo-form">
+            <!-- Honeypot (Spam trap) -->
+            <input type="text" id="hp_url_check" name="website_url" style="display:none !important;" tabindex="-1" autocomplete="off">
+            
+            <div class="memo-form-grid">
+                <input type="text" id="commentAuthor" placeholder="닉네임 (예: 차주 / 정비사)" maxlength="15" required class="memo-input memo-input-author">
+                <input type="text" id="commentText" placeholder="엔진 경험담, 정비 팁, 권장 소모품 (최대 120자)" maxlength="120" required class="memo-input memo-input-text">
+                <div class="memo-quiz-wrap">
+                    <span id="mathQuizLabel" class="memo-quiz-label">3 + 4 =</span>
+                    <input type="number" id="mathAnswer" placeholder="정답" required class="memo-input memo-input-quiz">
+                    <button type="submit" id="btnSubmitMemo" class="memo-submit-btn">등록</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Comments List -->
+        <div id="commentsList" class="memo-comments-list">
+            <!-- Dynamic Items will be rendered here -->
+        </div>
     </div>
-</section>
 
-<script>
+<style>
+/* Memo Section Responsive Styling */
+.memo-section {
+    margin-bottom: 2.2rem;
+}
+.memo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+.memo-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.memo-header-left i {
+    color: var(--accent-cyan);
+    font-size: 1.3rem;
+}
+.memo-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+.memo-badge {
+    background: rgba(0, 242, 254, 0.15);
+    color: var(--accent-cyan);
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 242, 254, 0.3);
+}
+.memo-guide-text {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+}
+.memo-form {
+    margin-bottom: 1.2rem;
+}
+.memo-form-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+.memo-input {
+    background: rgba(11, 15, 25, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #f1f5f9;
+    padding: 0.65rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+.memo-input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+}
+.memo-quiz-wrap {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.memo-quiz-label {
+    font-size: 0.84rem;
+    color: var(--accent-cyan);
+    font-weight: 700;
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', monospace;
+}
+.memo-input-quiz {
+    width: 60px;
+    text-align: center;
+    padding: 0.65rem 0.4rem;
+}
+.memo-submit-btn {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    color: #0b0f19;
+    font-weight: 700;
+    border: none;
+    padding: 0.65rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+.memo-submit-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 14px rgba(0, 242, 254, 0.4);
+}
+.memo-comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+.memo-comments-list::-webkit-scrollbar { width: 5px; }
+.memo-comments-list::-webkit-scrollbar-track { background: rgba(11, 15, 25, 0.5); }
+.memo-comments-list::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
+
+.memo-comment-row {
+    background: rgba(11, 15, 25, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    transition: border-color 0.15s;
+}
+.memo-comment-row:hover {
+    border-color: rgba(0, 242, 254, 0.2);
+}
+.memo-comment-left {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    flex-wrap: wrap;
+}
+.memo-comment-author {
+    color: var(--accent-cyan);
+    font-size: 0.84rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.memo-comment-text {
+    color: #e2e8f0;
+    font-size: 0.86rem;
+    word-break: break-word;
+    flex: 1;
+    min-width: 180px;
+}
+.memo-comment-time {
+    font-size: 0.74rem;
+    color: #64748b;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .memo-section {
+        padding: 1.4rem 1.1rem;
+    }
+    .memo-form-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .memo-input-author {
+        width: 100%;
+    }
+    .memo-input-text {
+        width: 100%;
+    }
+    .memo-quiz-wrap {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+    .memo-input-quiz {
+        flex: 1;
+        width: auto;
+    }
+    .memo-submit-btn {
+        flex: 1.5;
+    }
+    .memo-comment-row {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+    }
+    .memo-comment-time {
+        align-self: flex-end;
+        font-size: 0.7rem;
+    }
+}
+</style>
+"""
+
+COMMENT_SCRIPT_HTML = """<script>
     // Math Captcha Logic
     let numA = Math.floor(Math.random() * 8) + 2;
     let numB = Math.floor(Math.random() * 8) + 1;
@@ -177,12 +369,12 @@ COMMENT_BOX_HTML = """
             return;
         }
         listEl.innerHTML = comments.slice().reverse().map(c => `
-            <div style="background:rgba(11,15,25,0.5); border:1px solid rgba(255,255,255,0.06); padding:0.65rem 0.95rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-                <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
-                    <strong style="color:var(--accent-cyan); font-size:0.85rem; white-space:nowrap;">${escapeHtml(c.author)}</strong>
-                    <span style="color:#e2e8f0; font-size:0.86rem; word-break:break-all;">${escapeHtml(c.text)}</span>
+            <div class="memo-comment-row">
+                <div class="memo-comment-left">
+                    <strong class="memo-comment-author">${escapeHtml(c.author)}</strong>
+                    <span class="memo-comment-text">${escapeHtml(c.text)}</span>
                 </div>
-                <span style="font-size:0.75rem; color:#64748b; white-space:nowrap;">${escapeHtml(c.time)}</span>
+                <span class="memo-comment-time">${escapeHtml(c.time)}</span>
             </div>
         `).join('');
     }
@@ -227,7 +419,7 @@ COMMENT_BOX_HTML = """
         numA = Math.floor(Math.random() * 8) + 2;
         numB = Math.floor(Math.random() * 8) + 1;
         correctSum = numA + numB;
-        quizEl.innerText = numA + ' + ' + numB + ' =';
+        if (quizEl) quizEl.innerText = numA + ' + ' + numB + ' =';
     }
 
     // Initial render
@@ -270,13 +462,17 @@ for root, dirs, files in os.walk(ENGINES_DIR):
                     # Replace the existing btn-back or top-nav inner
                     content = re.sub(r'<div class="top-nav">.*?</div>', f'<div class="top-nav">{nav_addon}</div>', content, count=1, flags=re.DOTALL)
                 
-                # Inject Comment Box right before </body> or inside container
-                if '</div>\n\n</body>' in content:
-                    content = content.replace('</div>\n\n</body>', f'{COMMENT_BOX_HTML}\n</div>\n\n</body>')
-                elif '</div>\n</body>' in content:
-                    content = content.replace('</div>\n</body>', f'{COMMENT_BOX_HTML}\n</div>\n</body>')
-                elif '</body>' in content:
-                    content = content.replace('</body>', f'{COMMENT_BOX_HTML}\n</body>')
+                # Inject Comment Box right before footer (inside container)
+                if '<!-- Footer -->' in content:
+                    content = content.replace('<!-- Footer -->', COMMENT_BOX_HTML + '\n    <!-- Footer -->', 1)
+                elif '<footer>' in content:
+                    content = content.replace('<footer>', COMMENT_BOX_HTML + '\n    <footer>', 1)
+                
+                if '</body>' in content and 'handleCommentSubmit' not in content:
+                    content = content.replace('</body>', COMMENT_SCRIPT_HTML + '\n</body>', 1)
+
+                if 'G-K3PFHN6VW7' not in content and '<head>' in content:
+                    content = content.replace('<head>', '<head>\n' + GA4_SNIPPET, 1)
 
                 if 'G-K3PFHN6VW7' not in content and '<head>' in content:
                     content = content.replace('<head>', '<head>\n' + GA4_SNIPPET, 1)
