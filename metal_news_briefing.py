@@ -1144,6 +1144,20 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
     metal_detail_objs = []
     csv_rows = []
 
+    # 전일 CSV 파일 탐색 (전일 대비 가격 변화량 산출용)
+    prev_csv_rows = []
+    try:
+        prev_dates = [d for d in os.listdir(RESOURCES_DIR) if os.path.isdir(os.path.join(RESOURCES_DIR, d)) and re.match(r"^\d{4}-\d{2}-\d{2}$", d) and d != today_str]
+        prev_dates.sort(reverse=True)
+        if prev_dates:
+            prev_d = prev_dates[0]
+            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
+            if os.path.exists(prev_csv_file):
+                with open(prev_csv_file, "r", encoding="utf-8-sig") as pf:
+                    prev_csv_rows = list(csv.DictReader(pf))
+    except Exception:
+        pass
+
     # 5. 각 자원별 1년 차트 캡처 + 종가 추출 + 원화 환산 + Gemma 4 분석
     for idx, (key, info) in enumerate(TARGET_METALS.items(), 1):
         metal_kr = info["name_kr"]
@@ -1183,7 +1197,22 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
 
             scrap_70 = krw_unit_price * 0.70
             scrap_80 = krw_unit_price * 0.80
-            krw_price_disp = f"**{int(round(krw_unit_price)):,}원**"
+
+            # 전일 대비 원화단가 변화량 및 등락률 (환율 변동 동시 반영)
+            diff_str = ""
+            prev_c_row = next((r for r in prev_csv_rows if r.get("자원명") == metal_kr), None)
+            prev_krw = int(float(prev_c_row["원화시장단가(원)"])) if prev_c_row and prev_c_row.get("원화시장단가(원)") not in ["-", ""] else None
+            if krw_unit_price and prev_krw is not None and prev_krw > 0:
+                diff_krw = int(round(krw_unit_price)) - prev_krw
+                diff_pct = (diff_krw / prev_krw) * 100
+                if diff_krw > 0:
+                    diff_str = f" *(▲ +{diff_krw:,}원, +{diff_pct:.1f}%)*"
+                elif diff_krw < 0:
+                    diff_str = f" *(▼ {diff_krw:,}원, {diff_pct:.1f}%)*"
+                else:
+                    diff_str = f" *(- 0원, 0.0%)*"
+
+            krw_price_disp = f"**{int(round(krw_unit_price)):,}원**{diff_str}"
             scrap_range_disp = f"**{int(round(scrap_70)):,}원 ~ {int(round(scrap_80)):,}원**"
 
             csv_rows.append([

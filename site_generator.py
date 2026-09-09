@@ -65,6 +65,21 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         {"key": "platinum", "idx": 7, "name_kr": "백금", "name_en": "Platinum", "emoji": "💍", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
     ]
 
+    # 전일 CSV 로드 (전일대비 가격 변화량 및 환율 변동 동시 반영용)
+    prev_csv_rows = []
+    all_archived = get_archived_dates()
+    if date_str in all_archived:
+        c_idx = all_archived.index(date_str)
+        if c_idx + 1 < len(all_archived):
+            prev_d = all_archived[c_idx + 1]
+            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
+            if os.path.exists(prev_csv_file):
+                try:
+                    with open(prev_csv_file, "r", encoding="utf-8-sig") as pf:
+                        prev_csv_rows = list(csv.DictReader(pf))
+                except Exception:
+                    pass
+
     for m in METALS_META:
         c_row = next((r for r in csv_rows if r.get("자원명") == m["name_kr"]), None)
         chart_img = f"[{m['name_kr']}]_1년_시세차트_{date_str}.png"
@@ -74,6 +89,23 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         scrap_70 = int(float(c_row["스크랩추정_70%(원)"])) if c_row and c_row.get("스크랩추정_70%(원)") not in ["-", ""] else 0
         scrap_80 = int(float(c_row["스크랩추정_80%(원)"])) if c_row and c_row.get("스크랩추정_80%(원)") not in ["-", ""] else 0
         raw_price = f"{float(c_row['국제종가']):,.2f} {c_row['국제단위']}" if c_row and c_row.get("국제종가") not in ["-", ""] else "-"
+
+        # 전일 대비 원화단가(원/kg, 원/g) 변화량 및 등락률 계산 (환율 + 국제시세 변동 종합)
+        prev_c_row = next((r for r in prev_csv_rows if r.get("자원명") == m["name_kr"]), None)
+        prev_krw = int(float(prev_c_row["원화시장단가(원)"])) if prev_c_row and prev_c_row.get("원화시장단가(원)") not in ["-", ""] else None
+
+        diff_krw = None
+        diff_pct = None
+        diff_badge_html = ""
+        if krw_price and prev_krw is not None and prev_krw > 0:
+            diff_krw = krw_price - prev_krw
+            diff_pct = (diff_krw / prev_krw) * 100
+            if diff_krw > 0:
+                diff_badge_html = f'<span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +{diff_krw:,}원 (+{diff_pct:.1f}%) 상승">▲ +{diff_krw:,}원 (+{diff_pct:.1f}%)</span>'
+            elif diff_krw < 0:
+                diff_badge_html = f'<span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 {diff_krw:,}원 ({diff_pct:.1f}%) 하락">▼ {diff_krw:,}원 ({diff_pct:.1f}%)</span>'
+            else:
+                diff_badge_html = f'<span class="diff-badge diff-flat" title="전일 대비 보합">- 0원 (0.0%)</span>'
 
         ai_content = ""
         articles = []
@@ -99,6 +131,9 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
             **m,
             "raw_price": raw_price,
             "krw_price": krw_price,
+            "diff_krw": diff_krw,
+            "diff_pct": diff_pct,
+            "diff_badge_html": diff_badge_html,
             "scrap_70": scrap_70,
             "scrap_80": scrap_80,
             "chart_img_path": f"./resources/{date_str}/{urllib.parse.quote(chart_img)}" if has_chart else None,
@@ -179,12 +214,16 @@ def build_website_index() -> str:
     # 1-A. 데스크톱용 7대 자원 테이블 행
     table_rows = []
     for m in data["metals"]:
+        badge_div = f"<div style='margin-top:3px;'>{m['diff_badge_html']}</div>" if m.get("diff_badge_html") else ""
         table_rows.append(f"""
         <tr class="table-row" data-cat="{m['cat']}">
             <td class="col-type"><span class="badge badge-{m['cat']}">{m['emoji']} {m['type_label']}</span></td>
             <td class="col-name"><strong>{m['name_kr']}</strong> <span class="text-sub">({m['name_en']})</span></td>
             <td class="col-raw font-mono">{m['raw_price']}</td>
-            <td class="col-krw font-bold text-blue">{m['krw_price']:,} {m['unit_krw']}</td>
+            <td class="col-krw font-bold text-blue">
+                <div>{m['krw_price']:,} {m['unit_krw']}</div>
+                {badge_div}
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">{m['scrap_70']:,} ~ {m['scrap_80']:,} {m['unit_krw']}</span>
             </td>
@@ -197,6 +236,7 @@ def build_website_index() -> str:
     # 1-B. 모바일 전용 시세 카드 (가로 스크롤 완전 해결!)
     mobile_price_cards = []
     for m in data["metals"]:
+        badge_div = f"<div style='margin-top:2px;'>{m['diff_badge_html']}</div>" if m.get("diff_badge_html") else ""
         mobile_price_cards.append(f"""
         <div class="m-price-card" data-cat="{m['cat']}">
             <div class="m-card-top">
@@ -214,7 +254,10 @@ def build_website_index() -> str:
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">{m['krw_price']:,} {m['unit_krw']}</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">{m['krw_price']:,} {m['unit_krw']}</span>
+                        {badge_div}
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -283,6 +326,7 @@ def build_website_index() -> str:
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">{m['krw_price']:,} {m['unit_krw']}</span>
+                        <div style="margin-top:2px;">{m.get('diff_badge_html', '')}</div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -713,6 +757,204 @@ def build_website_index() -> str:
             vertical-align: middle;
         }}
         tr:hover td {{ background: var(--surface-hover); }}
+
+        /* 📈 Price Diff Badge (전일 대비 환율+시세 변동 뱃지) */
+        .diff-badge {{
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: -0.2px;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }}
+        .diff-up {{
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }}
+        .diff-down {{
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }}
+        .diff-flat {{
+            color: #94a3b8;
+            background: rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }}
+
+        /* 🧭 Floating Action Bar (FAB) & Guide Modal */
+        .fab-container {{
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.25s ease;
+        }}
+        .fab-container.visible {{
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }}
+        .fab-btn {{
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+            position: relative;
+        }}
+        .fab-btn:hover {{
+            background: #2563eb;
+            color: white;
+            border-color: #60a5fa;
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }}
+        .fab-guide {{
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }}
+        .fab-guide:hover {{
+            background: #059669;
+            color: white;
+            border-color: #34d399;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }}
+        .fab-guide-tooltip {{
+            position: absolute;
+            right: 52px;
+            white-space: nowrap;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f8fafc;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(6px);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }}
+        .fab-guide:hover .fab-guide-tooltip {{
+            opacity: 1;
+            transform: translateX(0);
+        }}
+
+        /* Guide Modal */
+        .guide-modal-overlay {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(8, 12, 22, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+        }}
+        .guide-modal-overlay.open {{
+            opacity: 1;
+            visibility: visible;
+        }}
+        .guide-modal {{
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            border-radius: 16px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }}
+        .guide-modal-overlay.open .guide-modal {{
+            transform: scale(1);
+        }}
+        .guide-modal-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #0f172a;
+            border-bottom: 1px solid var(--border);
+        }}
+        .guide-close-btn {{
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0;
+        }}
+        .guide-close-btn:hover {{ color: white; }}
+        .guide-modal-body {{
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }}
+        .guide-tip-item {{
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }}
+        .guide-tip-icon {{
+            font-size: 22px;
+            flex-shrink: 0;
+        }}
+        .guide-tip-content strong {{
+            display: block;
+            font-size: 13.5px;
+            color: #60a5fa;
+            margin-bottom: 4px;
+        }}
+        .guide-tip-content p {{
+            font-size: 12.5px;
+            color: #cbd5e1;
+            line-height: 1.55;
+            margin: 0;
+        }}
+        .guide-tip-footer {{
+            margin-top: 6px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }}
 
         /* 📱 Mobile Price Cards (가로 스크롤 없는 모바일 완벽 대응 카드형 뷰) */
         .mobile-price-cards {{
@@ -1492,6 +1734,58 @@ def build_website_index() -> str:
 
     <div id="toast" class="toast"></div>
 
+    <!-- Floating Action Bar (Top + Guide) -->
+    <div class="fab-container" id="fab-container">
+        <button class="fab-btn fab-guide" id="fab-guide-btn" onclick="openGuideModal()" title="화면 설명서 & 이용 가이드">
+            <i class="bi bi-question-lg"></i>
+            <span class="fab-guide-tooltip">화면 설명서 💡</span>
+        </button>
+        <button class="fab-btn fab-top" id="fab-top-btn" onclick="scrollToTop()" title="맨 위로 이동">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Guide Modal (화면 설명서 팝업) -->
+    <div class="guide-modal-overlay" id="guide-modal-overlay" onclick="closeGuideModal(event)">
+        <div class="guide-modal" onclick="event.stopPropagation()">
+            <div class="guide-modal-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">💡</span>
+                    <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin: 0;">7대 금속 시세 허브 100% 활용 가이드</h3>
+                </div>
+                <button class="guide-close-btn" onclick="closeGuideModal()">&times;</button>
+            </div>
+            <div class="guide-modal-body">
+                <div class="guide-tip-item">
+                    <div class="guide-tip-icon">🧮</div>
+                    <div class="guide-tip-content">
+                        <strong>원화 환산 시장가 & 전일 대비 변화량</strong>
+                        <p>LME·조달청 국제 종가에 <strong>당일 원/달러 환율</strong>을 실시간 반영하여 원/kg 또는 원/g 실거래 단가를 산출합니다. 뱃지(▲/▼)는 환율 변동과 국제시세 변동이 모두 결합된 전일 대비 실질 단가 변동량입니다.</p>
+                    </div>
+                </div>
+                <div class="guide-tip-item">
+                    <div class="guide-tip-icon">♻️</div>
+                    <div class="guide-tip-content">
+                        <strong>스크랩(고물상) 매입 추정가 (70~80%)</strong>
+                        <p>원자재 순수 시세에서 정제·가공비 및 감모 마진을 제외하고 고물상·스크랩 수거업체에서 통상 매입하는 실질 기준가입니다. 상단 표의 [계산] 버튼을 누르면 즉시 수량별 추정 정산액을 계산할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="guide-tip-item">
+                    <div class="guide-tip-icon">🤖</div>
+                    <div class="guide-tip-content">
+                        <strong>Gemma 4 AI 시장 분석 & 뉴스</strong>
+                        <p>해외 원자재 전문 매체 기사를 실시간 크롤링하여 로컬 Gemma 4 AI가 핵심 요약 및 국내 제조·스크랩 시장 향후 여파를 코멘트합니다.</p>
+                    </div>
+                </div>
+                <div class="guide-tip-footer">
+                    <a href="https://chicstory.github.io/guide.html" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px 16px;">
+                        <span>📖 ThePathLab 전체 사이트 통합 가이드 & 사이트맵 보기 ↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const METALS = {calc_json};
         const ARCHIVES = {archive_json};
@@ -1736,7 +2030,39 @@ def build_website_index() -> str:
             if (ARCHIVES.length > 0) {{
                 selectDate(ARCHIVES[0].date);
             }}
+
+            // FAB Scroll listener
+            window.addEventListener('scroll', function() {{
+                var fab = document.getElementById('fab-container');
+                if (fab) {{
+                    if (window.scrollY > 300) {{
+                        fab.classList.add('visible');
+                    }} else {{
+                        fab.classList.remove('visible');
+                    }}
+                }}
+            }}, {{passive: true}});
         }});
+
+        function scrollToTop() {{
+            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
+
+        function openGuideModal() {{
+            var overlay = document.getElementById('guide-modal-overlay');
+            if (overlay) {{
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }}
+        }}
+
+        function closeGuideModal(e) {{
+            var overlay = document.getElementById('guide-modal-overlay');
+            if (overlay) {{
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }}
+        }}
     </script>
 </body>
 </html>

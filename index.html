@@ -361,6 +361,204 @@
         }
         tr:hover td { background: var(--surface-hover); }
 
+        /* 📈 Price Diff Badge (전일 대비 환율+시세 변동 뱃지) */
+        .diff-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: -0.2px;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+        .diff-up {
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .diff-down {
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .diff-flat {
+            color: #94a3b8;
+            background: rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        /* 🧭 Floating Action Bar (FAB) & Guide Modal */
+        .fab-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.25s ease;
+        }
+        .fab-container.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .fab-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .fab-btn:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #60a5fa;
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        .fab-guide {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }
+        .fab-guide:hover {
+            background: #059669;
+            color: white;
+            border-color: #34d399;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        .fab-guide-tooltip {
+            position: absolute;
+            right: 52px;
+            white-space: nowrap;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f8fafc;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(6px);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .fab-guide:hover .fab-guide-tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Guide Modal */
+        .guide-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(8, 12, 22, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+        }
+        .guide-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .guide-modal {
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            border-radius: 16px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }
+        .guide-modal-overlay.open .guide-modal {
+            transform: scale(1);
+        }
+        .guide-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #0f172a;
+            border-bottom: 1px solid var(--border);
+        }
+        .guide-close-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0;
+        }
+        .guide-close-btn:hover { color: white; }
+        .guide-modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .guide-tip-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        .guide-tip-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .guide-tip-content strong {
+            display: block;
+            font-size: 13.5px;
+            color: #60a5fa;
+            margin-bottom: 4px;
+        }
+        .guide-tip-content p {
+            font-size: 12.5px;
+            color: #cbd5e1;
+            line-height: 1.55;
+            margin: 0;
+        }
+        .guide-tip-footer {
+            margin-top: 6px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
         /* 📱 Mobile Price Cards (가로 스크롤 없는 모바일 완벽 대응 카드형 뷰) */
         .mobile-price-cards {
             display: none;
@@ -1031,7 +1229,10 @@
             <td class="col-type"><span class="badge badge-steel">🔩 철·스크랩</span></td>
             <td class="col-name"><strong>철·철스크랩</strong> <span class="text-sub">(Steel Scrap)</span></td>
             <td class="col-raw font-mono">403.50 USD/T</td>
-            <td class="col-krw font-bold text-blue">540 원/kg</td>
+            <td class="col-krw font-bold text-blue">
+                <div>540 원/kg</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -2원 (-0.4%) 하락">▼ -2원 (-0.4%)</span></div>
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">378 ~ 432 원/kg</span>
             </td>
@@ -1044,7 +1245,10 @@
             <td class="col-type"><span class="badge badge-nonferrous">🥫 비철금속</span></td>
             <td class="col-name"><strong>알루미늄</strong> <span class="text-sub">(Aluminum)</span></td>
             <td class="col-raw font-mono">3,337.23 USD/T</td>
-            <td class="col-krw font-bold text-blue">4,466 원/kg</td>
+            <td class="col-krw font-bold text-blue">
+                <div>4,466 원/kg</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +9원 (+0.2%) 상승">▲ +9원 (+0.2%)</span></div>
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">3,126 ~ 3,572 원/kg</span>
             </td>
@@ -1057,7 +1261,10 @@
             <td class="col-type"><span class="badge badge-nonferrous">🔌 비철금속</span></td>
             <td class="col-name"><strong>구리</strong> <span class="text-sub">(Copper)</span></td>
             <td class="col-raw font-mono">6.65 USD/Lbs</td>
-            <td class="col-krw font-bold text-blue">19,632 원/kg</td>
+            <td class="col-krw font-bold text-blue">
+                <div>19,632 원/kg</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -196원 (-1.0%) 하락">▼ -196원 (-1.0%)</span></div>
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">13,742 ~ 15,706 원/kg</span>
             </td>
@@ -1070,7 +1277,10 @@
             <td class="col-type"><span class="badge badge-nonferrous">🔋 비철금속</span></td>
             <td class="col-name"><strong>납</strong> <span class="text-sub">(Lead)</span></td>
             <td class="col-raw font-mono">1,915.70 USD/T</td>
-            <td class="col-krw font-bold text-blue">2,563 원/kg</td>
+            <td class="col-krw font-bold text-blue">
+                <div>2,563 원/kg</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +6원 (+0.2%) 상승">▲ +6원 (+0.2%)</span></div>
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">1,794 ~ 2,051 원/kg</span>
             </td>
@@ -1083,7 +1293,10 @@
             <td class="col-type"><span class="badge badge-pgm">🚗 PGM (백금족)</span></td>
             <td class="col-name"><strong>팔라듐</strong> <span class="text-sub">(Palladium)</span></td>
             <td class="col-raw font-mono">1,358.00 USD/t.oz</td>
-            <td class="col-krw font-bold text-blue">58,422 원/g</td>
+            <td class="col-krw font-bold text-blue">
+                <div>58,422 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -2,134원 (-3.5%) 하락">▼ -2,134원 (-3.5%)</span></div>
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">40,896 ~ 46,738 원/g</span>
             </td>
@@ -1096,7 +1309,10 @@
             <td class="col-type"><span class="badge badge-pgm">💎 PGM (백금족)</span></td>
             <td class="col-name"><strong>로듐</strong> <span class="text-sub">(Rhodium)</span></td>
             <td class="col-raw font-mono">9,575.00 USD/t.oz</td>
-            <td class="col-krw font-bold text-blue">411,925 원/g</td>
+            <td class="col-krw font-bold text-blue">
+                <div>411,925 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +2,383원 (+0.6%) 상승">▲ +2,383원 (+0.6%)</span></div>
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">288,348 ~ 329,540 원/g</span>
             </td>
@@ -1109,7 +1325,10 @@
             <td class="col-type"><span class="badge badge-pgm">💍 PGM (백금족)</span></td>
             <td class="col-name"><strong>백금</strong> <span class="text-sub">(Platinum)</span></td>
             <td class="col-raw font-mono">1,835.20 USD/t.oz</td>
-            <td class="col-krw font-bold text-blue">78,952 원/g</td>
+            <td class="col-krw font-bold text-blue">
+                <div>78,952 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -82원 (-0.1%) 하락">▼ -82원 (-0.1%)</span></div>
+            </td>
             <td class="col-scrap font-bold text-amber">
                 <span class="scrap-badge">55,266 ~ 63,162 원/g</span>
             </td>
@@ -1141,7 +1360,10 @@
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">540 원/kg</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">540 원/kg</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -2원 (-0.4%) 하락">▼ -2원 (-0.4%)</span></div>
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -1169,7 +1391,10 @@
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">4,466 원/kg</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">4,466 원/kg</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +9원 (+0.2%) 상승">▲ +9원 (+0.2%)</span></div>
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -1197,7 +1422,10 @@
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">19,632 원/kg</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">19,632 원/kg</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -196원 (-1.0%) 하락">▼ -196원 (-1.0%)</span></div>
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -1225,7 +1453,10 @@
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">2,563 원/kg</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">2,563 원/kg</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +6원 (+0.2%) 상승">▲ +6원 (+0.2%)</span></div>
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -1253,7 +1484,10 @@
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">58,422 원/g</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">58,422 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -2,134원 (-3.5%) 하락">▼ -2,134원 (-3.5%)</span></div>
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -1281,7 +1515,10 @@
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">411,925 원/g</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">411,925 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +2,383원 (+0.6%) 상승">▲ +2,383원 (+0.6%)</span></div>
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -1309,7 +1546,10 @@
                 </div>
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
-                    <span class="m-stat-val font-bold text-blue">78,952 원/g</span>
+                    <div style="text-align: right;">
+                        <span class="m-stat-val font-bold text-blue">78,952 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -82원 (-0.1%) 하락">▼ -82원 (-0.1%)</span></div>
+                    </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
@@ -1362,6 +1602,7 @@
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">540 원/kg</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -2원 (-0.4%) 하락">▼ -2원 (-0.4%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -1424,6 +1665,7 @@
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">4,466 원/kg</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +9원 (+0.2%) 상승">▲ +9원 (+0.2%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -1496,6 +1738,7 @@
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">19,632 원/kg</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -196원 (-1.0%) 하락">▼ -196원 (-1.0%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -1568,6 +1811,7 @@
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">2,563 원/kg</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +6원 (+0.2%) 상승">▲ +6원 (+0.2%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -1620,6 +1864,7 @@
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">58,422 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -2,134원 (-3.5%) 하락">▼ -2,134원 (-3.5%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -1692,6 +1937,7 @@
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">411,925 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +2,383원 (+0.6%) 상승">▲ +2,383원 (+0.6%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -1744,6 +1990,7 @@
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
                         <span class="pill-val">78,952 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-down" title="전일 대비 환율·시세 종합 -82원 (-0.1%) 하락">▼ -82원 (-0.1%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
@@ -1879,6 +2126,58 @@
     </footer>
 
     <div id="toast" class="toast"></div>
+
+    <!-- Floating Action Bar (Top + Guide) -->
+    <div class="fab-container" id="fab-container">
+        <button class="fab-btn fab-guide" id="fab-guide-btn" onclick="openGuideModal()" title="화면 설명서 & 이용 가이드">
+            <i class="bi bi-question-lg"></i>
+            <span class="fab-guide-tooltip">화면 설명서 💡</span>
+        </button>
+        <button class="fab-btn fab-top" id="fab-top-btn" onclick="scrollToTop()" title="맨 위로 이동">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Guide Modal (화면 설명서 팝업) -->
+    <div class="guide-modal-overlay" id="guide-modal-overlay" onclick="closeGuideModal(event)">
+        <div class="guide-modal" onclick="event.stopPropagation()">
+            <div class="guide-modal-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">💡</span>
+                    <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin: 0;">7대 금속 시세 허브 100% 활용 가이드</h3>
+                </div>
+                <button class="guide-close-btn" onclick="closeGuideModal()">&times;</button>
+            </div>
+            <div class="guide-modal-body">
+                <div class="guide-tip-item">
+                    <div class="guide-tip-icon">🧮</div>
+                    <div class="guide-tip-content">
+                        <strong>원화 환산 시장가 & 전일 대비 변화량</strong>
+                        <p>LME·조달청 국제 종가에 <strong>당일 원/달러 환율</strong>을 실시간 반영하여 원/kg 또는 원/g 실거래 단가를 산출합니다. 뱃지(▲/▼)는 환율 변동과 국제시세 변동이 모두 결합된 전일 대비 실질 단가 변동량입니다.</p>
+                    </div>
+                </div>
+                <div class="guide-tip-item">
+                    <div class="guide-tip-icon">♻️</div>
+                    <div class="guide-tip-content">
+                        <strong>스크랩(고물상) 매입 추정가 (70~80%)</strong>
+                        <p>원자재 순수 시세에서 정제·가공비 및 감모 마진을 제외하고 고물상·스크랩 수거업체에서 통상 매입하는 실질 기준가입니다. 상단 표의 [계산] 버튼을 누르면 즉시 수량별 추정 정산액을 계산할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="guide-tip-item">
+                    <div class="guide-tip-icon">🤖</div>
+                    <div class="guide-tip-content">
+                        <strong>Gemma 4 AI 시장 분석 & 뉴스</strong>
+                        <p>해외 원자재 전문 매체 기사를 실시간 크롤링하여 로컬 Gemma 4 AI가 핵심 요약 및 국내 제조·스크랩 시장 향후 여파를 코멘트합니다.</p>
+                    </div>
+                </div>
+                <div class="guide-tip-footer">
+                    <a href="https://chicstory.github.io/guide.html" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px 16px;">
+                        <span>📖 ThePathLab 전체 사이트 통합 가이드 & 사이트맵 보기 ↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         const METALS = [{"key": "steel_scrap", "name": "철·철스크랩", "unit": "kg", "unit_label": "원/kg", "price": 540, "scrap_70": 378, "scrap_80": 432, "emoji": "🔩", "cat": "steel"}, {"key": "aluminum", "name": "알루미늄", "unit": "kg", "unit_label": "원/kg", "price": 4466, "scrap_70": 3126, "scrap_80": 3572, "emoji": "🥫", "cat": "nonferrous"}, {"key": "copper", "name": "구리", "unit": "kg", "unit_label": "원/kg", "price": 19632, "scrap_70": 13742, "scrap_80": 15706, "emoji": "🔌", "cat": "nonferrous"}, {"key": "lead", "name": "납", "unit": "kg", "unit_label": "원/kg", "price": 2563, "scrap_70": 1794, "scrap_80": 2051, "emoji": "🔋", "cat": "nonferrous"}, {"key": "palladium", "name": "팔라듐", "unit": "g", "unit_label": "원/g", "price": 58422, "scrap_70": 40896, "scrap_80": 46738, "emoji": "🚗", "cat": "pgm"}, {"key": "rhodium", "name": "로듐", "unit": "g", "unit_label": "원/g", "price": 411925, "scrap_70": 288348, "scrap_80": 329540, "emoji": "💎", "cat": "pgm"}, {"key": "platinum", "name": "백금", "unit": "g", "unit_label": "원/g", "price": 78952, "scrap_70": 55266, "scrap_80": 63162, "emoji": "💍", "cat": "pgm"}];
@@ -2124,7 +2423,39 @@
             if (ARCHIVES.length > 0) {
                 selectDate(ARCHIVES[0].date);
             }
+
+            // FAB Scroll listener
+            window.addEventListener('scroll', function() {
+                var fab = document.getElementById('fab-container');
+                if (fab) {
+                    if (window.scrollY > 300) {
+                        fab.classList.add('visible');
+                    } else {
+                        fab.classList.remove('visible');
+                    }
+                }
+            }, {passive: true});
         });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openGuideModal() {
+            var overlay = document.getElementById('guide-modal-overlay');
+            if (overlay) {
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeGuideModal(e) {
+            var overlay = document.getElementById('guide-modal-overlay');
+            if (overlay) {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
     </script>
 </body>
 </html>
