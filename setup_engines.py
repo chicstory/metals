@@ -72,19 +72,22 @@ TRANSLATE_HEAD_SNIPPET = """
                 autoDisplay: false
             }, 'google_translate_element');
         }
-        function changeLanguage(lang) {
+        function tplChangeLang(lang) {
             var select = document.querySelector('.goog-te-combo');
             if (select) {
                 select.value = lang;
                 select.dispatchEvent(new Event('change'));
             } else {
                 // Fallback for cookie-based Google Translate
-                document.cookie = 'googtrans=/ko/' + lang + '; path=/;';
+                document.cookie = 'googtrans=/ko/' + lang + '; path=/; SameSite=Lax; Secure';
+                document.cookie = 'googtrans=/ko/' + lang + '; path=/; domain=' + location.hostname + '; SameSite=Lax; Secure';
                 location.reload();
             }
         }
+        window.changeLanguage = tplChangeLang;
+        window.tplChangeLang = tplChangeLang;
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 """
 
 TRANSLATE_BTN_HTML = """
