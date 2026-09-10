@@ -3,7 +3,7 @@
 """
 metal_news_briefing.py
 --------------------------------------------------------------------------------
-주요 7대 금속/원자재(철·철스크랩, 알루미늄, 구리, 팔라듐, 로듐, 백금, 납)의:
+주요 9대 금속/원자재(구리, 철·철스크랩, 알루미늄, 납, 금, 은, 백금, 팔라듐, 로듐)의:
   1. Trading Economics 기반 1년 종가 시세 차트 자동 캡처 (렌더링 완료 감지)
   2. 조달청(PPS) 비축물자 판매가격표 자동 캡처
   3. Mining.com 및 글로벌 광물 뉴스 스크래핑
@@ -85,8 +85,21 @@ BROWSER_HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
 
-# 7대 자원 정의 및 키워드/TradingEconomics/단위 환산 매핑
+# 9대 자원 정의 및 키워드/TradingEconomics/단위 환산 매핑 (옵션 2: 산업금속 ➡️ 귀금속 순서)
 TARGET_METALS = {
+    "copper": {
+        "name_kr": "구리",
+        "name_en": "Copper",
+        "emoji": "🥉",
+        "te_slug": "copper",
+        "category": "copper_lbs",       # USD/Lbs -> 원/kg (1 lb = 0.45359237 kg)
+        "type_label": "비철금속",
+        "unit_raw": "USD/Lbs",
+        "unit_krw": "원/kg",
+        "keywords": ["copper", "codelco", "freeport", "escondida", "copper cathode"],
+        "primary_query": 'copper (price OR mine OR supply OR deficit OR surplus OR lme)',
+        "broad_query": 'copper (market OR price OR mining)',
+    },
     "iron_scrap": {
         "name_kr": "철·철스크랩",
         "name_en": "Steel Scrap",
@@ -113,19 +126,6 @@ TARGET_METALS = {
         "primary_query": '(aluminum OR aluminium OR bauxite OR alumina)',
         "broad_query": '(aluminum OR aluminium) (price OR market OR smelter)',
     },
-    "copper": {
-        "name_kr": "구리",
-        "name_en": "Copper",
-        "emoji": "🥉",
-        "te_slug": "copper",
-        "category": "copper_lbs",       # USD/Lbs -> 원/kg (1 lb = 0.45359237 kg)
-        "type_label": "비철금속",
-        "unit_raw": "USD/Lbs",
-        "unit_krw": "원/kg",
-        "keywords": ["copper", "codelco", "freeport", "escondida", "copper cathode"],
-        "primary_query": 'copper (price OR mine OR supply OR deficit OR surplus OR lme)',
-        "broad_query": 'copper (market OR price OR mining)',
-    },
     "lead": {
         "name_kr": "납",
         "name_en": "Lead",
@@ -143,31 +143,31 @@ TARGET_METALS = {
         "primary_query": '("lead metal" OR "lead price" OR "lead smelter" OR "lead battery" OR "lead and zinc")',
         "broad_query": '("lead metal" OR "lead smelter" OR "refined lead")',
     },
-    "palladium": {
-        "name_kr": "팔라듐",
-        "name_en": "Palladium",
-        "emoji": "🪙",
-        "te_slug": "palladium",
+    "gold": {
+        "name_kr": "금",
+        "name_en": "Gold",
+        "emoji": "🥇",
+        "te_slug": "gold",
         "category": "pgm",             # USD/t.oz -> 원/g (1 t.oz = 31.1034768 g)
-        "type_label": "PGM (백금족)",
+        "type_label": "귀금속",
         "unit_raw": "USD/t.oz",
         "unit_krw": "원/g",
-        "keywords": ["palladium", "norilsk", "catalytic converter"],
-        "primary_query": 'palladium (price OR supply OR market OR auto)',
-        "broad_query": 'palladium metal price',
+        "keywords": ["gold", "bullion", "gold price", "fed interest rate", "central bank gold"],
+        "primary_query": 'gold (price OR bullion OR fed OR inflation OR reserve)',
+        "broad_query": 'gold metal (market OR price)',
     },
-    "rhodium": {
-        "name_kr": "로듐",
-        "name_en": "Rhodium",
-        "emoji": "✨",
-        "te_slug": "rhodium",
-        "category": "pgm",             # USD/t.oz -> 원/g
-        "type_label": "PGM (백금족)",
+    "silver": {
+        "name_kr": "은",
+        "name_en": "Silver",
+        "emoji": "🥈",
+        "te_slug": "silver",
+        "category": "pgm",             # USD/t.oz -> 원/g (1 t.oz = 31.1034768 g)
+        "type_label": "귀금속",
         "unit_raw": "USD/t.oz",
         "unit_krw": "원/g",
-        "keywords": ["rhodium"],
-        "primary_query": 'rhodium (price OR market OR pgm)',
-        "broad_query": 'rhodium precious metal',
+        "keywords": ["silver", "silver price", "solar silver", "silver bullion"],
+        "primary_query": 'silver (price OR industrial OR solar OR bullion OR market)',
+        "broad_query": 'silver metal (market OR price)',
     },
     "platinum": {
         "name_kr": "백금",
@@ -181,6 +181,32 @@ TARGET_METALS = {
         "keywords": ["platinum", "pgm", "pgms", "anglo american platinum", "impala"],
         "primary_query": 'platinum (price OR pgm OR hydrogen OR jewelry OR market)',
         "broad_query": 'platinum metal (price OR supply)',
+    },
+    "palladium": {
+        "name_kr": "팔라듐",
+        "name_en": "Palladium",
+        "emoji": "🚗",
+        "te_slug": "palladium",
+        "category": "pgm",             # USD/t.oz -> 원/g (1 t.oz = 31.1034768 g)
+        "type_label": "PGM (백금족)",
+        "unit_raw": "USD/t.oz",
+        "unit_krw": "원/g",
+        "keywords": ["palladium", "norilsk", "catalytic converter"],
+        "primary_query": 'palladium (price OR supply OR market OR auto)',
+        "broad_query": 'palladium metal price',
+    },
+    "rhodium": {
+        "name_kr": "로듐",
+        "name_en": "Rhodium",
+        "emoji": "💎",
+        "te_slug": "rhodium",
+        "category": "pgm",             # USD/t.oz -> 원/g
+        "type_label": "PGM (백금족)",
+        "unit_raw": "USD/t.oz",
+        "unit_krw": "원/g",
+        "keywords": ["rhodium"],
+        "primary_query": 'rhodium (price OR market OR pgm)',
+        "broad_query": 'rhodium precious metal',
     },
 }
 
@@ -629,7 +655,7 @@ def build_html_report(
     </table>
     """
 
-    # 2. 7대 자원별 상세 섹션 HTML
+    # 2. 9대 자원별 상세 섹션 HTML
     metal_cards_html = []
     for m in metal_detail_objs:
         anchor_id = f"metal-{m['idx']}"
@@ -723,7 +749,7 @@ def build_html_report(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>7대 금속·원자재 일일 통합 브리핑 ({today_str})</title>
+    <title>9대 금속·원자재 일일 통합 브리핑 ({today_str})</title>
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -833,7 +859,7 @@ def build_html_report(
         <header style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
                 <div>
-                    <h1 style="margin: 0; font-size: 26px; color: #0f172a;">📊 7대 금속·원자재 일일 통합 브리핑</h1>
+                    <h1 style="margin: 0; font-size: 26px; color: #0f172a;">📊 9대 금속·원자재 일일 통합 브리핑</h1>
                     <div style="margin-top: 6px; color: #64748b; font-size: 14px;">발행일시: <strong>{today_str} ({now_kst})</strong> | 위치: <code>thepathlab/resources/{today_str}/</code></div>
                 </div>
                 <div style="background: #f1f5f9; padding: 8px 14px; border-radius: 8px; font-size: 13px; color: #334155; text-align: right;">
@@ -864,7 +890,7 @@ def build_html_report(
         <section style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e2e8f0; border-top: 4px solid #03c75a;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <div>
-                    <h2 style="margin: 0; font-size: 20px; color: #0f172a;">💰 7대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가</h2>
+                    <h2 style="margin: 0; font-size: 20px; color: #0f172a;">💰 9대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가</h2>
                     <div style="color: #64748b; font-size: 13px; margin-top: 4px;">네이버 블로그 스마트에디터에 100% 호환되는 표준 HTML 테이블입니다.</div>
                 </div>
                 <button onclick="copyPriceTable()" class="btn-copy-main">📋 네이버 블로그용 표 클립보드 복사</button>
@@ -872,7 +898,7 @@ def build_html_report(
 
             <!-- 안내 배너 -->
             <div style="background: #f8fafc; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; color: #475569; border: 1px solid #e2e8f0;">
-                • <strong>환산 기준</strong>: PGM(팔라듐·로듐·백금)은 <strong>g당 원화 단가(원/g)</strong>, 일반 금속(철스크랩·알루미늄·구리·납)은 <strong>kg당 원화 단가(원/kg)</strong> 환산<br>
+                • <strong>환산 기준</strong>: 귀금속(금·은) 및 PGM(팔라듐·로듐·백금)은 <strong>g당 원화 단가(원/g)</strong> (1 troy oz = 31.1035g, 금 1돈 = 3.75g), 일반 산업금속(구리·철스크랩·알루미늄·납)은 <strong>kg당 원화 단가(원/kg)</strong> 환산<br>
                 • <strong>♻️ 스크랩 매입 추정가 (70~80%)</strong>: 원자재 순수 시세 대비 가공·정제 마진 및 감모율을 감안하여 통상 시장 시세의 <strong>70% ~ 80% 수준</strong>으로 형성됩니다.<br>
                 • <strong>복사 방법</strong>: 위 초록색 <strong>[표 클립보드 복사]</strong> 버튼을 누르거나, 표 전체를 마우스로 드래그(Ctrl+C)한 뒤 네이버 블로그에 Ctrl+V 하시면 깨짐 없이 깔끔하게 표로 붙여넣어집니다.
             </div>
@@ -895,7 +921,7 @@ def build_html_report(
 
         <!-- 📋 빠른 목차 네비게이션 -->
         <section style="background: white; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; border: 1px solid #e2e8f0;">
-            <h2 style="margin: 0 0 14px 0; font-size: 17px; color: #1e293b;">📋 오늘자 7대 자원별 시황 요약 목차</h2>
+            <h2 style="margin: 0 0 14px 0; font-size: 17px; color: #1e293b;">📋 오늘자 9대 자원별 시황 요약 목차</h2>
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                     <thead>
@@ -916,7 +942,7 @@ def build_html_report(
             </div>
         </section>
 
-        <!-- 7대 자원별 상세 카드 리스트 -->
+        <!-- 9대 자원별 상세 카드 리스트 -->
         {''.join(metal_cards_html)}
 
         <!-- 💬 실시간 익명 한줄 메모장 섹션 -->
@@ -1151,7 +1177,9 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
         prev_dates.sort(reverse=True)
         if prev_dates:
             prev_d = prev_dates[0]
-            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
+            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"9대자원_환산시세_{prev_d}.csv")
+            if not os.path.exists(prev_csv_file):
+                prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
             if os.path.exists(prev_csv_file):
                 with open(prev_csv_file, "r", encoding="utf-8-sig") as pf:
                     prev_csv_rows = list(csv.DictReader(pf))
@@ -1340,8 +1368,8 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
         except Exception:
             pass
 
-    # 6. CSV 파일 저장: 7대자원_환산시세_YYYY-MM-DD.csv
-    csv_filename = f"7대자원_환산시세_{today_str}.csv"
+    # 6. CSV 파일 저장: 9대자원_환산시세_YYYY-MM-DD.csv
+    csv_filename = f"9대자원_환산시세_{today_str}.csv"
     csv_path = os.path.join(date_folder, csv_filename)
     try:
         with open(csv_path, "w", encoding="utf-8-sig", newline="") as f:
@@ -1359,7 +1387,7 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
 
     # 7. 단일 통합 브리핑 마크다운 파일 조립
     doc_lines = [
-        f"# 📊 7대 금속·원자재 일일 통합 브리핑 ({today_str})",
+        f"# 📊 9대 금속·원자재 일일 통합 브리핑 ({today_str})",
         f"",
         f"> **발행일시**: {today_str} ({now_kst})  ",
         f"> **문서 목적**: 블로그 포스팅 작성 참고용 원자재 시황·뉴스 요약 & 여파 분석 리포트  ",
@@ -1384,12 +1412,12 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
 
     # 💰 원화 환산 시장가 및 스크랩 매입 추정가 테이블 (복사용)
     doc_lines.extend([
-        f"## 💰 7대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가 (복사용)",
+        f"## 💰 9대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가 (복사용)",
         f"",
         f"> **적용 환율**: **1 USD = {usd_krw_rate:,.1f}원** (출처: {exchange_source})  ",
         f"> **환산 기준 안내**:  ",
-        f"> - **PGM(팔라듐·로듐·백금)**: **g당 원화 단가(원/g)** 기준 환산 (1 troy oz = 31.1035g)  ",
-        f"> - **일반 금속(철스크랩·알루미늄·구리·납)**: **kg당 원화 단가(원/kg)** 기준 환산  ",
+        f"> - **귀금속(금·은) 및 PGM(팔라듐·로듐·백금)**: **g당 원화 단가(원/g)** 기준 환산 (1 troy oz = 31.1035g, 금 1돈 = 3.75g)  ",
+        f"> - **일반 산업금속(구리·철스크랩·알루미늄·납)**: **kg당 원화 단가(원/kg)** 기준 환산  ",
         f"> - **♻️ 스크랩 매입 추정 시세**: 원자재 순수 시세 대비 가공·정제 마진 및 감모율을 감안하여 **통상 시장 시세의 70% ~ 80% 수준**으로 형성됩니다.  ",
         f"> - *💡 블로그 글 작성 시 아래 표 영역을 드래그하여 그대로 복사(Ctrl+C)해 붙여넣으실 수 있습니다.*  ",
         f"",
@@ -1411,9 +1439,9 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
         f"",
     ])
 
-    # 7대 자원 목차 네비게이션 테이블
+    # 9대 자원 목차 네비게이션 테이블
     doc_lines.extend([
-        f"## 📋 7대 자원별 시황 요약 목차",
+        f"## 📋 9대 자원별 시황 요약 목차",
         f"",
         f"| 번호 | 자원명 | 영문명 | 원화 환산 시장가 | 스크랩 추정가 (70~80%) | 수집 기사 | 1년 차트 | 바로가기 |",
         f"| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :--- |",
@@ -1421,18 +1449,18 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
     doc_lines.extend(summary_table_rows)
     doc_lines.append("")
 
-    # 7개 자원 상세 섹션 합치기
+    # 9개 자원 상세 섹션 합치기
     doc_lines.extend(metal_sections)
 
-    # 단일 통합 파일 저장: [통합브리핑] 7대_금속원자재_YYYY-MM-DD.md
-    consolidated_filename = f"[통합브리핑] 7대_금속원자재_{today_str}.md"
+    # 단일 통합 파일 저장: [통합브리핑] 9대_금속원자재_YYYY-MM-DD.md
+    consolidated_filename = f"[통합브리핑] 9대_금속원자재_{today_str}.md"
     consolidated_path = os.path.join(date_folder, consolidated_filename)
 
     with open(consolidated_path, "w", encoding="utf-8") as f:
         f.write("\n".join(doc_lines))
 
     # 8. 단일 통합 브리핑 HTML 대시보드 파일 생성 (네이버 블로그 복사용)
-    consolidated_html_filename = f"[통합브리핑] 7대_금속원자재_{today_str}.html"
+    consolidated_html_filename = f"[통합브리핑] 9대_금속원자재_{today_str}.html"
     consolidated_html_path = os.path.join(date_folder, consolidated_html_filename)
     try:
         build_html_report(
@@ -1457,7 +1485,7 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
         print(f"[경고] 메인 웹사이트 index.html 생성 실패: {e}", file=sys.stderr, flush=True)
 
     print(f"\n" + "=" * 68, flush=True)
-    print(f" ✨ 7대 금속·원자재 단일 통합 브리핑 파일 생성 완료!", flush=True)
+    print(f" ✨ 9대 금속·원자재 단일 통합 브리핑 파일 생성 완료!", flush=True)
     print(f" 저장 폴더: {date_folder}", flush=True)
     print(f"   - 🌐 {consolidated_html_filename} (★네이버 블로그 표 복사용 HTML 대시보드)", flush=True)
     print(f"   - 📄 {consolidated_filename} (마크다운 원문)", flush=True)

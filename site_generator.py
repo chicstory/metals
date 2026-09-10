@@ -29,8 +29,23 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
     if not os.path.exists(date_folder):
         return None
 
-    csv_path = os.path.join(date_folder, f"7대자원_환산시세_{date_str}.csv")
-    md_path = os.path.join(date_folder, f"[통합브리핑] 7대_금속원자재_{date_str}.md")
+    csv_filename = f"9대자원_환산시세_{date_str}.csv"
+    csv_path = os.path.join(date_folder, csv_filename)
+    if not os.path.exists(csv_path):
+        csv_filename = f"7대자원_환산시세_{date_str}.csv"
+        csv_path = os.path.join(date_folder, csv_filename)
+
+    md_filename = f"[통합브리핑] 9대_금속원자재_{date_str}.md"
+    md_path = os.path.join(date_folder, md_filename)
+    if not os.path.exists(md_path):
+        md_filename = f"[통합브리핑] 7대_금속원자재_{date_str}.md"
+        md_path = os.path.join(date_folder, md_filename)
+
+    html_filename = f"[통합브리핑] 9대_금속원자재_{date_str}.html"
+    html_path = os.path.join(date_folder, html_filename)
+    if not os.path.exists(html_path):
+        html_filename = f"[통합브리핑] 7대_금속원자재_{date_str}.html"
+        html_path = os.path.join(date_folder, html_filename)
 
     csv_rows = []
     usd_rate = 1344.4
@@ -55,14 +70,17 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         with open(md_path, "r", encoding="utf-8") as f:
             md_content = f.read()
 
+    # 옵션 2: 산업금속 ➡️ 귀금속 순서
     METALS_META = [
-        {"key": "steel_scrap", "idx": 1, "name_kr": "철·철스크랩", "name_en": "Steel Scrap", "emoji": "🔩", "cat": "steel", "type_label": "철·스크랩", "unit_krw": "원/kg"},
-        {"key": "aluminum", "idx": 2, "name_kr": "알루미늄", "name_en": "Aluminum", "emoji": "🥫", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
-        {"key": "copper", "idx": 3, "name_kr": "구리", "name_en": "Copper", "emoji": "🔌", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
+        {"key": "copper", "idx": 1, "name_kr": "구리", "name_en": "Copper", "emoji": "🥉", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
+        {"key": "iron_scrap", "idx": 2, "name_kr": "철·철스크랩", "name_en": "Steel Scrap", "emoji": "🏗️", "cat": "steel", "type_label": "철·스크랩", "unit_krw": "원/kg"},
+        {"key": "aluminum", "idx": 3, "name_kr": "알루미늄", "name_en": "Aluminum", "emoji": "🥫", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
         {"key": "lead", "idx": 4, "name_kr": "납", "name_en": "Lead", "emoji": "🔋", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
-        {"key": "palladium", "idx": 5, "name_kr": "팔라듐", "name_en": "Palladium", "emoji": "🚗", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
-        {"key": "rhodium", "idx": 6, "name_kr": "로듐", "name_en": "Rhodium", "emoji": "💎", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
+        {"key": "gold", "idx": 5, "name_kr": "금", "name_en": "Gold", "emoji": "🥇", "cat": "precious", "type_label": "귀금속", "unit_krw": "원/g"},
+        {"key": "silver", "idx": 6, "name_kr": "은", "name_en": "Silver", "emoji": "🥈", "cat": "precious", "type_label": "귀금속", "unit_krw": "원/g"},
         {"key": "platinum", "idx": 7, "name_kr": "백금", "name_en": "Platinum", "emoji": "💍", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
+        {"key": "palladium", "idx": 8, "name_kr": "팔라듐", "name_en": "Palladium", "emoji": "🚗", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
+        {"key": "rhodium", "idx": 9, "name_kr": "로듐", "name_en": "Rhodium", "emoji": "💎", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
     ]
 
     # 전일 CSV 로드 (전일대비 가격 변화량 및 환율 변동 동시 반영용)
@@ -72,7 +90,9 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         c_idx = all_archived.index(date_str)
         if c_idx + 1 < len(all_archived):
             prev_d = all_archived[c_idx + 1]
-            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
+            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"9대자원_환산시세_{prev_d}.csv")
+            if not os.path.exists(prev_csv_file):
+                prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
             if os.path.exists(prev_csv_file):
                 try:
                     with open(prev_csv_file, "r", encoding="utf-8-sig") as pf:
@@ -82,6 +102,8 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
 
     for m in METALS_META:
         c_row = next((r for r in csv_rows if r.get("자원명") == m["name_kr"]), None)
+        if not c_row:
+            continue
         chart_img = f"[{m['name_kr']}]_1년_시세차트_{date_str}.png"
         has_chart = os.path.exists(os.path.join(date_folder, chart_img))
 
@@ -110,7 +132,7 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         ai_content = ""
         articles = []
         if md_content:
-            sec_pattern = re.compile(rf'## <a id="[^"]+"></a>{m["idx"]}\. [^\n]+\n(.*?)(?=\n---|\Z)', re.DOTALL)
+            sec_pattern = re.compile(rf'## <a id="[^"]+"></a>(?:\d+\.\s*)?[^#\n]*{re.escape(m["name_kr"])}[^\n]*\n(.*?)(?=\n---|\Z)', re.DOTALL)
             sec_match = sec_pattern.search(md_content)
             if sec_match:
                 sec_body = sec_match.group(1)
@@ -146,8 +168,8 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         "usd_rate": usd_rate,
         "rate_source": rate_source,
         "pps_img_path": f"./resources/{date_str}/{urllib.parse.quote(pps_img)}" if has_pps else None,
-        "csv_path": f"./resources/{date_str}/7대자원_환산시세_{date_str}.csv",
-        "html_report_path": f"./resources/{date_str}/[통합브리핑] 7대_금속원자재_{date_str}.html",
+        "csv_path": f"./resources/{date_str}/{urllib.parse.quote(csv_filename)}",
+        "html_report_path": f"./resources/{date_str}/{urllib.parse.quote(html_filename)}",
         "metals": metals_info
     }
 
@@ -165,7 +187,10 @@ def generate_sitemap(archived_dates: List[str]):
         '  </url>',
     ]
     for d in archived_dates:
-        report_url = f"{SITE_URL}/resources/{d}/{urllib.parse.quote(f'[통합브리핑] 7대_금속원자재_{d}.html')}"
+        report_filename = f"[통합브리핑] 9대_금속원자재_{d}.html"
+        if not os.path.exists(os.path.join(RESOURCES_DIR, d, report_filename)):
+            report_filename = f"[통합브리핑] 7대_금속원자재_{d}.html"
+        report_url = f"{SITE_URL}/resources/{d}/{urllib.parse.quote(report_filename)}"
         sitemap_lines.extend([
             '  <url>',
             f'    <loc>{report_url}</loc>',
@@ -198,11 +223,16 @@ def build_website_index() -> str:
     # JSON 데이터 주입 (계산기용)
     calc_metals = []
     for m in data["metals"]:
+        u_label = m["unit_krw"]
+        if m["key"] == "gold":
+            u_label = "원/g (1돈=3.75g)"
+        elif m["key"] == "silver":
+            u_label = "원/g (1kg=1,000g)"
         calc_metals.append({
             "key": m["key"],
             "name": m["name_kr"],
             "unit": m["unit_krw"].split("/")[1] if "/" in m["unit_krw"] else "kg",
-            "unit_label": m["unit_krw"],
+            "unit_label": u_label,
             "price": m["krw_price"],
             "scrap_70": m["scrap_70"],
             "scrap_80": m["scrap_80"],
@@ -211,7 +241,7 @@ def build_website_index() -> str:
         })
     calc_json = json.dumps(calc_metals, ensure_ascii=False)
 
-    # 1-A. 데스크톱용 7대 자원 테이블 행
+    # 1-A. 데스크톱용 9대 자원 테이블 행
     table_rows = []
     for m in data["metals"]:
         badge_div = f"<div style='margin-top:3px;'>{m['diff_badge_html']}</div>" if m.get("diff_badge_html") else ""
@@ -356,13 +386,16 @@ def build_website_index() -> str:
             </div>
         </article>""")
 
-    # 3. 아카이브 데이터 구조화 (캘린더 및 스크롤 박스용)
+    # 3. 아카이브 데이터 구조화 (캘린더 및 스크롤 박스용 - 팔라듐 대신 금 표시)
     archived_data_list = []
     for d in archived_dates:
-        c_path = os.path.join(RESOURCES_DIR, d, f"7대자원_환산시세_{d}.csv")
+        c_path = os.path.join(RESOURCES_DIR, d, f"9대자원_환산시세_{d}.csv")
+        if not os.path.exists(c_path):
+            c_path = os.path.join(RESOURCES_DIR, d, f"7대자원_환산시세_{d}.csv")
         rate_val = 1344.4
         steel_p = "-"
         copper_p = "-"
+        gold_p = "-"
         pd_p = "-"
         if os.path.exists(c_path):
             with open(c_path, "r", encoding="utf-8-sig") as cf:
@@ -377,15 +410,25 @@ def build_website_index() -> str:
                             steel_p = f"{int(float(cr['원화시장단가(원)'])):,}원/kg"
                         elif cr.get("자원명") == "구리":
                             copper_p = f"{int(float(cr['원화시장단가(원)'])):,}원/kg"
+                        elif cr.get("자원명") == "금":
+                            gold_p = f"{int(float(cr['원화시장단가(원)'])):,}원/g"
                         elif cr.get("자원명") == "팔라듐":
                             pd_p = f"{int(float(cr['원화시장단가(원)'])):,}원/g"
-        report_url = f"./resources/{d}/{urllib.parse.quote(f'[통합브리핑] 7대_금속원자재_{d}.html')}"
-        csv_url = f"./resources/{d}/{urllib.parse.quote(f'7대자원_환산시세_{d}.csv')}"
+        report_filename = f"[통합브리핑] 9대_금속원자재_{d}.html"
+        if not os.path.exists(os.path.join(RESOURCES_DIR, d, report_filename)):
+            report_filename = f"[통합브리핑] 7대_금속원자재_{d}.html"
+        csv_filename = f"9대자원_환산시세_{d}.csv"
+        if not os.path.exists(os.path.join(RESOURCES_DIR, d, csv_filename)):
+            csv_filename = f"7대자원_환산시세_{d}.csv"
+
+        report_url = f"./resources/{d}/{urllib.parse.quote(report_filename)}"
+        csv_url = f"./resources/{d}/{urllib.parse.quote(csv_filename)}"
         archived_data_list.append({
             "date": d,
             "rate": rate_val,
             "steel": steel_p,
             "copper": copper_p,
+            "gold": gold_p,
             "palladium": pd_p,
             "report_url": report_url,
             "csv_url": csv_url,
@@ -400,18 +443,18 @@ def build_website_index() -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>더패스랩 7대 금속원자재 & 스크랩 시세 허브 | 실시간 고철·비철·PGM 매입 단가</title>
+    <title>더패스랩 9대 금속원자재 & 스크랩 시세 허브 | 실시간 고철·비철·귀금속·PGM 매입 단가</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="매일 업데이트되는 7대 금속원자재(철스크랩, 알루미늄, 구리, 납, 팔라듐, 로듐, 백금)의 국제 시세 및 원화 환산 kg당·g당 단가, 스크랩 매입 추정가 계산기, 조달청 비축물자 판매가격표 종합 허브입니다.">
-    <meta name="keywords" content="고철시세, 철스크랩가격, 구리kg가격, 알루미늄시세, 납시세, 팔라듐시세, 로듐가격, 백금시세, 폐촉매가격, 폐배터리시세, 조달청원자재판매가격, 더패스랩, ThePathLab">
+    <meta name="description" content="매일 업데이트되는 9대 금속원자재(구리, 철스크랩, 알루미늄, 납, 금, 은, 백금, 팔라듐, 로듐)의 국제 시세 및 원화 환산 kg당·g당 단가, 스크랩 매입 추정가 계산기, 조달청 비축물자 판매가격표 종합 허브입니다.">
+    <meta name="keywords" content="고철시세, 철스크랩가격, 구리kg가격, 알루미늄시세, 납시세, 금시세, 은시세, 백금시세, 팔라듐시세, 로듐가격, 폐촉매가격, 폐배터리시세, 조달청원자재판매가격, 더패스랩, ThePathLab">
     <meta name="author" content="ThePathLab">
     <link rel="canonical" href="{SITE_URL}/">
 
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{SITE_URL}/">
-    <meta property="og:title" content="더패스랩 7대 금속원자재 & 스크랩 시세 허브">
+    <meta property="og:title" content="더패스랩 9대 금속원자재 & 스크랩 시세 허브">
     <meta property="og:description" content="오늘자 실시간 환산 시장가 및 스크랩(70~80%) 매입 계산기, 조달청 고시표, Trading Economics 1년 시세 차트">
     <meta property="og:image" content="{SITE_URL}/resources/{latest_date}/{urllib.parse.quote(f'조달청_원자재_판매가격_{latest_date}.png')}">
 
@@ -422,7 +465,7 @@ def build_website_index() -> str:
         "@type": "WebSite",
         "name": "ThePathLab Metals & Scrap Data Hub",
         "url": "{SITE_URL}/",
-        "description": "7대 금속원자재 국제시세 및 스크랩 매입 단가 데이터 허브",
+        "description": "9대 금속원자재 국제시세 및 스크랩 매입 단가 데이터 허브",
         "publisher": {{
             "@type": "Organization",
             "name": "ThePathLab"
@@ -1046,6 +1089,7 @@ def build_website_index() -> str:
         }}
         .badge-steel {{ background: #334155; color: #cbd5e1; }}
         .badge-nonferrous {{ background: #1e3a8a; color: #93c5fd; }}
+        .badge-precious {{ background: #78350f; color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4); }}
         .badge-pgm {{ background: #581c87; color: #e9d5ff; }}
 
         /* PPS Image Section */
@@ -1104,9 +1148,11 @@ def build_website_index() -> str:
             background: #0f172a;
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 6px 12px;
+            padding: 8px 12px;
             flex: 1;
             min-width: 140px;
+            box-sizing: border-box;
+            word-break: break-word;
         }}
         .pill-label {{ font-size: 11px; color: var(--text-muted); display: block; }}
         .pill-val {{ font-size: 14px; font-weight: 700; color: var(--text-main); }}
@@ -1447,6 +1493,9 @@ def build_website_index() -> str:
                 padding: 16px 12px;
                 border-radius: 12px;
                 margin-bottom: 24px;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
             }}
             .calc-grid {{
                 grid-template-columns: 1fr;
@@ -1459,6 +1508,16 @@ def build_website_index() -> str:
             }}
             .mobile-price-cards {{
                 display: flex !important;
+                width: 100% !important;
+            }}
+            .m-price-card {{
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }}
+            .m-stat-row {{
+                gap: 8px;
+                flex-wrap: wrap;
             }}
 
             .card-grid {{
@@ -1470,16 +1529,29 @@ def build_website_index() -> str:
                 align-items: flex-start;
                 gap: 10px;
             }}
+            /* 모바일 카드 안 알약 1fr 수직 배치로 카드 밖 삐져나감 완전 방지 */
             .card-price-pills {{
-                width: 100%;
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 8px !important;
+                width: 100% !important;
             }}
             .pill {{
-                min-width: 100px;
+                width: 100% !important;
+                min-width: 0 !important;
+                box-sizing: border-box !important;
             }}
             .metal-card {{
                 padding: 16px 12px;
                 border-radius: 12px;
                 margin-bottom: 20px;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }}
+            .art-title, .art-desc, .ai-bullet, .ai-para, .pill-val {{
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
             }}
 
             /* 아카이브 섹션 모바일 대응 */
@@ -1487,6 +1559,9 @@ def build_website_index() -> str:
                 padding: 14px 10px;
                 border-radius: 12px;
                 margin-top: 30px;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
             }}
             .archive-panes {{
                 grid-template-columns: 1fr;
@@ -1537,7 +1612,7 @@ def build_website_index() -> str:
         <div class="container header-inner">
             <div>
                 <a href="./" class="brand-title">THEPATHLAB METALS & SCRAP HUB</a>
-                <div class="brand-sub">7대 금속·원자재 실시간 환산 시세 및 스크랩 매입 단가 데이터 허브</div>
+                <div class="brand-sub">9대 금속·원자재 실시간 환산 시세 및 스크랩 매입 단가 데이터 허브</div>
             </div>
             <div class="header-meta">
                 <div class="meta-tag">기준 일시: <strong>{data['date_str']}</strong></div>
@@ -1553,8 +1628,8 @@ def build_website_index() -> str:
         <!-- Hero Banner -->
         <section class="hero-banner">
             <div class="hero-left">
-                <h1>📊 오늘의 7대 금속원자재 & 스크랩 실시간 시황</h1>
-                <p>국제 시장 종가(Trading Economics) 및 조달청 공식 판매가격표를 바탕으로, 고철·비철·PGM(폐촉매)의 원화 환산 단가와 실무 스크랩 매입 추정 시세(70~80%)를 매일 아침 자동 산출합니다.</p>
+                <h1>📊 오늘의 9대 금속원자재 & 스크랩 실시간 시황</h1>
+                <p>국제 시장 종가(Trading Economics) 및 조달청 공식 판매가격표를 바탕으로, 비철·철스크랩·귀금속(금·은)·PGM(폐촉매)의 원화 환산 단가와 실무 스크랩 매입 추정 시세(70~80%)를 매일 아침 자동 산출합니다.</p>
             </div>
             <div class="hero-actions">
                 <button onclick="copyNaverTable()" class="btn btn-green">📋 네이버 블로그용 표 복사</button>
@@ -1578,6 +1653,12 @@ def build_website_index() -> str:
                 <div class="calc-field">
                     <label for="calc-qty">수량 (<span id="calc-unit-label">kg</span>)</label>
                     <input type="number" id="calc-qty" class="calc-input" value="100" min="0.1" step="any" oninput="calculateScrap()">
+                    <div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">
+                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=3.75; calculateScrap();" style="padding:2px 7px; font-size:11px;">1돈(3.75g)</button>
+                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=37.5; calculateScrap();" style="padding:2px 7px; font-size:11px;">10돈(37.5g)</button>
+                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=100; calculateScrap();" style="padding:2px 7px; font-size:11px;">100(g/kg)</button>
+                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=1000; calculateScrap();" style="padding:2px 7px; font-size:11px;">1,000(1kg/1톤)</button>
+                    </div>
                 </div>
                 <div class="calc-result-box">
                     <div class="calc-res-row">
@@ -1592,22 +1673,21 @@ def build_website_index() -> str:
             </div>
         </section>
 
-        <!-- 💰 7대 금속·원자재 오늘의 시세표 & 모바일 전용 카드 -->
         <section style="margin-bottom: 30px;">
             <div class="section-header">
                 <div>
-                    <h2 class="section-title">💰 7대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가</h2>
+                    <h2 class="section-title">💰 9대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가</h2>
                     <span style="font-size: 13px; color: var(--text-sub);">환율: 1 USD = {data['usd_rate']:,.1f}원 ({data['rate_source']})</span>
                 </div>
                 <div class="tabs">
                     <button class="tab-btn active" onclick="filterCategory('all', this)">전체보기</button>
-                    <button class="tab-btn" onclick="filterCategory('steel', this)">철스크랩</button>
                     <button class="tab-btn" onclick="filterCategory('nonferrous', this)">비철금속</button>
+                    <button class="tab-btn" onclick="filterCategory('steel', this)">철스크랩</button>
+                    <button class="tab-btn" onclick="filterCategory('precious', this)">귀금속(금·은)</button>
                     <button class="tab-btn" onclick="filterCategory('pgm', this)">백금족(PGM)</button>
                 </div>
             </div>
 
-            <!-- 🖥️ 데스크톱 전용 표 -->
             <div class="table-wrap">
                 <table id="main-price-table">
                     <thead>
@@ -1626,13 +1706,11 @@ def build_website_index() -> str:
                 </table>
             </div>
 
-            <!-- 📱 모바일 전용 카드 리스트 (가로 스크롤 없음!) -->
             <div class="mobile-price-cards">
                 {''.join(mobile_price_cards)}
             </div>
         </section>
 
-        <!-- 🏛️ 오늘자 조달청 판매가격표 -->
         {f'''
         <section class="pps-card">
             <div class="section-header">
@@ -1645,30 +1723,28 @@ def build_website_index() -> str:
         </section>
         ''' if data['pps_img_path'] else ""}
 
-        <!-- 📈 7대 자원별 상세 차트 & AI 시황 분석 -->
         <section>
             <div class="section-header">
-                <h2 class="section-title">📈 7대 자원별 1년 시세 추이 및 AI 시장·스크랩 여파 분석</h2>
-                <span style="font-size: 13px; color: var(--text-sub);">차트 출처: Trading Economics | AI 분석: Gemma 4</span>
+                <h2 class="section-title">📈 9대 자원별 1년 시세 추이 및 AI 시장·스크랩 여파 분석</h2>
+                <div class="text-sub" style="font-size: 13px;">Trading Economics 종가 차트 & Gemma 4 로컬 AI 모델 분석</div>
             </div>
-
-            {''.join(cards_html)}
+            
+            <div class="metal-cards">
+                {''.join(cards_html)}
+            </div>
         </section>
 
-        <!-- 📅 일자별 아카이브: 월간 캘린더 & 스크롤 박스 -->
-        <section class="archive-box">
-            <div class="section-header" style="margin-bottom: 8px;">
+        <section id="archive-calendar" class="archive-box">
+            <div class="section-header" style="margin-bottom: 6px;">
                 <div>
-                    <h2 class="section-title">📅 일자별 시황 브리핑 아카이브</h2>
-                    <span style="font-size: 13px; color: var(--text-sub);">날짜를 클릭하거나 스크롤 박스에서 과거 브리핑과 CSV를 손쉽게 열람하세요.</span>
+                    <h2 class="section-title">📅 일자별 브리핑 & 환산 시세 아카이브</h2>
+                    <p style="font-size: 13px; color: var(--text-sub); margin-top: 4px;">과거 일자의 일일 통합 브리핑 리포트(HTML) 및 원본 CSV 시세 데이터를 열람·다운로드할 수 있습니다.</p>
                 </div>
             </div>
 
             <div class="archive-panes">
-                <!-- 좌측: 월간 캘린더 -->
                 <div class="cal-card">
                     <div class="cal-nav">
-                        <button class="cal-btn" onclick="prevMonth()">◀</button>
                         <span id="cal-month-title" class="cal-title">2026년 9월</span>
                         <button class="cal-btn" onclick="nextMonth()">▶</button>
                     </div>
@@ -1690,7 +1766,7 @@ def build_website_index() -> str:
                                     <th>발행일</th>
                                     <th>철스크랩</th>
                                     <th>구리</th>
-                                    <th>팔라듐</th>
+                                    <th>금 (Gold)</th>
                                     <th>도구</th>
                                 </tr>
                             </thead>
@@ -1709,7 +1785,7 @@ def build_website_index() -> str:
                         <div class="preview-prices">
                             <span>철스크랩: <strong id="prev-steel">-</strong></span>
                             <span>구리: <strong id="prev-copper">-</strong></span>
-                            <span>팔라듐: <strong id="prev-pd">-</strong></span>
+                            <span>금: <strong id="prev-gold">-</strong></span>
                         </div>
                         <div style="display: flex; gap: 8px;">
                             <a id="prev-report-btn" href="#" target="_blank" class="btn-sm btn-outline">리포트 열람 ↗</a>
@@ -1751,7 +1827,7 @@ def build_website_index() -> str:
             <div class="guide-modal-header">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 20px;">💡</span>
-                    <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin: 0;">7대 금속 시세 허브 100% 활용 가이드</h3>
+                    <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin: 0;">9대 금속 시세 허브 100% 활용 가이드</h3>
                 </div>
                 <button class="guide-close-btn" onclick="closeGuideModal()">&times;</button>
             </div>
@@ -1821,11 +1897,13 @@ def build_website_index() -> str:
             if (!metal) return;
             document.getElementById('calc-unit-label').innerText = metal.unit;
             
-            // Adjust default quantity if PGM (g) vs Base Metal (kg)
+            // Adjust default quantity if Gold/Silver/PGM (g) vs Base Metal (kg)
             const qtyInput = document.getElementById('calc-qty');
-            if (metal.cat === 'pgm' && qtyInput.value > 50) {{
+            if (metal.key === 'gold') {{
+                qtyInput.value = 3.75; // 1돈 기본 추천값
+            }} else if ((metal.cat === 'pgm' || metal.cat === 'precious') && (qtyInput.value > 50 || qtyInput.value == 100)) {{
                 qtyInput.value = 10;
-            }} else if (metal.cat !== 'pgm' && qtyInput.value < 20) {{
+            }} else if (metal.cat !== 'pgm' && metal.cat !== 'precious' && qtyInput.value < 20) {{
                 qtyInput.value = 100;
             }}
             calculateScrap();
@@ -1955,11 +2033,12 @@ def build_website_index() -> str:
             filtered.forEach(a => {{
                 const tr = document.createElement('tr');
                 tr.style.cursor = 'pointer';
+                const goldDisplay = (a.gold && a.gold !== '-') ? a.gold : (a.palladium || '-');
                 tr.innerHTML = `
                     <td><strong>${{a.date}}</strong> ${{a.is_latest ? '<span style="font-size:10px; background:#059669; color:white; padding:1px 5px; border-radius:3px; margin-left:3px;">최신</span>' : ''}}</td>
                     <td style="color:#60a5fa; font-weight:600;">${{a.steel}}</td>
                     <td style="color:#60a5fa; font-weight:600;">${{a.copper}}</td>
-                    <td style="color:#fbbf24; font-weight:600;">${{a.palladium}}</td>
+                    <td style="color:#fbbf24; font-weight:600;">${{goldDisplay}}</td>
                     <td>
                         <a href="${{a.report_url}}" target="_blank" class="btn-sm btn-outline" style="padding:2px 6px; font-size:11.5px;">열람 ↗</a>
                         <a href="${{a.csv_url}}" download class="btn-sm btn-sub" style="padding:2px 6px; font-size:11.5px;">CSV</a>
@@ -1989,7 +2068,9 @@ def build_website_index() -> str:
             document.getElementById('prev-badge').innerText = found.is_latest ? '오늘자 최신' : '과거 아카이브';
             document.getElementById('prev-steel').innerText = found.steel;
             document.getElementById('prev-copper').innerText = found.copper;
-            document.getElementById('prev-pd').innerText = found.palladium;
+            const goldDisplay = (found.gold && found.gold !== '-') ? found.gold : (found.palladium || '-');
+            const goldElem = document.getElementById('prev-gold') || document.getElementById('prev-pd');
+            if (goldElem) goldElem.innerText = goldDisplay;
             document.getElementById('prev-report-btn').href = found.report_url;
             document.getElementById('prev-csv-btn').href = found.csv_url;
 
@@ -2132,12 +2213,12 @@ def sync_portal_index(latest_date: str, archived_dates: List[str]):
             d0 = archived_dates[0][5:]
             d1 = archived_dates[1][5:]
             content = re.sub(
-                r'(<span class="card-update-date"[^>]*>)\d{2}-\d{2}(</span>\s*<span class="card-update-title"[^>]*>7대 금속 일일 시세 & 스크랩 추정가</span>)',
+                r'(<span class="card-update-date"[^>]*>)\d{2}-\d{2}(</span>\s*<span class="card-update-title"[^>]*>[79]대 금속 일일 시세 & 스크랩 추정가</span>)',
                 rf'\g<1>{d0}\g<2>',
                 content
             )
             content = re.sub(
-                r'(<span class="card-update-date"[^>]*>)\d{2}-\d{2}(</span>\s*<span class="card-update-title"[^>]*>7대 금속 일일 시황 & 조달청 고시가</span>)',
+                r'(<span class="card-update-date"[^>]*>)\d{2}-\d{2}(</span>\s*<span class="card-update-title"[^>]*>[79]대 금속 일일 시황 & 조달청 고시가</span>)',
                 rf'\g<1>{d1}\g<2>',
                 content
             )
