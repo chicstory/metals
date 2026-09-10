@@ -522,39 +522,352 @@ def build_website_index() -> str:
             width: 100%;
         }}
 
-        /* Header */
-        header {{
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            border-bottom: 1px solid var(--border);
-            padding: 24px 0 20px 0;
-            margin-bottom: 28px;
+        /* TPL Global Unified Navigation Bar & Drawer */
+        :root {{
+            --tpl-bg-nav: rgba(8, 12, 22, 0.94);
+            --tpl-bg-drawer: rgba(11, 15, 25, 0.98);
+            --tpl-border: rgba(255, 255, 255, 0.08);
+            --tpl-border-glow: rgba(0, 242, 254, 0.35);
+            --tpl-cyan: #00f2fe;
+            --tpl-blue: #38bdf8;
+            --tpl-gold: #ffb800;
+            --tpl-red: #f43f5e;
+            --tpl-text-main: #f8fafc;
+            --tpl-text-sub: #94a3b8;
+            --tpl-text-dim: #64748b;
         }}
-        .header-inner {{
+
+        .tpl-nav-bar {{
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: var(--tpl-bg-nav);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--tpl-border);
+            padding: 0.65rem 1.25rem;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }}
+        .tpl-nav-inner {{
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 14px;
+            gap: 1rem;
         }}
-        .brand-title {{
-            font-size: clamp(20px, 4vw, 26px);
+        .tpl-nav-brand {{
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #ffffff;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #60a5fa, #34d399);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
+            font-size: 1.18rem;
+            letter-spacing: -0.4px;
+            flex-shrink: 0;
         }}
-        .brand-sub {{
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-top: 3px;
+        .tpl-nav-brand i {{
+            color: var(--tpl-gold);
+            font-size: 1.3rem;
+            filter: drop-shadow(0 0 6px rgba(255, 184, 0, 0.5));
         }}
-        .header-meta {{
+        .tpl-brand-badge {{
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--tpl-gold);
+            background: rgba(255, 184, 0, 0.12);
+            border: 1px solid rgba(255, 184, 0, 0.25);
+            padding: 2px 7px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }}
+        .tpl-nav-links {{
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }}
+        .tpl-nav-link {{
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--tpl-text-sub);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }}
+        .tpl-nav-link i {{
+            font-size: 0.95rem;
+            color: var(--tpl-blue);
+        }}
+        .tpl-nav-link:hover {{
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.07);
+            text-decoration: none;
+        }}
+        .tpl-nav-link.active {{
+            color: #ffca28;
+            background: rgba(255, 184, 0, 0.15);
+            border: 1px solid rgba(255, 184, 0, 0.35);
+        }}
+        .tpl-nav-link.active i {{
+            color: #ffca28;
+        }}
+        .tpl-nav-actions {{
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
+            flex-shrink: 0;
+        }}
+        .tpl-lang-wrap {{
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--tpl-border);
+            padding: 3px 6px;
+            border-radius: 8px;
+        }}
+        .tpl-lang-btn {{
+            background: transparent;
+            border: none;
+            color: var(--tpl-text-sub);
+            cursor: pointer;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 3px 5px;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }}
+        .tpl-lang-btn:hover {{
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }}
+        .tpl-lang-sep {{
+            color: #334155;
+            font-size: 0.7rem;
+        }}
+        .tpl-hamburger-btn {{
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--tpl-border);
+            color: var(--tpl-text-main);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            transition: all 0.2s ease;
+        }}
+        .tpl-hamburger-btn:hover {{
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            transform: scale(1.05);
+        }}
+
+        /* Off-Canvas Drawer */
+        .tpl-drawer-overlay {{
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 10001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }}
+        .tpl-drawer-overlay.open {{ opacity: 1; visibility: visible; }}
+
+        .tpl-drawer {{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 340px;
+            max-width: 88vw;
+            background: var(--tpl-bg-drawer);
+            border-left: 1px solid var(--tpl-border);
+            z-index: 10002;
+            transform: translateX(100%);
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }}
+        .tpl-drawer.open {{ transform: translateX(0); }}
+
+        .tpl-drawer-header {{
+            padding: 1.2rem 1.4rem;
+            border-bottom: 1px solid var(--tpl-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 12, 22, 0.95);
+        }}
+        .tpl-drawer-brand {{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }}
+        .tpl-drawer-brand i {{ color: var(--tpl-gold); font-size: 1.3rem; }}
+        .tpl-drawer-title {{ font-size: 1.02rem; font-weight: 800; color: #f8fafc; }}
+        .tpl-drawer-sub {{ font-size: 0.72rem; color: var(--tpl-text-dim); }}
+
+        .tpl-drawer-close {{
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--tpl-border);
+            color: var(--tpl-text-sub);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }}
+        .tpl-drawer-close:hover {{
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }}
+
+        .tpl-drawer-body {{
+            padding: 1.2rem;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }}
+        .tpl-drawer-group-title {{
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--tpl-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }}
+        .tpl-drawer-item {{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--tpl-border);
+            transition: all 0.2s;
+            margin-bottom: 6px;
+        }}
+        .tpl-drawer-item:hover {{
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 184, 0, 0.35);
+            transform: translateX(3px);
+            text-decoration: none;
+        }}
+        .tpl-drawer-icon {{
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }}
+        .icon-portal {{ background: rgba(0, 242, 254, 0.15); color: var(--tpl-cyan); }}
+        .icon-metals {{ background: rgba(255, 184, 0, 0.15); color: var(--tpl-gold); }}
+        .icon-engines {{ background: rgba(56, 189, 248, 0.15); color: var(--tpl-blue); }}
+        .icon-autoissue {{ background: rgba(244, 63, 94, 0.15); color: var(--tpl-red); }}
+
+        .tpl-drawer-item-title {{ font-size: 0.92rem; font-weight: 700; color: #f1f5f9; margin-bottom: 2px; }}
+        .tpl-drawer-item-desc {{ font-size: 0.75rem; color: var(--tpl-text-dim); line-height: 1.35; }}
+
+        .tpl-drawer-chips {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+        .tpl-chip-link {{
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--tpl-text-sub);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--tpl-border);
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }}
+        .tpl-chip-link:hover {{
+            color: #fff;
+            background: rgba(0, 242, 254, 0.15);
+            border-color: var(--tpl-border-glow);
+            text-decoration: none;
+        }}
+
+        .tpl-drawer-langs {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }}
+        .tpl-drawer-lang-btn {{
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--tpl-border);
+            color: var(--tpl-text-sub);
+            padding: 7px 10px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s;
+        }}
+        .tpl-drawer-lang-btn:hover {{ color: #fff; background: rgba(255, 255, 255, 0.1); }}
+
+        .tpl-drawer-sublinks {{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }}
+        .tpl-drawer-sublinks a {{
+            color: var(--tpl-text-sub);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            transition: color 0.15s;
+        }}
+        .tpl-drawer-sublinks a:hover {{
+            color: var(--tpl-cyan);
+            text-decoration: none;
+        }}
+
+        .tpl-drawer-footer {{
+            padding: 1rem 1.4rem;
+            border-top: 1px solid var(--tpl-border);
+            font-size: 0.78rem;
+            color: var(--tpl-text-dim);
+            background: rgba(8, 12, 22, 0.95);
+            text-align: center;
+        }}
+
+        @media (max-width: 920px) {{
+            .tpl-nav-links {{ display: none; }}
+        }}
+        @media (max-width: 480px) {{
+            .tpl-lang-wrap {{ display: none; }}
         }}
         .meta-tag {{
             background: var(--surface);
@@ -1607,27 +1920,152 @@ def build_website_index() -> str:
 </head>
 <body>
 
-    <!-- Header (GitHub link removed, replaced with official Blog link) -->
-    <header>
-        <div class="container header-inner">
-            <div>
-                <a href="./" class="brand-title">THEPATHLAB METALS & SCRAP HUB</a>
-                <div class="brand-sub">9대 금속·원자재 실시간 환산 시세 및 스크랩 매입 단가 데이터 허브</div>
-            </div>
-            <div class="header-meta">
-                <div class="meta-tag">기준 일시: <strong>{data['date_str']}</strong></div>
-                <div class="meta-tag">적용 환율: <strong style="color: #38bdf8;">1 USD = {data['usd_rate']:,.1f}원</strong></div>
-                <a href="https://chicstory.github.io/" class="btn-sm btn-outline" style="border-color:#38bdf8; color:#38bdf8;"><i class="bi-house"></i> 포털 홈</a>
-                <a href="https://chicstory.github.io/engines/" class="btn-sm btn-outline"><i class="bi-cpu"></i> 엔진 백과</a>
-            </div>
+    <!-- ThePathLab Global Unified Navigation Bar -->
+    <nav class="tpl-nav-bar" id="tplNavBar">
+      <div class="tpl-nav-inner">
+        <a href="https://chicstory.github.io/" class="tpl-nav-brand">
+          <i class="bi-bounding-box-circles"></i>
+          <span>ThePathLab</span>
+          <span class="tpl-brand-badge" id="tplNavBadge">METALS</span>
+        </a>
+
+        <div class="tpl-nav-links">
+          <a href="https://chicstory.github.io/" class="tpl-nav-link"><i class="bi-house-door"></i> 포털 홈</a>
+          <a href="https://chicstory.github.io/autoissue/" class="tpl-nav-link"><i class="bi-bell-fill"></i> 자동차 데일리 이슈</a>
+          <a href="https://chicstory.github.io/metals/" class="tpl-nav-link active"><i class="bi-graph-up-arrow"></i> 금속 원자재·스크랩</a>
+          <a href="https://chicstory.github.io/engines/hyundai_kia_engine_table.html" class="tpl-nav-link"><i class="bi-table"></i> 제조사별 스펙표</a>
+          <a href="https://chicstory.github.io/engines/" class="tpl-nav-link"><i class="bi-cpu"></i> 엔진 전수 백과</a>
+          <a href="https://chicstory.github.io/guide.html" class="tpl-nav-link"><i class="bi-compass"></i> 이용 가이드</a>
         </div>
-    </header>
+
+        <div class="tpl-nav-actions">
+          <div class="tpl-lang-wrap">
+            <button type="button" class="tpl-lang-btn" onclick="tplChangeLang('ko')">KO</button>
+            <span class="tpl-lang-sep">|</span>
+            <button type="button" class="tpl-lang-btn" onclick="tplChangeLang('en')">EN</button>
+            <span class="tpl-lang-sep">|</span>
+            <button type="button" class="tpl-lang-btn" onclick="tplChangeLang('ru')">RU</button>
+            <span class="tpl-lang-sep">|</span>
+            <button type="button" class="tpl-lang-btn" onclick="tplChangeLang('es')">ES</button>
+          </div>
+          <button type="button" class="tpl-hamburger-btn" id="tplHamburgerBtn" aria-label="전체 메뉴 열기">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Backdrop Overlay -->
+    <div class="tpl-drawer-overlay" id="tplDrawerOverlay"></div>
+
+    <!-- Off-Canvas Drawer (Slide from Right) -->
+    <aside class="tpl-drawer" id="tplDrawer" aria-hidden="true">
+      <div class="tpl-drawer-header">
+        <div class="tpl-drawer-brand">
+          <i class="bi-bounding-box-circles"></i>
+          <div>
+            <div class="tpl-drawer-title">ThePathLab Network</div>
+            <div class="tpl-drawer-sub">산업 원자재 & 모빌리티 테크 인텔리전스</div>
+          </div>
+        </div>
+        <button type="button" class="tpl-drawer-close" id="tplDrawerClose" aria-label="메뉴 닫기">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="tpl-drawer-body">
+        <!-- Section 1: Core Hubs -->
+        <div class="tpl-drawer-group">
+          <div class="tpl-drawer-group-title"><i class="bi-stars"></i> 핵심 서비스 포털</div>
+          <a href="https://chicstory.github.io/" class="tpl-drawer-item">
+            <div class="tpl-drawer-icon icon-portal"><i class="bi-house-door"></i></div>
+            <div class="tpl-drawer-item-text">
+              <div class="tpl-drawer-item-title">ThePathLab 포털 메인</div>
+              <div class="tpl-drawer-item-desc">통합 인텔리전스 허브 대시보드</div>
+            </div>
+          </a>
+          <a href="https://chicstory.github.io/autoissue/" class="tpl-drawer-item">
+            <div class="tpl-drawer-icon" style="background: rgba(244, 63, 94, 0.15); color: #fb7185;"><i class="bi-bell-fill"></i></div>
+            <div class="tpl-drawer-item-text">
+              <div class="tpl-drawer-item-title">자동차 데일리 이슈 허브</div>
+              <div class="tpl-drawer-item-desc">10대 제조사 결함·리콜 & 미국 NHTSA 선제 공고</div>
+            </div>
+          </a>
+          <a href="https://chicstory.github.io/metals/" class="tpl-drawer-item" style="border-color: rgba(255, 184, 0, 0.4); background: rgba(255, 184, 0, 0.08);">
+            <div class="tpl-drawer-icon icon-metals"><i class="bi-graph-up-arrow"></i></div>
+            <div class="tpl-drawer-item-text">
+              <div class="tpl-drawer-item-title" style="color: #ffb800;">9대 금속 원자재 & 스크랩 허브 (현재)</div>
+              <div class="tpl-drawer-item-desc">일일 시세 분석 · 1초 즉시 계산기 · 캘린더 아카이브</div>
+            </div>
+          </a>
+          <a href="https://chicstory.github.io/engines/hyundai_kia_engine_table.html" class="tpl-drawer-item">
+            <div class="tpl-drawer-icon" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;"><i class="bi-table"></i></div>
+            <div class="tpl-drawer-item-text">
+              <div class="tpl-drawer-item-title">제조사별 전수 스펙표</div>
+              <div class="tpl-drawer-item-desc">6대 제조사 244종 엔진 스펙 전수 비교표</div>
+            </div>
+          </a>
+          <a href="https://chicstory.github.io/engines/" class="tpl-drawer-item">
+            <div class="tpl-drawer-icon icon-engines"><i class="bi-cpu"></i></div>
+            <div class="tpl-drawer-item-text">
+              <div class="tpl-drawer-item-title">자동차 엔진 전수 백과사전</div>
+              <div class="tpl-drawer-item-desc">260개 파워트레인 실측 제원 & 다이노 그래프</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Section 2: Manufacturer Tables Quick Jump -->
+        <div class="tpl-drawer-group">
+          <div class="tpl-drawer-group-title"><i class="bi-table"></i> 제조사별 전수 스펙 종합비교표</div>
+          <div class="tpl-drawer-chips">
+            <a href="https://chicstory.github.io/engines/hyundai_kia_engine_table.html" class="tpl-chip-link">현대·기아 (87종)</a>
+            <a href="https://chicstory.github.io/engines/bmw_engine_table.html" class="tpl-chip-link">BMW (45종)</a>
+            <a href="https://chicstory.github.io/engines/mercedes_benz_engine_table.html" class="tpl-chip-link">메르세데스-벤츠 (40종)</a>
+            <a href="https://chicstory.github.io/engines/audi_engine_table.html" class="tpl-chip-link">아우디 (32종)</a>
+            <a href="https://chicstory.github.io/engines/volkswagen_engine_table.html" class="tpl-chip-link">폭스바겐 (20종)</a>
+            <a href="https://chicstory.github.io/engines/kgm_ssangyong_engine_table.html" class="tpl-chip-link">KGM·쌍용 (20종)</a>
+          </div>
+        </div>
+
+        <!-- Section 3: Multi-Language Switcher -->
+        <div class="tpl-drawer-group">
+          <div class="tpl-drawer-group-title"><i class="bi-globe"></i> 언어 선택 (Language)</div>
+          <div class="tpl-drawer-langs">
+            <button type="button" class="tpl-drawer-lang-btn" onclick="tplChangeLang('ko')">🇰🇷 한국어</button>
+            <button type="button" class="tpl-drawer-lang-btn" onclick="tplChangeLang('en')">🇺🇸 English</button>
+            <button type="button" class="tpl-drawer-lang-btn" onclick="tplChangeLang('ru')">🇷🇺 Русский</button>
+            <button type="button" class="tpl-drawer-lang-btn" onclick="tplChangeLang('es')">🇪🇸 Español</button>
+          </div>
+        </div>
+
+        <!-- Section 4: Site Info & Links -->
+        <div class="tpl-drawer-group">
+          <div class="tpl-drawer-group-title"><i class="bi-info-circle"></i> 서비스 정보 & 채널</div>
+          <div class="tpl-drawer-sublinks">
+            <a href="https://chicstory.github.io/guide.html"><i class="bi-compass"></i> 이용 가이드 & 사이트맵</a>
+            <a href="https://chicstory.github.io/about.html"><i class="bi-shield-check"></i> 소개 (About)</a>
+            <a href="https://chicstory.github.io/privacy.html"><i class="bi-lock"></i> 개인정보처리방침</a>
+            <a href="https://chicstory.github.io/contact.html"><i class="bi-envelope"></i> 문의하기</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-drawer-footer">
+        <div>ThePathLab Data Intelligence Network</div>
+        <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">© 2026 ThePathLab. All Rights Reserved.</div>
+      </div>
+    </aside>
 
     <main class="container">
 
         <!-- Hero Banner -->
         <section class="hero-banner">
             <div class="hero-left">
+                <div class="hero-meta-bar" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+                    <span class="meta-tag"><i class="bi-calendar3"></i> 기준 일시: <strong>{data['date_str']}</strong></span>
+                    <span class="meta-tag"><i class="bi-currency-exchange"></i> 적용 환율: <strong style="color: #38bdf8;">1 USD = {data['usd_rate']:,.1f}원</strong></span>
+                    <span class="meta-tag" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;"><i class="bi-shield-check"></i> LME · 조달청 공식 검증</span>
+                </div>
                 <h1>📊 오늘의 9대 금속원자재 & 스크랩 실시간 시황</h1>
                 <p>국제 시장 종가(Trading Economics) 및 조달청 공식 판매가격표를 바탕으로, 비철·철스크랩·귀금속(금·은)·PGM(폐촉매)의 원화 환산 단가와 실무 스크랩 매입 추정 시세(70~80%)를 매일 아침 자동 산출합니다.</p>
             </div>
@@ -2144,7 +2582,100 @@ def build_website_index() -> str:
                 document.body.style.overflow = '';
             }}
         }}
+
+        /* Off-Canvas Drawer Toggle & Language Scripts */
+        (function() {{
+            var btn = document.getElementById('tplHamburgerBtn');
+            var drawer = document.getElementById('tplDrawer');
+            var overlay = document.getElementById('tplDrawerOverlay');
+            var closeBtn = document.getElementById('tplDrawerClose');
+
+            function openDrawer() {{
+                if (drawer && overlay) {{
+                    drawer.classList.add('open');
+                    overlay.classList.add('open');
+                    drawer.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                }}
+            }}
+
+            function closeDrawer() {{
+                if (drawer && overlay) {{
+                    drawer.classList.remove('open');
+                    overlay.classList.remove('open');
+                    drawer.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                }}
+            }}
+
+            if (btn) btn.addEventListener('click', openDrawer);
+            if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+            if (overlay) overlay.addEventListener('click', closeDrawer);
+
+            var links = drawer ? drawer.querySelectorAll('a') : [];
+            for (var i = 0; i < links.length; i++) {{
+                links[i].addEventListener('click', closeDrawer);
+            }}
+
+            document.addEventListener('keydown', function(e) {{
+                if (e.key === 'Escape') closeDrawer();
+            }});
+        }})();
+
+        // Google Translate & tplChangeLang
+        function googleTranslateElementInit() {{
+            new google.translate.TranslateElement({{
+                pageLanguage: 'ko',
+                includedLanguages: 'ko,en,ru,es,ja,zh-CN,de,fr',
+                autoDisplay: false
+            }}, 'google_translate_element');
+        }}
+
+        function tplChangeLang(lang) {{
+            document.cookie = 'googtrans=/ko/' + lang + '; path=/; SameSite=Lax; Secure';
+            document.cookie = 'googtrans=/ko/' + lang + '; path=/; domain=' + location.hostname + '; SameSite=Lax; Secure';
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {{
+                select.value = lang;
+                select.dispatchEvent(new Event('change'));
+                return;
+            }}
+            loadGoogleTranslate(function() {{
+                var attempts = 0;
+                var checkInterval = setInterval(function() {{
+                    attempts++;
+                    var sel = document.querySelector('.goog-te-combo');
+                    if (sel) {{
+                        clearInterval(checkInterval);
+                        sel.value = lang;
+                        sel.dispatchEvent(new Event('change'));
+                    }} else if (attempts > 15) {{
+                        clearInterval(checkInterval);
+                        location.reload();
+                    }}
+                }}, 100);
+            }});
+        }}
+        window.changeLanguage = tplChangeLang;
+        window.tplChangeLang = tplChangeLang;
+
+        function loadGoogleTranslate(cb) {{
+            if (window.gtLoaded) {{ if (cb && typeof cb === 'function') cb(); return; }}
+            window.gtLoaded = true;
+            var s = document.createElement('script');
+            s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            if (cb && typeof cb === 'function') s.onload = cb;
+            document.body.appendChild(s);
+        }}
+        ['scroll', 'mousemove', 'touchstart'].forEach(function(ev) {{
+            window.addEventListener(ev, function() {{ loadGoogleTranslate(); }}, {{once: true, passive: true}});
+        }});
+        if (document.cookie.indexOf('googtrans') !== -1 && document.cookie.indexOf('googtrans=/ko/ko') === -1) {{
+            loadGoogleTranslate();
+        }}
     </script>
+    <!-- Google Translate Container (Hidden) -->
+    <div id="google_translate_element" style="display:none;"></div>
 </body>
 </html>
 """
