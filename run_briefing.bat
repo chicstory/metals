@@ -4,7 +4,7 @@ cd /d "%~dp0"
 chcp 65001 > nul
 
 echo =======================================================
-echo   [ThePathLab] 7대 금속원자재 일일 통합 브리핑 실행
+echo   [ThePathLab] 9대 금속원자재 일일 통합 브리핑 실행
 echo =======================================================
 python -u "%~dp0metal_news_briefing.py" %*
 
@@ -18,15 +18,29 @@ set /p "AUTO_PUSH=GitHub 웹사이트에 지금 바로 배포하시겠습니까?
 if /i "%AUTO_PUSH%"=="n" goto SKIP_PUSH
 
 echo.
-echo [안내] GitHub 웹사이트로 배포 진행 중...
-git add index.html resources/
+echo [안내] metals GitHub 웹사이트로 배포 진행 중...
+git add index.html latest.json sitemap.xml resources/
 git commit -m "Auto update daily briefing" > nul 2>&1
 git push origin main
 echo.
 echo =======================================================
-echo   [배포 완료] 전 세계 배포 완료!
-echo   공식 사이트: https://chicstory.github.io/metals/
+echo   [metals 배포 완료] https://chicstory.github.io/metals/
 echo =======================================================
+
+:: 메인 포털(chicstory.github.io) 자동 동기화 및 배포
+set "PORTAL_DIR=%~dp0..\chicstory.github.io"
+if exist "%PORTAL_DIR%\index.html" (
+    echo.
+    echo [안내] 메인 포털(chicstory.github.io) 배포 진행 중...
+    pushd "%PORTAL_DIR%"
+    git add index.html
+    git commit -m "Auto sync portal daily metal briefing: %date%" > nul 2>&1
+    git push origin main
+    popd
+    echo =======================================================
+    echo   [포털 배포 완료] https://chicstory.github.io/
+    echo =======================================================
+)
 goto END
 
 :SKIP_PUSH
