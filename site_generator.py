@@ -2471,7 +2471,7 @@ def build_website_index() -> str:
             filtered.forEach(a => {{
                 const tr = document.createElement('tr');
                 tr.style.cursor = 'pointer';
-                const goldDisplay = (a.gold && a.gold !== '-') ? a.gold : (a.palladium || '-');
+                const goldDisplay = (a.gold && a.gold !== '-') ? a.gold : '-';
                 tr.innerHTML = `
                     <td><strong>${{a.date}}</strong> ${{a.is_latest ? '<span style="font-size:10px; background:#059669; color:white; padding:1px 5px; border-radius:3px; margin-left:3px;">최신</span>' : ''}}</td>
                     <td style="color:#60a5fa; font-weight:600;">${{a.steel}}</td>
@@ -2506,8 +2506,8 @@ def build_website_index() -> str:
             document.getElementById('prev-badge').innerText = found.is_latest ? '오늘자 최신' : '과거 아카이브';
             document.getElementById('prev-steel').innerText = found.steel;
             document.getElementById('prev-copper').innerText = found.copper;
-            const goldDisplay = (found.gold && found.gold !== '-') ? found.gold : (found.palladium || '-');
-            const goldElem = document.getElementById('prev-gold') || document.getElementById('prev-pd');
+            const goldDisplay = (found.gold && found.gold !== '-') ? found.gold : '-';
+            const goldElem = document.getElementById('prev-gold');
             if (goldElem) goldElem.innerText = goldDisplay;
             document.getElementById('prev-report-btn').href = found.report_url;
             document.getElementById('prev-csv-btn').href = found.csv_url;
