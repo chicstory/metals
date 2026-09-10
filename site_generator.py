@@ -2074,8 +2074,88 @@ def build_website_index() -> str:
     print(f"    -> [웹사이트 완료] 메인 대시보드 생성: index.html ({len(index_html):,} bytes)", flush=True)
 
     generate_sitemap(archived_dates)
+
+    # 8. latest.json 생성 (메인 포털 및 외부 클라이언트 실시간 연동용)
+    try:
+        latest_json_data = {
+            "latest_date": latest_date,
+            "formatted_date": f"{latest_date} 발행",
+            "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M KST"),
+            "usd_rate": data.get("usd_rate", 1338.7),
+            "rate_source": data.get("rate_source", "네이버 금융"),
+            "recent_dates": archived_dates[:5],
+            "metals": [
+                {
+                    "name": m["name_kr"],
+                    "key": m["key"],
+                    "krw_price": m["krw_price"],
+                    "unit": m["unit_krw"],
+                    "diff_krw": m["diff_krw"],
+                    "diff_pct": round(m["diff_pct"], 2) if m.get("diff_pct") is not None else None,
+                    "scrap_70": m["scrap_70"],
+                    "scrap_80": m["scrap_80"]
+                }
+                for m in data.get("metals", [])
+            ]
+        }
+        latest_json_path = os.path.join(BASE_DIR, "latest.json")
+        with open(latest_json_path, "w", encoding="utf-8") as f:
+            json.dump(latest_json_data, f, ensure_ascii=False, indent=2)
+        print(f"    -> [API 생성 완료] 메인 포털 실시간 연동용 latest.json 생성", flush=True)
+    except Exception as e:
+        print(f"    -> [경고] latest.json 생성 실패: {e}", flush=True)
+
+    # 9. 메인 포털(chicstory.github.io) 정적 HTML 동기화
+    sync_portal_index(latest_date, archived_dates)
+
     return index_path
+
+
+def sync_portal_index(latest_date: str, archived_dates: List[str]):
+    portal_dir = os.path.abspath(os.path.join(BASE_DIR, "..", "chicstory.github.io"))
+    portal_index = os.path.join(portal_dir, "index.html")
+    if not os.path.exists(portal_index):
+        return
+    try:
+        with open(portal_index, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # 1. Update live status badge
+        content = re.sub(
+            r'<span class="live-status-badge gold"[^>]*><span class="pulse-dot gold"></span>\d{4}-\d{2}-\d{2} 발행</span>',
+            f'<span class="live-status-badge gold" id="metalsLiveBadge"><span class="pulse-dot gold"></span>{latest_date} 발행</span>',
+            content
+        )
+
+        # 2. Update card update items
+        if len(archived_dates) >= 2:
+            d0 = archived_dates[0][5:]
+            d1 = archived_dates[1][5:]
+            content = re.sub(
+                r'(<span class="card-update-date"[^>]*>)\d{2}-\d{2}(</span>\s*<span class="card-update-title"[^>]*>7대 금속 일일 시세 & 스크랩 추정가</span>)',
+                rf'\g<1>{d0}\g<2>',
+                content
+            )
+            content = re.sub(
+                r'(<span class="card-update-date"[^>]*>)\d{2}-\d{2}(</span>\s*<span class="card-update-title"[^>]*>7대 금속 일일 시황 & 조달청 고시가</span>)',
+                rf'\g<1>{d1}\g<2>',
+                content
+            )
+
+        # 3. Update timeline activity date
+        content = re.sub(
+            r'(<span class="activity-date"[^>]*>)\d{4}-\d{2}-\d{2}(</span>\s*<span class="activity-cat cat-metals">금속원자재</span>)',
+            rf'\g<1>{latest_date}\g<2>',
+            content
+        )
+
+        with open(portal_index, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"    -> [포털 연동 완료] chicstory.github.io/index.html 정적 태그 동기화 ({latest_date})", flush=True)
+    except Exception as e:
+        print(f"    -> [경고] 포털 index.html 동기화 실패: {e}", flush=True)
 
 
 if __name__ == "__main__":
     build_website_index()
+

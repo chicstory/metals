@@ -32,7 +32,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 :: 3. GitHub 웹사이트로 자동 배포 (Push)
 echo [%date% %time%] 브리핑 생성 완료. GitHub 배포 진행 중... >> "%LOG_FILE%"
-git add index.html resources/ >> "%LOG_FILE%" 2>&1
+git add index.html latest.json sitemap.xml resources/ >> "%LOG_FILE%" 2>&1
 git commit -m "Auto daily metal briefing: %date%" >> "%LOG_FILE%" 2>&1
 git push origin main >> "%LOG_FILE%" 2>&1
 
@@ -42,6 +42,18 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo [%date% %time%] [배포 완료] 전 세계 배포 완료! (https://chicstory.github.io/metals/) >> "%LOG_FILE%"
+
+:: 3-1. 메인 포털(chicstory.github.io) 자동 동기화 및 배포
+set "PORTAL_DIR=%~dp0..\chicstory.github.io"
+if exist "%PORTAL_DIR%\index.html" (
+    echo [%date% %time%] 메인 포털(chicstory.github.io) 자동 배포 진행 중... >> "%LOG_FILE%"
+    pushd "%PORTAL_DIR%"
+    git add index.html >> "%LOG_FILE%" 2>&1
+    git commit -m "Auto sync portal daily metal briefing: %date%" >> "%LOG_FILE%" 2>&1
+    git push origin main >> "%LOG_FILE%" 2>&1
+    popd
+    echo [%date% %time%] [포털 배포 완료] 메인 포털 동기화 완료! (https://chicstory.github.io/) >> "%LOG_FILE%"
+)
 
 :: 4. 30분(1800초) 뒤 PC 종료 예약
 :: (취소하고 싶을 때는 명령 프롬프트나 실행창(Win+R)에서 shutdown /a 입력)
