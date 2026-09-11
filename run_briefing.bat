@@ -19,7 +19,7 @@ if /i "%AUTO_PUSH%"=="n" goto SKIP_PUSH
 
 echo.
 echo [안내] metals GitHub 웹사이트로 배포 진행 중...
-git add index.html latest.json sitemap.xml resources/
+git add index.html latest.json sitemap.xml rss.xml robots.txt resources/
 git commit -m "Auto update daily briefing" > nul 2>&1
 git push origin main
 echo.
@@ -33,13 +33,31 @@ if exist "%PORTAL_DIR%\index.html" (
     echo.
     echo [안내] 메인 포털(chicstory.github.io) 배포 진행 중...
     pushd "%PORTAL_DIR%"
-    git add index.html
-    git commit -m "Auto sync portal daily metal briefing: %date%" > nul 2>&1
+    git add index.html sitemap.xml rss.xml robots.txt
+    git commit -m "Auto sync portal daily metal briefing & SEO: %date%" > nul 2>&1
     git push origin main
     popd
     echo =======================================================
     echo   [포털 배포 완료] https://chicstory.github.io/
     echo =======================================================
+)
+
+:: 자동차 이슈(autoissue) SEO 피드 자동 배포 (피드 변경 시)
+set "AUTOISSUE_DIR=%~dp0..\autoissue"
+if exist "%AUTOISSUE_DIR%\index.html" (
+    pushd "%AUTOISSUE_DIR%"
+    git status --porcelain | findstr /R "sitemap.xml rss.xml robots.txt" > nul 2>&1
+    if %ERRORLEVEL% EQU 0 (
+        echo.
+        echo [안내] autoissue SEO 피드 배포 진행 중...
+        git add sitemap.xml rss.xml robots.txt
+        git commit -m "Auto sync autoissue SEO feeds: %date%" > nul 2>&1
+        git push origin main
+        echo =======================================================
+        echo   [autoissue 배포 완료] https://chicstory.github.io/autoissue/
+        echo =======================================================
+    )
+    popd
 )
 goto END
 

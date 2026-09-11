@@ -450,6 +450,7 @@ def build_website_index() -> str:
     <meta name="keywords" content="고철시세, 철스크랩가격, 구리kg가격, 알루미늄시세, 납시세, 금시세, 은시세, 백금시세, 팔라듐시세, 로듐가격, 폐촉매가격, 폐배터리시세, 조달청원자재판매가격, 더패스랩, ThePathLab">
     <meta name="author" content="ThePathLab">
     <link rel="canonical" href="{SITE_URL}/">
+    <link rel="alternate" type="application/rss+xml" title="ThePathLab 9대 금속원자재 시황 RSS" href="{SITE_URL}/rss.xml">
 
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
@@ -2685,7 +2686,13 @@ def build_website_index() -> str:
         f.write(index_html)
     print(f"    -> [웹사이트 완료] 메인 대시보드 생성: index.html ({len(index_html):,} bytes)", flush=True)
 
-    generate_sitemap(archived_dates)
+    # 7. 전체 네트워크(포털, metals, autoissue, engines) Sitemap & RSS 일괄 갱신
+    try:
+        from generate_network_seo import run_unified_seo_sync
+        run_unified_seo_sync()
+    except Exception as e:
+        print(f"    -> [경고] 통합 SEO 동기화 실패 ({e}), 로컬 사이트맵으로 폴백", flush=True)
+        generate_sitemap(archived_dates)
 
     # 8. latest.json 생성 (메인 포털 및 외부 클라이언트 실시간 연동용)
     try:
