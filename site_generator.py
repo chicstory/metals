@@ -9,7 +9,7 @@ from typing import List, Dict, Any, Optional
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RESOURCES_DIR = os.path.join(BASE_DIR, "resources")
-SITE_URL = "https://chicstory.github.io/metals"
+SITE_URL = "https://thapathlab.com/metals"
 
 def get_archived_dates() -> List[str]:
     """resources/ 폴더 안의 YYYY-MM-DD 폴더 목록을 최신순으로 반환"""

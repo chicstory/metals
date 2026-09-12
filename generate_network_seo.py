@@ -84,7 +84,7 @@ def generate_metals_seo() -> List[Dict[str, Any]]:
 
     today_str = datetime.now(KST).strftime("%Y-%m-%d")
     latest_date = dates[0]
-    site_url = "https://chicstory.github.io/metals"
+    site_url = "https://thapathlab.com/metals"
 
     # 1-1. sitemap.xml 생성
     sitemap_lines = [
@@ -212,7 +212,7 @@ def generate_autoissue_seo() -> List[Dict[str, Any]]:
         return []
 
     today_str = datetime.now(KST).strftime("%Y-%m-%d")
-    site_url = "https://chicstory.github.io/autoissue"
+    site_url = "https://thapathlab.com/autoissue"
 
     # 2-1. sitemap.xml 생성
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -251,7 +251,8 @@ def generate_autoissue_seo() -> List[Dict[str, Any]]:
         brand_name = iss.get("brand_name", "")
         title = f"[{brand_name}] {iss.get('title', '')}"
         desc = iss.get("summary", "")
-        link = iss.get("source_url") or f"{site_url}/#{iss.get('id', '')}"
+        # 구글 서치콘솔 RSS 색인 규정: 타 도메인(외부 링크) 포함 시 색인 거부되므로 내부 앵커 링크로 정규화
+        link = f"{site_url}/#{iss.get('id', '')}"
         pub_date = get_rfc822_date(iss_date, hour=11, minute=0)
 
         rss_obj = {
@@ -294,7 +295,7 @@ def generate_portal_seo(metals_items: List[Dict[str, Any]], autoissue_items: Lis
         return
 
     today_str = datetime.now(KST).strftime("%Y-%m-%d")
-    portal_url = "https://chicstory.github.io"
+    portal_url = "https://thapathlab.com"
 
     # 3-1. 포털 sitemap.xml 생성
     portal_sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -393,10 +394,10 @@ def generate_portal_seo(metals_items: List[Dict[str, Any]], autoissue_items: Lis
 
 
 # ==============================================================================
-# 4. ENGINES SEO 날짜 동기화
+# 4. ENGINES SEO 도메인 및 날짜 동기화
 # ==============================================================================
 def update_engines_seo():
-    """engines sitemap.xml 메인 루트 URL의 lastmod를 오늘자로 갱신"""
+    """engines sitemap.xml 전체 URL 도메인을 thapathlab.com으로 치환하고 lastmod 갱신"""
     engines_sitemap = os.path.join(ENGINES_DIR, "sitemap.xml")
     if not os.path.exists(engines_sitemap):
         return
@@ -406,9 +407,12 @@ def update_engines_seo():
         with open(engines_sitemap, "r", encoding="utf-8") as f:
             content = f.read()
 
-        # 첫 번째 loc (엔진 메인) 아래 lastmod를 오늘자로 갱신
+        # 1) 전체 engines URL 도메인을 https://thapathlab.com으로 치환
+        content = content.replace("https://chicstory.github.io/engines/", "https://thapathlab.com/engines/")
+
+        # 2) 첫 번째 loc (엔진 메인) 아래 lastmod를 오늘자로 갱신
         content = re.sub(
-            r'(<loc>https://chicstory\.github\.io/engines/</loc>\s*<lastmod>)[^<]+(</lastmod>)',
+            r'(<loc>https://thapathlab\.com/engines/</loc>\s*<lastmod>)[^<]+(</lastmod>)',
             rf'\g<1>{today_str}\g<2>',
             content,
             count=1
@@ -416,7 +420,7 @@ def update_engines_seo():
 
         with open(engines_sitemap, "w", encoding="utf-8") as f:
             f.write(content)
-        print(f"    -> [engines SEO 완료] sitemap.xml lastmod 동기화 ({today_str})", flush=True)
+        print(f"    -> [engines SEO 완료] sitemap.xml 도메인 치환 및 lastmod 동기화 ({today_str})", flush=True)
     except Exception as e:
         print(f"    [경고] engines sitemap.xml 갱신 실패: {e}", flush=True)
 
@@ -430,13 +434,13 @@ def update_all_robots_txt():
     portal_robots = """User-agent: *
 Allow: /
 
-Sitemap: https://chicstory.github.io/sitemap.xml
-Sitemap: https://chicstory.github.io/rss.xml
-Sitemap: https://chicstory.github.io/metals/sitemap.xml
-Sitemap: https://chicstory.github.io/metals/rss.xml
-Sitemap: https://chicstory.github.io/autoissue/sitemap.xml
-Sitemap: https://chicstory.github.io/autoissue/rss.xml
-Sitemap: https://chicstory.github.io/engines/sitemap.xml
+Sitemap: https://thapathlab.com/sitemap.xml
+Sitemap: https://thapathlab.com/rss.xml
+Sitemap: https://thapathlab.com/metals/sitemap.xml
+Sitemap: https://thapathlab.com/metals/rss.xml
+Sitemap: https://thapathlab.com/autoissue/sitemap.xml
+Sitemap: https://thapathlab.com/autoissue/rss.xml
+Sitemap: https://thapathlab.com/engines/sitemap.xml
 """
     with open(os.path.join(PORTAL_DIR, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(portal_robots)
@@ -445,8 +449,8 @@ Sitemap: https://chicstory.github.io/engines/sitemap.xml
     metals_robots = """User-agent: *
 Allow: /
 
-Sitemap: https://chicstory.github.io/metals/sitemap.xml
-Sitemap: https://chicstory.github.io/metals/rss.xml
+Sitemap: https://thapathlab.com/metals/sitemap.xml
+Sitemap: https://thapathlab.com/metals/rss.xml
 """
     with open(os.path.join(METALS_DIR, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(metals_robots)
@@ -455,8 +459,8 @@ Sitemap: https://chicstory.github.io/metals/rss.xml
     auto_robots = """User-agent: *
 Allow: /
 
-Sitemap: https://chicstory.github.io/autoissue/sitemap.xml
-Sitemap: https://chicstory.github.io/autoissue/rss.xml
+Sitemap: https://thapathlab.com/autoissue/sitemap.xml
+Sitemap: https://thapathlab.com/autoissue/rss.xml
 """
     with open(os.path.join(AUTOISSUE_DIR, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(auto_robots)
