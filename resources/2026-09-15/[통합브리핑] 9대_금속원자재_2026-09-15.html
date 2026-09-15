@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9대 금속·원자재 일일 통합 브리핑 (2026-09-15)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 24px 16px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1020px;
+            width: 100%;
+        }
+        .btn-copy-main {
+            background: linear-gradient(135deg, #03c75a 0%, #02b04f 100%);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(3, 199, 90, 0.3);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .btn-copy-main:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(3, 199, 90, 0.4);
+        }
+        .btn-copy-main:active {
+            transform: translateY(0);
+        }
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 9999;
+            font-size: 14px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .memo-board {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #2563eb;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .memo-input {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+            padding: 9px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .memo-input:focus {
+            border-color: #2563eb;
+            background: #ffffff;
+        }
+        .memo-btn {
+            background: #2563eb;
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .memo-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        .memo-btn:active {
+            transform: translateY(0);
+        }
+        .memo-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 메인 헤더 -->
+        <header style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h1 style="margin: 0; font-size: 26px; color: #0f172a;">📊 9대 금속·원자재 일일 통합 브리핑</h1>
+                    <div style="margin-top: 6px; color: #64748b; font-size: 14px;">발행일시: <strong>2026-09-15 (2026-09-15 10:31:24)</strong> | 위치: <code>thepathlab/resources/2026-09-15/</code></div>
+                </div>
+                <div style="background: #f1f5f9; padding: 8px 14px; border-radius: 8px; font-size: 13px; color: #334155; text-align: right;">
+                    <div>기준 환율: <strong style="color: #0284c7;">1 USD = 1,348.8원</strong></div>
+                    <div style="font-size: 11px; color: #64748b;">출처: 네이버 금융 (하나은행 고시환율)</div>
+                </div>
+            </div>
+            <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid #f1f5f9; font-size: 13.5px; color: #475569; display: flex; justify-content: space-between; align-items: center;">
+                <span>💡 블로그 글 작성 시 아래 표나 각 자원별 분석 텍스트를 복사하여 활용하세요.</span>
+                <a href="./9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-15.csv" download style="color: #0284c7; text-decoration: none; font-weight: 500;">📥 원본 시세 CSV 다운로드</a>
+            </div>
+        </header>
+
+        <!-- 조달청 가격표 섹션 -->
+        
+        <section style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <h2 style="margin: 0; font-size: 18px; color: #1e293b;">🏛️ 오늘자 조달청(PPS) 원자재 판매가격 고시표</h2>
+                <a href="https://www.pps.go.kr/bichuk/index.do" target="_blank" style="font-size: 13px; color: #2563eb; text-decoration: none; font-weight: 500;">조달청 비축물자 누리집 바로가기 ↗</a>
+            </div>
+            <div style="text-align: center; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <img src="./%EC%A1%B0%EB%8B%AC%EC%B2%AD_%EC%9B%90%EC%9E%90%EC%9E%AC_%ED%8C%90%EB%A7%A4%EA%B0%80%EA%B2%A9_2026-09-15.png" alt="조달청 판매가격표" style="max-width: 100%; height: auto; border-radius: 6px;">
+            </div>
+        </section>
+        
+
+        <!-- 💰 복사용 네이버 블로그 표 섹션 -->
+        <section style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e2e8f0; border-top: 4px solid #03c75a;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <div>
+                    <h2 style="margin: 0; font-size: 20px; color: #0f172a;">💰 9대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가</h2>
+                    <div style="color: #64748b; font-size: 13px; margin-top: 4px;">네이버 블로그 스마트에디터에 100% 호환되는 표준 HTML 테이블입니다.</div>
+                </div>
+                <button onclick="copyPriceTable()" class="btn-copy-main">📋 네이버 블로그용 표 클립보드 복사</button>
+            </div>
+
+            <!-- 안내 배너 -->
+            <div style="background: #f8fafc; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; color: #475569; border: 1px solid #e2e8f0;">
+                • <strong>환산 기준</strong>: 귀금속(금·은) 및 PGM(팔라듐·로듐·백금)은 <strong>g당 원화 단가(원/g)</strong> (1 troy oz = 31.1035g, 금 1돈 = 3.75g), 일반 산업금속(구리·철스크랩·알루미늄·납)은 <strong>kg당 원화 단가(원/kg)</strong> 환산<br>
+                • <strong>♻️ 스크랩 매입 추정가 (70~80%)</strong>: 원자재 순수 시세 대비 가공·정제 마진 및 감모율을 감안하여 통상 시장 시세의 <strong>70% ~ 80% 수준</strong>으로 형성됩니다.<br>
+                • <strong>복사 방법</strong>: 위 초록색 <strong>[표 클립보드 복사]</strong> 버튼을 누르거나, 표 전체를 마우스로 드래그(Ctrl+C)한 뒤 네이버 블로그에 Ctrl+V 하시면 깨짐 없이 깔끔하게 표로 붙여넣어집니다.
+            </div>
+
+            <!-- 실제 복사 대상 테이블 -->
+            <div style="overflow-x: auto;">
+                
+    <table id="naver-copy-table" style="border-collapse: collapse; width: 100%; font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; font-size: 14px; text-align: center; margin: 16px 0; border: 2px solid #9ca3af; background-color: #ffffff;">
+        <thead>
+            <tr style="background-color: #f3f4f6; border-bottom: 2px solid #4b5563;">
+                <th style="padding: 12px 8px; border: 1px solid #dee2e6; font-weight: bold; color: #1f2937;">구분</th>
+                <th style="padding: 12px 8px; border: 1px solid #dee2e6; font-weight: bold; color: #1f2937;">자원명</th>
+                <th style="padding: 12px 8px; border: 1px solid #dee2e6; font-weight: bold; color: #1f2937;">영문명</th>
+                <th style="padding: 12px 8px; border: 1px solid #dee2e6; font-weight: bold; color: #1f2937;">국제 종가</th>
+                <th style="padding: 12px 8px; border: 1px solid #dee2e6; font-weight: bold; color: #1d4ed8;">원화 환산 시장가</th>
+                <th style="padding: 12px 8px; border: 1px solid #dee2e6; font-weight: bold; color: #b45309;">♻️ 스크랩 매입 추정가 (70~80%)</th>
+                <th style="padding: 12px 8px; border: 1px solid #dee2e6; font-weight: bold; color: #1f2937;">단위</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">🥉 비철금속</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">구리</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Copper</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$6.3122 / Lb</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**18,770원** *(▼ -227원, -1.2%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**13,139원 ~ 15,016원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/kg</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">🏗️ 철·스크랩</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">철·철스크랩</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Steel Scrap</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$397.50 / T</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**536원** *(▲ +3원, +0.6%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**375원 ~ 429원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/kg</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">🥫 비철금속</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">알루미늄</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Aluminum</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$3,250.00 / T</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**4,384원** *(▲ +3원, +0.1%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**3,069원 ~ 3,507원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/kg</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">🔋 비철금속</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">납</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Lead</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$1,878.55 / T</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**2,534원** *(▲ +6원, +0.2%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**1,774원 ~ 2,027원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/kg</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">🥇 귀금속</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">금</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Gold</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$4,304.33 / oz</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**186,657원** *(▼ -1,428원, -0.8%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**130,660원 ~ 149,326원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/g</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">🥈 귀금속</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">은</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Silver</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$63.37 / oz</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**2,748원** *(▼ -28원, -1.0%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**1,924원 ~ 2,198원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/g</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">💍 PGM (백금족)</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">백금</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Platinum</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$1,764.40 / oz</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**76,513원** *(▼ -1,475원, -1.9%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**53,559원 ~ 61,210원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/g</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">🚗 PGM (백금족)</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">팔라듐</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Palladium</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$1,295.50 / oz</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**56,179원** *(▼ -698원, -1.2%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**39,325원 ~ 44,943원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/g</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb; transition: background-color 0.2s;">
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; background-color: #f9fafb; font-weight: 600;">💎 PGM (백금족)</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #111827;">로듐</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #6b7280; font-size: 13px;">Rhodium</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-family: monospace; font-size: 14px;">$9,550.00 / oz</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #1d4ed8; font-size: 15px; background-color: #eff6ff;">**414,135원** *(▼ -6,495원, -1.5%)*</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; font-weight: bold; color: #b45309; font-size: 15px; background-color: #fffbeb;">**289,895원 ~ 331,308원**</td>
+            <td style="padding: 12px 8px; border: 1px solid #dee2e6; text-align: center; color: #4b5563; font-weight: 500;">원/g</td>
+        </tr>
+        </tbody>
+    </table>
+    
+            </div>
+            <!-- 💬 문의사항 바로가기 안내 링크 -->
+            <div style="margin-top: 14px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                <div style="font-size: 13px; color: #1e40af; display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 15px;">💬</span>
+                    <span>시황 추가 요청, 스크랩 단가 제보, 운영자 문의사항이 있으신가요?</span>
+                </div>
+                <a href="#memoBoardSection" style="background: #2563eb; color: #ffffff; text-decoration: none; padding: 6px 13px; border-radius: 6px; font-size: 12.5px; font-weight: 600; white-space: nowrap; transition: 0.2s;">
+                    익명 한줄 메모 남기기 ↓
+                </a>
+            </div>
+        </section>
+
+        <!-- 📋 빠른 목차 네비게이션 -->
+        <section style="background: white; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; border: 1px solid #e2e8f0;">
+            <h2 style="margin: 0 0 14px 0; font-size: 17px; color: #1e293b;">📋 오늘자 9대 자원별 시황 요약 목차</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #e2e8f0; color: #64748b; font-size: 13px;">
+                            <th style="padding: 8px; text-align: center;">번호</th>
+                            <th style="padding: 8px; text-align: left;">자원명</th>
+                            <th style="padding: 8px; text-align: left;">영문명</th>
+                            <th style="padding: 8px; text-align: center;">원화 환산 시장가</th>
+                            <th style="padding: 8px; text-align: center;">스크랩 추정가 (70~80%)</th>
+                            <th style="padding: 8px; text-align: center;">수집 기사</th>
+                            <th style="padding: 8px; text-align: center;">바로가기</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">1</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-1" style="color: #111827; text-decoration: none;">🥉 구리</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Copper</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">18,770 원/kg</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">13,139 ~ 15,016 원/kg</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">54건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-1" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">2</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-2" style="color: #111827; text-decoration: none;">🏗️ 철·철스크랩</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Steel Scrap</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">536 원/kg</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">375 ~ 429 원/kg</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">4건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-2" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">3</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-3" style="color: #111827; text-decoration: none;">🥫 알루미늄</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Aluminum</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">4,384 원/kg</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">3,069 ~ 3,507 원/kg</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">81건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-3" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">4</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-4" style="color: #111827; text-decoration: none;">🔋 납</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Lead</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">2,534 원/kg</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">1,774 ~ 2,027 원/kg</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">0건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-4" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">5</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-5" style="color: #111827; text-decoration: none;">🥇 금</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Gold</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">186,657 원/g</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">130,660 ~ 149,326 원/g</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">90건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-5" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">6</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-6" style="color: #111827; text-decoration: none;">🥈 은</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Silver</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">2,748 원/g</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">1,924 ~ 2,198 원/g</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">76건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-6" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">7</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-7" style="color: #111827; text-decoration: none;">💍 백금</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Platinum</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">76,513 원/g</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">53,559 ~ 61,210 원/g</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">16건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-7" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">8</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-8" style="color: #111827; text-decoration: none;">🚗 팔라듐</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Palladium</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">56,179 원/g</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">39,325 ~ 44,943 원/g</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">23건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-8" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f3f4f6;">
+            <td style="padding: 10px; text-align: center; color: #6b7280;">9</td>
+            <td style="padding: 10px; font-weight: bold;"><a href="#metal-9" style="color: #111827; text-decoration: none;">💎 로듐</a></td>
+            <td style="padding: 10px; color: #6b7280; font-size: 13px;">Rhodium</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #1d4ed8;">414,135 원/g</td>
+            <td style="padding: 10px; text-align: center; font-weight: 600; color: #b45309;">289,895 ~ 331,308 원/g</td>
+            <td style="padding: 10px; text-align: center; color: #4b5563;">0건</td>
+            <td style="padding: 10px; text-align: center;"><a href="#metal-9" style="color: #2563eb; font-weight: 500; text-decoration: none;">이동 ↓</a></td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 9대 자원별 상세 카드 리스트 -->
+        
+        <div id="metal-1" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">🥉 1. 구리 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Copper)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">비철금속</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$6.3122 / Lb</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">18,770 원/kg</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">13,139 ~ 15,016 원/kg</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EA%B5%AC%EB%A6%AC%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="구리 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/copper" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (54건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    
+                <li style="margin-bottom: 12px;">
+                    <a href="https://www.mining.com/us-government-secures-10-stake-in-trilogy-metals/" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">US government secures 10% stake in Trilogy Metals ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Mining.com (공식 피드)</span> | 일시: Mon, 14 Sep 2026 12:05:00 +0000</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Washington closes a $35.6-million investment as Trilogy advances its Arctic copper-zinc project and Ambler access road....</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxOUnhRVlVNVEItM2tPbVZ2WGc0Z1hxYnBVUmltRWNMUGgyNl9BUWlwWFp5T2VoSndCN2w3WVNCUmh5MnJ6dnFZanJzUm1iMnFkWDlpdWlwZ2gyTUFVNlNfRVNhUWRISmU4TlpBSXg2czY3WXZEOHZ0c1B3XzZHeUdCeVZ5WUtfV1ctcXhpRVRUaS1hbnUwRjF5cU5YNDdRME5hdmc?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Copper recovery can boost mining and recycling to up supply - The World Economic Forum ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">The World Economic Forum (검색 수집)</span> | 일시: Mon, 14 Sep 2026 11:47:41 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Copper recovery can boost mining and recycling to up supply The World Economic Forum...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxQNERmSC1JVGZtck9PandPSnM2blhwaEZLSXp4YkFxZHBacmFYelBkVjlGNjM2REVHbVZ1U2NEZE9kUmpWckVjSDZCejktbnFSUWZRNUh3dGtUSndySGNPdlZKVkczOVdyWHkwSDFWbUwwc2M3c1JHN1p1SmUzRDZxclk0RG9ZZkFoSUtxWFJUamhJZE82a09FYTUtMFdweGRmdXRyTFQwQ1NnLVZnUDlDeEc1bFRkbmF1Vnp2RXJn?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">AI, electric vehicles, and data centers: This massive copper mine could become very important for the U.S. - Earth.com ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Earth.com (검색 수집)</span> | 일시: Mon, 14 Sep 2026 14:40:20 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">AI, electric vehicles, and data centers: This massive copper mine could become very important for the U.S. Earth.com...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxNc29zSmQtUFFYSTAyandnWklERW1uU0lhOVR1WWpLVFROT3NRbEpsaWFxRmdXRzJPRVRPdTlkQUdxSzlJUnE2ZHA4VUIzX05jVXI3R3dLSmlHUnlkS2l2Y0FGbWFjMTZDZjRDT2kzREw3d2JRMGFSNTV3eDlWRUd3SWpQRVFSRjlFWHhGcUFidWotaUdWZVQxWkxjMS03V1FzdjhTVXJ1NA?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">CrossBoundary Energy powers up 233MW solar-plus-storage site at DRC copper mine - PV Tech ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">PV Tech (검색 수집)</span> | 일시: Mon, 14 Sep 2026 10:30:59 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">CrossBoundary Energy powers up 233MW solar-plus-storage site at DRC copper mine PV Tech...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxNX19BaU1zQ2tuOVJrNXFsYUZFU1d1MFVpS2V0a2ZjVlhkVXRZYUR3VVgwcEFPRDVmZ0J5TUFvNE45NEhCeHhfZVpuVUlzRTdPXzhiX0RnQUVVNGRTV0dJdC11U3VnaUxhODVSSkxMZ3ctX2xRYzh2SXdMM2JYaFI4R1A5QkkyeGhETFM0SWgwb1VWZC11SVJhLUpOTDBKSDhIc0E?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Rising Copper Demand is Projected to Meet a 25% Supply Gap in 2035 - Crux Investor ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Crux Investor (검색 수집)</span> | 일시: Mon, 14 Sep 2026 13:29:23 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Rising Copper Demand is Projected to Meet a 25% Supply Gap in 2035 Crux Investor...</div>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-1-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-1-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (미 정부의 직접적인 자원 확보 개입과 AI·EV 중심의 구조적 수요 폭증이 확인됨)</p>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>2. 핵심 내용 요약</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>미 정부의 전략적 자원 확보</strong>: 미국 정부가 북극 지역의 구리·아연 프로젝트를 추진하는 Trilogy Metals에 3,560만 달러를 투자하며 지분 10%를 확보, 핵심 광물의 자급률 제고를 위한 정책적 개입을 본격화함.</li>
+<li style='margin-bottom: 4px;'><strong>구리 회수 및 재활용의 중요성 부각</strong>: 세계경제포럼(WEF)은 광산 채굴뿐만 아니라 '구리 회수(Recovery)'를 통한 공급 확대가 필수적임을 강조하며, 순환 경제 기반의 공급망 재편을 시사함.</li>
+<li style='margin-bottom: 4px;'><strong>신산업(AI·EV·데이터센터) 중심의 수요 폭증</strong>: AI 인프라, 전기차(EV), 데이터센터 확장에 따른 구리 수요가 폭발적으로 증가함에 따라, 대규모 광산 개발이 국가 안보 및 산업 경쟁력의 핵심 요소로 부상함.</li>
+</ul>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>원자재 가격 및 글로벌 수급 여파</strong>:</li>
+<li style='margin-bottom: 4px;'><strong>단기/중기 전망</strong>: AI 및 데이터센터발 수요 폭증과 공급망 불안이 맞물려 구리 가격은 상방 압력을 지속적으로 받을 전망임. 특히 미 정부 등 주요국이 직접 개입하는 '전략적 광산' 확보 경쟁은 공급망의 파편화를 가속화할 것임.</li>
+<li style='margin-bottom: 4px;'><strong>공급망 동향</strong>: 단순 채굴을 넘어 '재활용(Recycling)'이 핵심 공급원으로 부상함에 따라, 폐기물 내 구리 추출 기술 및 인프라에 대한 글로벌 투자가 확대될 것으로 보임.</li>
+<li style='margin-bottom: 4px;'><strong>자동차 부품 및 스크랩 유통 영향</strong>:</li>
+<li style='margin-bottom: 4px;'><strong>비철 스크랩 단가 및 매입 전략</strong>: 구리 회수 가치가 높아짐에 따라 고순도 구리 스크랩(폐전선, 폐배터리 등)의 매입 단가는 견고하게 유지될 것이며, 특히 전기차 및 데이터센터 관련 폐기물에서 추출되는 구리의 가치가 상승할 것임.</li>
+<li style='margin-bottom: 4px;'><strong>재생/재활용 시장 파급 효과</strong>: 자동차 부품(알터네이터, 배터리, 배선 등) 제조 공정에서 '재생 구리' 사용 비중이 높아질 가능성이 크며, 이는 국내 고철/비철 유통사들에게 단순 수거를 넘어선 '고순도 선별 및 재생 공정' 역량을 요구하는 환경으로 변화할 것임.</li>
+<li style='margin-bottom: 4px;'><strong>실무적 대응</strong>: 부품 매매 시 구리 함량이 높은 부품의 재활용 가치를 재평가해야 하며, 공급망 불안에 대비해 재생 원료 확보를 위한 파트너십 강화가 필요함.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-2" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">🏗️ 2. 철·철스크랩 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Steel Scrap)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">철·스크랩</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$397.50 / T</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">536 원/kg</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">375 ~ 429 원/kg</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EC%B2%A0%C2%B7%EC%B2%A0%EC%8A%A4%ED%81%AC%EB%9E%A9%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="철·철스크랩 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/scrap-steel" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (4건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxQdFpEUzlzV3A3WWdNYmQxUk1JMjI3WVlkSWtfa1lkaTN2bEhia2pncFdXUVVzWmFQR1hnY2JSUGtkTFdRUnFHbUNMVWZOQy1XRzNyQ1hFU0pJQXowTVZZOEw4eS1zdzRJWWo1SWZuVkUtT3RMeS11RENXTFc0ZjVLbVg2SEV5dy01bzlzQkxfZFVXUWJlWWdaTWU2MXFXcjFxLVVzYXhJNTNWMmVGY3IyMlBFdmJpX0JCTEdCQg?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Taiwan’s Feng Hsin holds rebar & section steel prices steady while raising scrap quotations - Yieh Corp. ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Yieh Corp. (검색 수집)</span> | 일시: Mon, 14 Sep 2026 07:09:16 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Taiwan’s Feng Hsin holds rebar & section steel prices steady while raising scrap quotations Yieh Corp....</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxPbzFJVWVPYWI2a1JPMVkzcDF1anpkVU9IalZaREp1Y0gxSWFjSzVqR21YVXhrSElUZkpUQWIxcGFlYlJ0ckRtLUFGd0RWYWNYWVNORmtyZzVXNlByQ1A0ZUJLUG5jTkJmUXBXVlNBRHA2cnVLbkhLN2xLVUhsaVc1VzhGRGllY096ZGx2YU1nMWZqMnVsTEd2bGxn?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Iron Ore Slides for Fourth Straight Session - TradingView ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">TradingView (검색 수집)</span> | 일시: Mon, 14 Sep 2026 06:49:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Iron Ore Slides for Fourth Straight Session TradingView...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMid0FVX3lxTE13S0dwdkZOTDYzeHgtanp3bTA0cUNZYnZ3OXY1NXhicHRyWTVSeUkwdnFpNFh3YlJ5V1JXRDdpTFNONktxRjEyeHkyZWlQNjhFTEozd3JIX1R0Zm1EbHVfZHMyT01BVnVUaHBucE9aTzg0T2xJV0Fv?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">The iron ore crash is here - MacroBusiness ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">MacroBusiness (검색 수집)</span> | 일시: Sun, 13 Sep 2026 13:30:25 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">The iron ore crash is here MacroBusiness...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMilgFBVV95cUxOOW93NG5rVzdXQVAtR0ZVTFFwSHlKRzhpakc3bGViLTdWU3hyVWJjdy1PVTVOa1NDb0tQenI4UG5ObWxRUU01MU9sWVh3Ui1ZQ3hOeElxcVh1YVRiZzJaSE1XcndJSklPYmdFVk9haXhZMkdXcUd0OUFKcFA1TlQ5MVRZd1NWeEM5cVZSczRJalNTQzRlamc?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Iron Ore Futures Fall for Fourth Session as Steel Mill Margins Tighten - News and Statistics - IndexBox ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">IndexBox (검색 수집)</span> | 일시: Mon, 14 Sep 2026 11:20:29 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Iron Ore Futures Fall for Fourth Session as Steel Mill Margins Tighten - News and Statistics IndexBox...</div>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-2-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-2-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: [중요 이슈 발생] - 글로벌 철광석 가격의 급락세와 철강사의 스크랩(고철) 수요 변화가 동시에 포착됨.</p>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>2. 핵심 내용 요약</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>철광석 가격 급락</strong>: 글로벌 철광석 가격이 4거래일 연속 하락하며 '크래시(Crash)' 수준의 강력한 하락세에 진입함.</li>
+<li style='margin-bottom: 4px;'><strong>철강사 가격 정책의 괴리</strong>: 대만 Feng Hsin 등 주요 철강사는 철근 및 형강 가격을 보합세로 유지하는 반면, 스크랩(고철) 매입 단가는 인상하는 행보를 보임.</li>
+<li style='margin-bottom: 4px;'><strong>수급 불균형 시그널</strong>: 원자재(철광석) 가격 하락과 스크랩 가격 상승이 동시에 발생하는 비대칭적 시장 상황이 전개됨.</li>
+</ul>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>원자재 가격 및 글로벌 수급 여파</strong>:</li>
+<li style='margin-bottom: 4px;'>(단기 전망) 철광석 가격의 급락은 단기적으로 철강 생산 원가 하락 요인으로 작용하나, 이는 수요 부진에 따른 공급 과잉이나 글로벌 경기 둔화의 강력한 신호일 수 있음.</li>
+<li style='margin-bottom: 4px;'>(중기 전망) 광산 및 제련소의 생산량 조절이 예상되며, 철광석 가격이 바닥을 다지는 과정에서 철강재 가격의 추가 하락 압력이 거세질 전망임. 글로벌 공급망 측면에서는 원자재 가격 하락에 따른 철강사의 수익성 방어 전략이 중요해질 것임.</li>
+</ul>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>자동차 부품 및 스크랩 유통 영향</strong>:</li>
+<li style='margin-bottom: 4px;'>(국내 고철/비철 유통 단가) 대만 사례와 유사하게 글로벌 스크랩 수요가 견조할 경우, 국내 고철 유통 단가는 원자재 가격 하락세에도 불구하고 하방 경직성을 확보하거나 오히려 상승할 가능성이 있음. 이는 고철 수집 및 유통업체에 유리한 환경을 조성할 수 있음.</li>
+<li style='margin-bottom: 4px;'>(폐차 부품 매입·매매가) 고철 매입 단가 상승은 폐차 및 사고 차량의 '고철 가치'를 높여, 폐차 부품 매입가에 긍정적인 영향을 미칠 수 있음. 특히 차체(Body) 부품 등 고철 비중이 높은 부품의 매매 단가에 실질적인 영향을 줄 것으로 보임.</li>
+<li style='margin-bottom: 4px;'>(재생/재활용 시장 파급 효과) 철강사의 스크랩 매입 단가 인상은 재생 원료를 사용하는 재활용 시장의 원가 부담을 가중시킬 수 있음. 스크랩 공급망 확보를 위한 경쟁이 치열해질 것이며, 고품질 스크랩 확보를 위한 유통 채널의 선점 경쟁이 심화될 것으로 예상됨.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-3" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">🥫 3. 알루미늄 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Aluminum)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">비철금속</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$3,250.00 / T</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">4,384 원/kg</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">3,069 ~ 3,507 원/kg</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EC%95%8C%EB%A3%A8%EB%AF%B8%EB%8A%84%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="알루미늄 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/aluminum" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (81건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxNcjhGbF9WMzJmZkh0eURVdXlqRjZPUUV0U0djZnF6N2FUeTljTGxGSVpTS200ZHlKeDgyNjFVRVJwQ3JEX3NHOGRTTVJiNGNJYVZpRlFxUk5MTVpIal9NX0t1WXlkR2xocjFfMUhuQXRoUWdqNldLWGlmWElteUI5OTVEbVRobjlrVk1WQWNlckdnNzNQUm5XYlJB0gGuAUFVX3lxTE53M0g2UmdlYTVJRHdZdmY3bFR1d2lfQ3UwWDNJNC15NnYyNmxqWW1YLU1pVjdIQlBoOTBONUdPX0J0U0VIZllQNnNUbmxIV2RrZlRBamdFN0ktMm9ROEVrVWF4dnBZSnpvMVI3ODRpNnRVdlF4VDFuY3Z1dThsczhuVnlNTDZZS1k3eWpLSDU2OFZjQ3h5N1JuMTNTVjJjU1NwaHU4SlFrZ3JtMDdJdw?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Kibar Americas reopens former Novelis aluminum plant in Fairmont - WDTV 5 ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">WDTV 5 (검색 수집)</span> | 일시: Mon, 14 Sep 2026 21:05:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Kibar Americas reopens former Novelis aluminum plant in Fairmont WDTV 5...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxOQVFIQU9ra2NtLV94MjZocmNKNklUSUptTllGOHdrY0p2SU1XRWVmTGlsYm1vdjlKSU5RYjhUcmxXNmFWSVN1TWRSdVh2bWctVnRvNGtPSWhhQ1hZSzJfeFdjYV9LQW81TTJhZVVJTGZod0pFN1R5UHFybG01SHFVcVZnY09hUjZ4TWVMeURmaUZSUVNGTWtOeXdrX1hXbUpEcFFHSkxuYk9WWlJYNUFzVkFUNnNZTUJVeWZCaw?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Alumina Hydrate Market To 2035: Ceramic Demand and High-Purity Grades Fuel Expansion - News and Statistics - IndexBox ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">IndexBox (검색 수집)</span> | 일시: Mon, 14 Sep 2026 15:31:09 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Alumina Hydrate Market To 2035: Ceramic Demand and High-Purity Grades Fuel Expansion - News and Statistics IndexBox...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxOZzdlQ2VOaTFRMUNfQkItVFlPaWYxYW1rZHRBUUhXNlpsZDdMd0ZhQUtLSGV5VlkwamxyazhJdmEtZTBDTE5XaW9aQXdsZnZnS3Mtd2RISDVwenVxVTJxeUd4dzRGZ2FqWXdwMllMbnhyT0Y1bUFvVjhub2FaQzdVLU5pWm1sc0syRVV0enVnNHdnWC1lSVpVaGV1RDB5Yms0TDQ1bUJRZ3kyc3h3c3luVENhbWhKYnJFakpCTFdIUk5qdENyeXMwWQ?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Guinea discussing alumina, energy investments with Glencore after bauxite deal, minister says - Reuters ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Reuters (검색 수집)</span> | 일시: Mon, 14 Sep 2026 11:03:59 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Guinea discussing alumina, energy investments with Glencore after bauxite deal, minister says Reuters...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxPY2lDV3dVVnZVZVh1NkRTOW5WdGxUNk9FMGxJTHkxZzI0MG5sb0ZNYWNOVWhuVThLUG1OeFhWUkZnbDFDenZxWU52RXNZTVZSbDFvaWJXRlppb2ZGY0xvWENtVGlFODJHV0hpUjYzRHEyd2Z0cEJjOS1PY0pzcXI1MlVmZ056QjcwOG5jclJXaEppdFc3TDNveFk1NEY3cUk0dzhVUHV5eElQNURJMXc?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Alcoa says Canada tariff cut alone won't bring US aluminium premium down - AL Circle ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">AL Circle (검색 수집)</span> | 일시: Mon, 14 Sep 2026 22:06:25 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Alcoa says Canada tariff cut alone won't bring US aluminium premium down AL Circle...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxNMUQtZVdGVVF3MnhKbTJ2UHVfc0JlNE5Gdml6R2dDMmtHWG95QS1lZzJCbFVFNGdPazduY1ozckxkQldkeXhwMWxTUVlnQUkyS2xzNkQyeENzeEdqelBKTFFLbkQzbHVPUVE3ajA4ZksxM016ZWJzVnBNYnJFbWctemhzeGh1dTF3MDdrQTZMbDhlUEJtZkYzd0NhQWJPRHg3RWRyZVM0SnUxbmViUkZzcXZfckpsRjd4Q3c?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Constellium: The Market Still Thinks It's An Aluminum Producer, But It's Not - Seeking Alpha ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Seeking Alpha (검색 수집)</span> | 일시: Mon, 14 Sep 2026 20:18:18 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Constellium: The Market Still Thinks It's An Aluminum Producer, But It's Not Seeking Alpha...</div>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-3-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-3-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (북미 생산 능력 확대 및 아프리카 공급망 수직 계열화 등 글로벌 알루미늄 공급망의 구조적 변화 포착)</p>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>2. 핵심 내용 요약</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>북미 생산 능력 재가동</strong>: Kibar Americas가 Fairmont 소재의 구 Novelis 알루미늄 공장을 재가동함에 따라, 북미 지역 내 알루미늄 공급 능력이 추가 확보됨.</li>
+<li style='margin-bottom: 4px;'><strong>고순도 알루미나 수요 확대</strong>: 2035년까지 세라믹 및 고순도 등급의 수요가 성장을 견인할 것으로 전망되며, 단순 소재를 넘어 고부가가치 산업으로의 수요 분산이 가속화됨.</li>
+<li style='margin-bottom: 4px;'><strong>기니 공급망 수직 계열화</strong>: 기니 정부가 Glencore와 바크사이트(Bauxite)를 넘어 알루미나 및 에너지 투자 협의를 진행 중이며, 이는 원료 채굴부터 제련까지의 공급망 수직 계열화 및 에너지 인프라 확보를 의미함.</li>
+</ul>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>원자재 가격 및 글로벌 수급 여파</strong>:</li>
+<li style='margin-bottom: 4px;'>(단기) 북미 내 생산 시설 재가동은 단기적으로 공급 과잉 압력을 일부 상쇄하며 가격 변동성을 완화하는 요인으로 작용할 수 있음.</li>
+<li style='margin-bottom: 4px;'>(중기/장기) 기니의 알루미나 생산 확대 및 에너지 인프라 구축은 장기적인 공급 안정성을 높이는 동시에, 고순도 알루미나 수요 증가와 맞물려 고부가가치 제품군에서의 가격 방어력을 강화할 것으로 보임. 특히 에너지 인프라 확보 여부에 따라 제련 단가 변동성이 결정될 전망임.</li>
+<li style='margin-bottom: 4px;'><strong>자동차 부품 및 스크랩 유통 영향</strong>:</li>
+<li style='margin-bottom: 4px;'>(유통 단가) 북미 공급량 증가는 장기적으로 알루미늄 잉곳 및 압출재의 하방 지지선을 형성할 것이나, 고순도 제품 수요가 강세인 만큼 품질이 확보된 스크랩의 가치는 유지될 것임.</li>
+<li style='margin-bottom: 4px;'>(실무적 파급 효과) 자동차 부품(휠, 차체 등) 및 폐차 부품 매입 시, 단순 수량 확보보다 '고순도 재활용 가능성'이 높은 스크랩 선별이 더욱 중요해짐. 특히 고순도 알루미나 수요가 늘어남에 따라, 자동차 부품 스크랩 중 불순물이 적은 고품질 비철금속의 매입 단가와 회수율이 유통 수익성을 결정짓는 핵심 지표가 될 것으로 판단됨.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-4" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">🔋 4. 납 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Lead)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">비철금속</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$1,878.55 / T</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">2,534 원/kg</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">1,774 ~ 2,027 원/kg</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EB%82%A9%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="납 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/lead" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (0건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    <li style='color: #6b7280;'>최근 24~48시간 이내에 보도된 직접적인 특이 기사가 없습니다.</li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-4-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-4-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: <strong>[특이 이슈 없음]</strong></p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'>최근 2일 동안 주요 시장 교란 요인이나 대형 이슈 기사가 없습니다.</li>
+<li style='margin-bottom: 4px;'><strong>향후 여파 코멘트</strong>: 현재 수급과 가격이 비교적 안정적인 보합 흐름을 유지하고 있어, 국내 자동차 부품 및 스크랩 유통 시장에서도 단기적인 가격 급변보다는 기존 재고 순환 위주의 안정적 흐름이 이어질 것으로 전망됩니다.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-5" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">🥇 5. 금 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Gold)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">귀금속</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$4,304.33 / oz</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">186,657 원/g</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">130,660 ~ 149,326 원/g</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EA%B8%88%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="금 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/gold" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (90건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    
+                <li style="margin-bottom: 12px;">
+                    <a href="https://www.mining.com/stormlands-lifts-clarence-stream-valuation-52-8-in-new-model/" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Stormlands lifts Clarence Stream valuation 52.8% in new model ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Mining.com (공식 피드)</span> | 일시: Mon, 14 Sep 2026 15:59:58 +0000</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">The study lifts the site’s net value to $676.1 million after applying current gold and antimony prices to its MRE....</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://www.mining.com/roosens-osisko-greenlights-cariboo-gold-project-in-bc/" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Osisko greenlights Cariboo gold project in BC ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Mining.com (공식 피드)</span> | 일시: Mon, 14 Sep 2026 15:12:25 +0000</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Osisko will build the $841M Cariboo underground mine in BC, aiming for its first gold pour by early 2029....</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://www.mining.com/ongold-revives-monument-bay-with-2m-oz-resource/" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">ONGold revives Monument Bay with 2M oz resource ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Mining.com (공식 피드)</span> | 일시: Mon, 14 Sep 2026 15:05:44 +0000</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Manitoba's Monument Bay gold project re-emerges with 2 million measured and indicated ounces after nearly a decade....</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxPSXlWZEpfRFZnZjZiV2NNSGhaQjFXUWNTeDlXZzB0UlFoRUh2d1J0VG9BVDVIN3VMX1FPU3dKQl9KWm9sMC1oeExOdm45OEc3MW8wczhhZmt3UHZXWTVNODJvSXlwMjZqcjk5RzhmYlRxRjdsSmRHcGd3V0Q3OEtqa3FUZkZsSTNvS21xeUZMWDBDZC1PanhV?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">What a Fed rate hike could mean for gold and silver prices - CBS News ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">CBS News (검색 수집)</span> | 일시: Mon, 14 Sep 2026 17:07:02 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">What a Fed rate hike could mean for gold and silver prices CBS News...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdHhTNWdPX1Y1X1FSLUVIU0d3NHNCYmpXMG9jZ1NDWmdUVERDeGhuM21rSTJRMDVHaHozeW4xZ3lfLU9oRU9UMVZzNDh2R1FyVE9oRFhuX2lERnllYXlnWFlmWHdQSFdNUjh1MXAzbkQ3al8yMHVWZzBkZGRnbHZJTUhkd2Y3Mm5qbk1yc1R5VjdmSU9jRG9ibFlJc2gyQXgwdkE0ODZma012WHJ3eEpNQW1palhzRHhkM05N?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Gold price fall nearly 2% as oil surge and near-5% Treasury yields bolster Fed rate-hike expectations - Kitco AM Report - KITCO ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">KITCO (검색 수집)</span> | 일시: Mon, 14 Sep 2026 13:18:36 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Gold price fall nearly 2% as oil surge and near-5% Treasury yields bolster Fed rate-hike expectations - Kitco AM Report KITCO...</div>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-5-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-5-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: [단순 시황] (개별 광산 프로젝트의 가치 재평가 및 신규 개발 소식으로, 단기적 수급 급변보다는 장기적 공급망 강화 및 자산 가치 상승 흐름을 반영함)</p>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>2. 핵심 내용 요약</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>금 자산 가치 재평가</strong>: 최근 금 및 안티모니 가격 상승에 따라 Clarence Stream 광산의 순가치가 기존 모델 대비 52.8% 상승(약 6억 7,610만 달러)하며 광산 자산의 수익성 강화 확인.</li>
+<li style='margin-bottom: 4px;'><strong>신규 공급망 확보</strong>: Osisko가 캐나다 BC주에 8억 4,100만 달러 규모의 Cariboo 지하 광산을 건설하기로 승인(2029년 생산 목표)하며 중장기적 금 공급량 확대 기반 마련.</li>
+<li style='margin-bottom: 4px;'><strong>휴면 자원 재활성화</strong>: ONGold가 약 10년 만에 Monument Bay 프로젝트를 재개하며 200만 온스 규모의 확인 자원을 확보, 글로벌 금 생산량 확보를 위한 탐사 및 개발 경쟁 지속.</li>
+</ul>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>원자재 가격 및 글로벌 수급 여파</strong>:</li>
+<li style='margin-bottom: 4px;'><strong>단기/중기 전망</strong>: 금 가격의 견조한 흐름은 기존 광산의 자산 가치를 높여 채굴 기업의 투자 여력을 확대시킴. 신규 프로젝트(Cariboo 등)의 가동은 중장기적으로 공급 과잉을 억제하는 완충 역할을 할 것이며, 이는 금 가격의 하방 경직성을 확보하는 요인으로 작용함.</li>
+<li style='margin-bottom: 4px;'><strong>공급망 동향</strong>: 고금리 및 지정학적 리스크 속에서도 금 생산을 위한 대규모 자본 투입(Capex)이 지속되고 있으며, 이는 글로벌 금 공급망의 안정적 확충을 의미함.</li>
+</ul>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>자동차 부품 및 스크랩 유통 영향</strong>:</li>
+<li style='margin-bottom: 4px;'><strong>스크랩 유통 단가</strong>: 금 가격의 상승은 고부가가치 전자 폐기물(PCB, 센서 등) 및 일부 자동차 전장 부품 스크랩의 매입 단가에 긍정적인 영향을 미침. 특히 '도시 광산' 관점에서 금 함유량이 높은 부품의 스크랩 가치가 상승할 전망임.</li>
+<li style='margin-bottom: 4px;'><strong>재생/재활용 시장</strong>: 금 가격의 변동성은 촉매(PGM 포함) 및 배터리 관련 부품의 스크랩 매입가 결정 시 주요 지표로 활용됨. 금 가격의 강세는 고순도 비철금속 스크랩의 선별 및 분류 공정에서 수익성을 높이는 요소가 되며, 이는 폐차 부품 매입 시 고부가가치 부품(전장부품, 센서류)에 대한 선별적 매입 강화로 이어질 수 있음.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-6" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">🥈 6. 은 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Silver)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">귀금속</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$63.37 / oz</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">2,748 원/g</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">1,924 ~ 2,198 원/g</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EC%9D%80%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="은 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/silver" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (76건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxPSXlWZEpfRFZnZjZiV2NNSGhaQjFXUWNTeDlXZzB0UlFoRUh2d1J0VG9BVDVIN3VMX1FPU3dKQl9KWm9sMC1oeExOdm45OEc3MW8wczhhZmt3UHZXWTVNODJvSXlwMjZqcjk5RzhmYlRxRjdsSmRHcGd3V0Q3OEtqa3FUZkZsSTNvS21xeUZMWDBDZC1PanhV?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">What a Fed rate hike could mean for gold and silver prices - CBS News ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">CBS News (검색 수집)</span> | 일시: Mon, 14 Sep 2026 17:07:02 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">What a Fed rate hike could mean for gold and silver prices CBS News...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxQUmxQYkVKbVVkeUxzTDNHMXVEbGRxU053TFVhTDJEdl91b2JnOExwYkZ3d1dvQkE3R2dNdXF0WmpvS2kxaF85SFYtLTJYOVFfOUdDSmdscEpXVUdUQW9tb2dpYzNxMUZZajl6Wjh0OTRjWUJLUmVtN2VQWVMyYi1nTjFIS2U3UHdS?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Silver Price Outlook September 2026: The Hike Is Priced In. The Positioning Isn’t. - GoldSilver ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">GoldSilver (검색 수집)</span> | 일시: Mon, 14 Sep 2026 22:01:45 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Silver Price Outlook September 2026: The Hike Is Priced In. The Positioning Isn’t. GoldSilver...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPWFBtWlJ2SVhCQVlGRXVlTVctaUlTQXZBekMxS3AzUmVWcEgxQTdoRTNsRTVTRUpsVm95RVMxcG15ZWZ2aWwwVW1xTFpmano3TTVqcDMtUXZoXzRnbTFFbGkzenpJQlpFb1RIbWdhZnRPeUkwYmpUeE9ING9ROXctOE9TU3A1Q3BXWl9tRG1fV0NNVjZYYjM0V1o5bllURVdWTVlB?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Silver Price Forecast: Neckline rejection keeps $60 in sight - FXStreet ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">FXStreet (검색 수집)</span> | 일시: Mon, 14 Sep 2026 19:26:58 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Silver Price Forecast: Neckline rejection keeps $60 in sight FXStreet...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTFAzLWFuWEFGMVM5YW4xQnpDaGRXNDgwREhXZUlVSHJXb2Foc2tWc05lbHlZRWV6dXN1d2JtMnM3SnVOc1VUNC1ZNDBTSUR6R3dVNUhsNi1OaE5Kblp0T3VPdVU4UEhxVElCand0RmZPVQ?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Current price of silver as of Monday, Sept. 14, 2026 - Fortune ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Fortune (검색 수집)</span> | 일시: Mon, 14 Sep 2026 13:15:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Current price of silver as of Monday, Sept. 14, 2026 Fortune...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5GY2NSNTc5Y0RCLW9QeXlCNDFpZ21IRFpsbDFWTXZSUTYwNWZPckFSak1ZZzhRaUk2azJ0WFZJWjFuXzc3bGxyVnRLMFNtemdYMktkZFlIUWE0N05HWHZQd05IRHpjR0tY?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Silver Price For Today, 14 September 2026 - Forbes ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Forbes (검색 수집)</span> | 일시: Mon, 14 Sep 2026 10:14:29 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Silver Price For Today, 14 September 2026 Forbes...</div>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-6-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-6-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: 단순 시황 (거시경제 지표 및 기술적 분석에 기반한 중장기 전망 및 단기 변동성 예고)</p>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>2. 핵심 내용 요약</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>통화정책과 가격 상관관계</strong>: 연준(Fed)의 금리 인상이 금 및 은 가격에 미치는 영향이 지속적으로 논의되고 있으며, 금리와의 역상관 관계 속에서 은의 변동성이 주목됨.</li>
+<li style='margin-bottom: 4px;'><strong>시장 포지셔닝 불균형</strong>: 금리 인상이라는 거시적 변수는 이미 시장 가격에 반영(Priced In)되었으나, 실제 시장 참여자들의 포지셔닝은 아직 이를 완전히 반영하지 못해 향후 가격 변동성이 확대될 가능성이 있음.</li>
+<li style='margin-bottom: 4px;'><strong>기술적 저항선 확인</strong>: 기술적 분석 관점에서 $60 수준의 저항선(Neckline rejection)이 주요 지표로 작용하고 있으며, 단기적인 가격 흐름을 결정짓는 핵심 구간으로 파악됨.</li>
+</ul>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>원자재 가격 및 글로벌 수급 여파</strong>:</li>
+<li style='margin-bottom: 4px;'>(단기/중기 전망) 금리 인상 기대감과 실제 시장 포지셔닝 간의 괴리로 인해 단기적으로는 변동성이 높은 장세가 예상됨. 특히 $60 저항선 돌파 여부가 단기 방향성을 결정할 핵심 분수령이 될 전망임.</li>
+<li style='margin-bottom: 4px;'>(공급망 동향) 은은 귀금속적 성격과 산업용 수요(태양광, 전자부품 등)를 동시에 보유하고 있어, 금리 정책뿐만 아니라 글로벌 산업 생산 지표와 연동된 수급 모니터링이 필수적임.</li>
+</ul>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>자동차 부품 및 스크랩 유통 영향</strong>:</li>
+<li style='margin-bottom: 4px;'>(국내 비철 유통 단가) 은 가격의 변동성은 비철금속 전반의 시세에 영향을 미치며, 특히 은 함량이 높은 전자부품 및 정밀 부품 스크랩의 매입 단가에 즉각적인 영향을 줄 수 있음.</li>
+<li style='margin-bottom: 4px;'>(폐차 부품 및 재생 시장) 자동차 부품 중 전기·전자 제어 계통이나 커넥터 등에 포함된 은 성분의 가치가 변동함에 따라, 폐차 부품 매입 시 고부가가치 비철금속 함유량에 대한 정밀한 가치 평가가 요구됨.</li>
+<li style='margin-bottom: 4px;'>(실무적 파급 효과) 시장 포지셔닝이 미비한 상태에서의 가격 변동은 스크랩 수거 및 유통 단가의 급격한 등락을 초래할 수 있으므로, 실무적으로는 단기적 매매보다는 주요 저항선($60 등) 및 거시경제 지표 변화에 따른 분할 매입/매출 전략이 유효함.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-7" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">💍 7. 백금 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Platinum)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">PGM (백금족)</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$1,764.40 / oz</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">76,513 원/g</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">53,559 ~ 61,210 원/g</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EB%B0%B1%EA%B8%88%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="백금 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/platinum" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (16건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxORXZfU3FtQkM3VjJpMS1NdjA2djhRNGRmcWNYcHV3cFNqQ3Mzb3VablRuNXJTVVBIRml6TFZMZkl4Yjc1aGQ0YkFzZ2R3UU0wV3JkaENaZHUzVjZMbG40dmUyQ1ZVQy00eHNYMG5NR1ljTmYxZFA3b2pFdGxRQlZxR2lNODBxVEVYbUVDZ0VrMVczeXpPU0VTdDh2MXhkdC1GMWQtU3JZaG9SVGZXUGFSaUlwOXU4YWIxVjEwZjNUNG5EYkVzcHMzcg?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Platinum-Cobalt Alloy Catalysts Market To 2035: FCEV Demand Drives 12-18% CAGR - News and Statistics - IndexBox ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">IndexBox (검색 수집)</span> | 일시: Mon, 14 Sep 2026 16:21:20 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Platinum-Cobalt Alloy Catalysts Market To 2035: FCEV Demand Drives 12-18% CAGR - News and Statistics IndexBox...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVVJLWlFXbjNmY2lmUDhvQzFRbkVKSE1hQ0o2WnBfOWltZ25aeGU0bXJua1RSZTc4dTVodVNPOFBwVWt1T3J4ZjZISUlUUmhZbHozdEJ3MF9YLTBzM21fVGJnT0FweFFOWTVlQWdJWF81ckFpN0VCYlNlckhaU01hVzBGOThQVTcyS0NBZ1VUajZCWC1JcVFualpUaFUxcmZTcGdoSy16ZWRTS3A5aG9lSjFxVkVMUnZL?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Stratex Resources Ltd. Announces the Purchase of African Thunder Platinum - TMX Newsfile ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">TMX Newsfile (검색 수집)</span> | 일시: Mon, 14 Sep 2026 10:45:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Stratex Resources Ltd. Announces the Purchase of African Thunder Platinum TMX Newsfile...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMi2gFBVV95cUxOT3FRWUxpY0JaNHZTN3dLZVcwTGVBemI3NGhOeTlZQkhGUjlXY1dMMkRzUmVHWm13SGZZbHIzU1pxZUxZVm9VNGFBTURlUUxhV3ZqSHhVZDJfX3lMa29naGlmZTAzdHhTeW54LVlVOFlEcFVtR29hZER0WVk3U3RjcVNmUHdRdFIzdkxjRG44WnpBWFB1aGhFeUstVE13Tkc0ZEZXLUxwTnVya3RsS2pJY1hBRkMzM1pkVmdsc2psdmlPcWs0NktHa0ozOW9FLVlMdmxYdm1ScmtIdw?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Platinum and Palladium Price Forecast: Oil Above $100 Raises Breakdown Risks - FXEmpire ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">FXEmpire (검색 수집)</span> | 일시: Mon, 14 Sep 2026 08:56:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Platinum and Palladium Price Forecast: Oil Above $100 Raises Breakdown Risks FXEmpire...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxOTlg3U2FRUjRsUHBNUUZLQ1N6cTQtaUE5Q0paaVZHN18xcjJ3Q3pGLVVRMXZ6MnRFdlpoMVVfVjhhdW1tcEhpejN4N1lOUVViZzJ3TFB3U0l1Nmdoa1lVVndHRFBOUGRlbnZWSjQza3BXTjU5Sms3ZU9zS25SRE04aW1MM2JRQUV4RFFWNmdUTWc4dDNpQUJPSlMtLTZBTjJpQVdqV0hQa0I3UUpjcWQ5dGNSNDEza1pLTzVRSjRDc25kZC1PajFZWQ?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Platinum price is weak– Forecast today – 14-9-2026 - Economies.com ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Economies.com (검색 수집)</span> | 일시: Mon, 14 Sep 2026 05:25:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Platinum price is weak– Forecast today – 14-9-2026 Economies.com...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQRTlubFBGVFpFY19iQlVEVWY1WUt4OGdSNFhrSHFmeUVhZmtDbkhvNG1QX1prNG5PTVcxRVU5Ukt1ZmdzNE5sV2dsNFVROHNXMWYtTEdrWnZ6Rnd4U2xiSWJTVmNVZEZKRnRJWkJBU2h5OE1pR0h2OXNacTNndElYU2tBLUdGTDlwOVkzNGZmV3V5bEU?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Today’s Platinum Price in Arcot – Live Platinum Rate per Gram & Kg | 13 September 2026 - The Times of India ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">The Times of India (검색 수집)</span> | 일시: Sun, 13 Sep 2026 19:16:51 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Today’s Platinum Price in Arcot – Live Platinum Rate per Gram & Kg | 13 September 2026 The Times of India...</div>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-7-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-7-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (수소차(FCEV) 중심의 구조적 수요 변화와 공급망 재편, 거시경제 변수가 복합적으로 작용하는 시점)</p>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>2. 핵심 내용 요약</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>FCEV 기반의 구조적 수요 성장</strong>: 수소연료전지차(FCEV) 수요 확대로 인해 백금-코발트(Pt-Co) 합금 촉매 시장이 2035년까지 연평균 12~18%의 높은 성장률을 기록할 전망임.</li>
+<li style='margin-bottom: 4px;'><strong>공급망 확보를 위한 자산 인수</strong>: Stratex Resources의 African Thunder Platinum 인수 등 주요 광산 자산에 대한 M&A가 활발해지며 원자재 공급망의 집중화 및 장기적 수급 확보 움직임이 포착됨.</li>
+<li style='margin-bottom: 4px;'><strong>유가 변동에 따른 가격 변동성 확대</strong>: 유가 $100 돌파 등 거시경제적 요인이 백금 및 팔라듐 가격의 하방 압력(Breakdown Risks)을 자극하며 단기적 가격 변동성이 커진 상태임.</li>
+</ul>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>원자재 가격 및 글로벌 수급 여파</strong>:</li>
+<li style='margin-bottom: 4px;'>(단기) 유가 및 글로벌 경기 둔화 우려로 인해 단기적인 가격 변동성(Volatility)은 확대될 것이나, 공급망 재편에 따른 비용 상승 압력은 상존함.</li>
+<li style='margin-bottom: 4px;'>(중기) FCEV 시장의 성장은 백금 수요의 질적 변화를 의미함. 단순 내연기관용 촉매를 넘어 고부가가치 수소차용 촉매로 수요가 이동함에 따라, 장기적으로는 공급 부족에 따른 가격 지지선 강화가 예상됨. 특히 광산 자산 인수를 통한 공급망 독점화는 장기적 공급 단가 상승 요인으로 작용할 수 있음.</li>
+</ul>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>자동차 부품 및 스크랩 유통 영향</strong>:</li>
+<li style='margin-bottom: 4px;'>(유통 단가 및 매입) 내연기관차용 촉매 스크랩의 단가는 유가 및 경기 상황에 민감하게 반응하겠으나, FCEV용 촉매 부품의 비중이 높아짐에 따라 고부가가치 비철금속 추출 공정의 중요성이 증대될 것임.</li>
+<li style='margin-bottom: 4px;'>(재생/재활용 시장) '도시 광산(Urban Mining)'의 가치가 상승함. FCEV 확산에 따라 폐차 및 폐부품에서 추출되는 백금의 회수 효율이 수익성을 결정짓는 핵심 요소가 될 것이며, 촉매 내 백금-코발트 합금의 정밀 분리 및 재활용 기술을 보유한 업체가 시장 주도권을 확보할 것으로 보임.</li>
+<li style='margin-bottom: 4px;'>(실무적 파급 효과) 스크랩 수집 및 유통 파트에서는 단순 물량 확보를 넘어, FCEV 관련 고부가가치 촉매 및 부품의 선별적 매입 체계를 구축해야 함. 또한, 공급망 재편에 따른 원자재 수급 불안정에 대비해 재생 원료(Recycled Content) 비중을 높이는 전략적 접근이 필요함.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-8" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">🚗 8. 팔라듐 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Palladium)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">PGM (백금족)</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$1,295.50 / oz</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">56,179 원/g</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">39,325 ~ 44,943 원/g</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%ED%8C%94%EB%9D%BC%EB%93%90%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="팔라듐 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/palladium" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (23건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxNUi11YlAyOGxub1RMOVF3d204cUdMWDZOcTl2SXBZQll6QzBwRHNHZ0JnZTBpNWNYVUZodlpvNlo5NDlnTVpPZDhqc1o1NkRqYUVVR21JaHFqU3FKeWRfUkpfRWVJMXp5akRxbWlEU29MM0ZFdm16R3FOU3AzOHh5REhqTDYtMHpfekxkNzNMT01CTHM3MW1nSWpkWDE1NHEwbHV0cWUtLTNsaGlENE9TRnFjaWtSQzhZaDRlbTFqRjZtRDZRTlExcXItS0JpUQ?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Platinum and Palladium Price Forecast: Oil Above $100 Raises Breakdown Risks - FXEmpire ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">FXEmpire (검색 수집)</span> | 일시: Mon, 14 Sep 2026 09:43:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Platinum and Palladium Price Forecast: Oil Above $100 Raises Breakdown Risks FXEmpire...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxQNHA0UVI3Y2NJcmVPS3JSRTZnUFNncWJwQW52cGkwTm5nYXY2QWphdFM5c3hhWTVOZ2UyUGtsZTRsUDNaZmpqSTItYzRoUDdiSVNCN2c2b2xyX0xFWXZfQzFQVGswdThYZnNRVTZOeml1bncyTTd1WFYzSnBFRFNFY3YyY0w1R0c5dUsyTTh3b1htLS14dWUtVmUzOUdlckJieTJYM2dMWUpsVVNRTGhyX2E4bzcyUnhw?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Palladium Labs Launches Genesis Fund to Accelerate Builder Growth on Canton - yellow.com ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">yellow.com (검색 수집)</span> | 일시: Mon, 14 Sep 2026 09:27:07 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Palladium Labs Launches Genesis Fund to Accelerate Builder Growth on Canton yellow.com...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMi5gFBVV95cUxQa1hvbTVXUlJSV1QzMktub2M5RmVweVNYalJtekpPTkJfclo5anlxVFgzdmJDNjE2YXdwejZabURrWUNUOUJKcGIySTdXNHhBYXFLdlNJYl96MnhpUDJFWGRqNEUtNkREdUVWMVZYZGVqbktJVnRzOUxQTEFBanVYcVBzbXJDa3dxZTB6TmEyaHRNcEd4R2xBa0tQRmRDcGtGay1md0pFODFUQnZTdlFkbHRQRVNoSHduRm5kQWtoc0tMRTNPRU41Mkp5UGhEcllFcDE2TTUzSEd0OTVZaUdfSUJ0QUxNdw?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Megan Hilty and Rachel Tucker Will Lead GENTLEMEN PREFER BLONDES Concert at the London Palladium - BroadwayWorld ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">BroadwayWorld (검색 수집)</span> | 일시: Mon, 14 Sep 2026 09:39:49 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Megan Hilty and Rachel Tucker Will Lead GENTLEMEN PREFER BLONDES Concert at the London Palladium BroadwayWorld...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxQMjBaOUhaZzdaek5kbm9fXzN6eVZEbDJBMzZFTGxSb3JhZFZpcThvSTM2MDBhUDZuZzUyUTE4WFlxeDkxWjBqalNTNUFfQU5qX0RzWllvWEVRUklYX3hxbEJ1T1JjaEpPRmdQYUlvQ0VoVFBRdVFmb19iVzdVVE40TlY0WGdOYllLZDFlRVVPX254MHNaN3hIOXVNcXJMZGZBZElxZFBzM0pQMXJyWE9lTVlFbnJWVEpsb2hEQ19FcllfS3pqc013TWpnTFdBel8tYV9Z?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">Megan Hilty and Rachel Tucker to star in Gentlemen Prefer Blondes at the London Palladium - Ticketmaster Discover ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">Ticketmaster Discover (검색 수집)</span> | 일시: Mon, 14 Sep 2026 08:08:30 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">Megan Hilty and Rachel Tucker to star in Gentlemen Prefer Blondes at the London Palladium Ticketmaster Discover...</div>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <a href="https://news.google.com/rss/articles/CBMigwJBVV95cUxQVHcyem9oMjRrWElvQjEtYlk5UndSbW9rWlVXejJybzJqWmp1NlZfSDdsVnhuVjZ4ZFIwX1hiTjF4cWI2VGREak9SUFZMWDZVTk51U3NzNnRoa3NEN2lpMEI1Z2NBeFFMTmpDWmtxR3BkSGNPYldCWm5nanA0ODN1ZG40TU1BN0o5NzFhcDRNRDNpYUdNZUt6RVNFY0xBdlJWUkZubEtTRERVOTVYRzd1VzNsUEpsclZ4czg3a3hIVHJWN19YbFgtdmlZSThxSktkYzlhUW1uc044WlJ4ZmI4TzF1UU1MdjhUYU5peG1paWF6aEJyYkx1UEdxemdXVjFqQ2ZN?oc=5" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">A help for all Muslims in this region: Smartwills Wasiatku launches and confirms a strategic partnership with Palladium Trustee - The Star ↗</a>
+                    <div style="font-size: 13px; color: #6b7280; margin: 3px 0;">출처: <span style="color: #4b5563; font-weight: 500;">The Star (검색 수집)</span> | 일시: Sun, 13 Sep 2026 07:02:00 GMT</div>
+                    <div style="font-size: 13.5px; color: #4b5563; line-height: 1.5; background: #f9fafb; padding: 6px 10px; border-radius: 4px; margin-top: 4px;">A help for all Muslims in this region: Smartwills Wasiatku launches and confirms a strategic partnership with Palladium Trustee The Star...</div>
+                </li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-8-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-8-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: [단순 시황] (제공된 뉴스 중 1건만이 원자재 시장과 관련이 있으며, 나머지 2건은 동명의 키워드(Labs, 공연장)를 포함한 무관한 정보임)</p>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>2. 핵심 내용 요약</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'>유가 $100 돌파에 따른 백금(Platinum) 및 팔라듐(Palladium) 가격의 하락(Breakdown) 리스크 상존.</li>
+<li style='margin-bottom: 4px;'>에너지 가격과 귀금속 가격 간의 상관관계에 따른 단기적 가격 변동성 확대 가능성 시사.</li>
+</ul>
+<p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'><strong>원자재 가격 및 글로벌 수급 여파</strong>: 유가 상승이 반드시 귀금속 가격 상승으로 이어지지 않는 변동성 장세가 예상됨. 특히 팔라듐은 산업용 수요와 연동되는 경향이 있어, 고유가에 따른 경기 둔화 우려가 반영될 경우 단기적인 가격 조정이 발생할 수 있음. 공급망 측면에서는 주요 생산국의 생산량보다는 거시 경제 지표(유가, 달러 인덱스)에 따른 심리적 수급 변화를 주시해야 함.</li>
+<li style='margin-bottom: 4px;'><strong>자동차 부품 및 스크랩 유통 영향</strong>: 팔라듐은 자동차 촉매(Catalytic Converter)의 핵심 소재임. 원자재 가격 하락 압력이 가시화될 경우, 폐차 및 중고 부품 시장에서의 촉매 스크랩 매입 단가 하락으로 이어질 수 있음. 스크랩 유통업체는 매입 단가 하락에 대비한 재고 관리 전략이 필요하며, 촉매 재생 및 재활용 부문의 수익성 변동에 유의해야 함. 특히 국내 비철금속 유통 단가 산정 시 글로벌 유가와 연동된 팔라듐 시세의 하방 압력을 실시간 모니터링할 필요가 있음.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div id="metal-9" class="metal-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 22px; color: #111827;">💎 9. 로듐 <span style="font-size: 16px; color: #6b7280; font-weight: normal;">(Rhodium)</span></h2>
+                <span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;">PGM (백금족)</span>
+            </div>
+
+            <!-- 단가 뱃지 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+                <div style="background: #f3f4f6; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 160px;">
+                    <div style="font-size: 12px; color: #6b7280;">국제 종가</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #111827; margin-top: 2px;">$9,550.00 / oz</div>
+                </div>
+                <div style="background: #eff6ff; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 180px; border: 1px solid #bfdbfe;">
+                    <div style="font-size: 12px; color: #1d4ed8; font-weight: 500;">원화 환산 시장가</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #1e40af; margin-top: 2px;">414,135 원/g</div>
+                </div>
+                <div style="background: #fffbeb; padding: 10px 14px; border-radius: 8px; flex: 1; min-width: 200px; border: 1px solid #fde68a;">
+                    <div style="font-size: 12px; color: #b45309; font-weight: 500;">♻️ 스크랩 매입 추정가 (70~80%)</div>
+                    <div style="font-size: 17px; font-weight: bold; color: #92400e; margin-top: 2px;">289,895 ~ 331,308 원/g</div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            
+            <div style="margin: 18px 0; text-align: center; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-weight: 600; font-size: 14px; color: #4b5563; margin-bottom: 8px; text-align: left;">📈 Trading Economics 1년 종가 시세 차트</div>
+                <img src="./%5B%EB%A1%9C%EB%93%90%5D_1%EB%85%84_%EC%8B%9C%EC%84%B8%EC%B0%A8%ED%8A%B8_2026-09-15.png" alt="로듐 차트" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 6px; text-align: right;"><a href="https://tradingeconomics.com/commodity/rhodium" target="_blank" style="color: #9ca3af;">Trading Economics 바로가기 ↗</a></div>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div style="margin: 18px 0;">
+                <h3 style="font-size: 16px; color: #1f2937; margin-bottom: 10px;">📰 최근 주요 뉴스 요약 및 출처 (0건)</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    <li style='color: #6b7280;'>최근 24~48시간 이내에 보도된 직접적인 특이 기사가 없습니다.</li>
+                </ul>
+            </div>
+
+            <!-- Gemma 4 분석 -->
+            <div style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 0 8px 8px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 style="font-size: 16px; color: #1e3a8a; margin: 0;">🔍 시장 분석 및 향후 여파 코멘트 (Gemma 4)</h3>
+                    <button onclick="copySectionText('metal-9-analysis')" style="padding: 4px 10px; font-size: 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 분석 텍스트 복사</button>
+                </div>
+                <div id="metal-9-analysis">
+                    <p style="margin: 8px 0; line-height: 1.7; color: #374151;"><strong>1. 이슈 판정</strong>: <strong>[특이 이슈 없음]</strong></p>
+<ul style="margin: 8px 0 12px 0; padding-left: 22px; line-height: 1.7; color: #374151;">
+<li style='margin-bottom: 4px;'>최근 2일 동안 주요 시장 교란 요인이나 대형 이슈 기사가 없습니다.</li>
+<li style='margin-bottom: 4px;'><strong>향후 여파 코멘트</strong>: 현재 수급과 가격이 비교적 안정적인 보합 흐름을 유지하고 있어, 국내 자동차 부품 및 스크랩 유통 시장에서도 단기적인 가격 급변보다는 기존 재고 순환 위주의 안정적 흐름이 이어질 것으로 전망됩니다.</li>
+</ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 💬 실시간 익명 한줄 메모장 섹션 -->
+        <section id="memoBoardSection" class="memo-board">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">💬</span>
+                    <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0;">익명 한줄 요청 & 문의 메모장</h3>
+                    <span style="background: #eff6ff; color: #2563eb; font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 12px; border: 1px solid #bfdbfe;">익명 실시간</span>
+                </div>
+                <span style="font-size: 12.5px; color: #64748b;">원자재 품목 추가 희망, 시세 제보, 건의사항을 자유롭게 남겨주세요</span>
+            </div>
+
+            <!-- Input Form -->
+            <form id="commentForm" onsubmit="handleCommentSubmit(event)" style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 1.5rem;">
+                <!-- Honeypot (Spam trap) -->
+                <input type="text" id="hp_url_check" name="website_url" style="display:none !important;" tabindex="-1" autocomplete="off">
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;" class="memo-form-inputs">
+                    <input type="text" id="commentAuthor" class="memo-input" placeholder="닉네임 (예: 구리유통인)" maxlength="15" required style="width: 150px;">
+                    <input type="text" id="commentText" class="memo-input" placeholder="요청사항이나 문의 내용을 입력해주세요 (최대 120자)" maxlength="120" required style="flex: 1; min-width: 240px;">
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                        <span id="mathQuizLabel" style="font-size: 13px; color: #2563eb; font-weight: 700; white-space: nowrap; font-family: monospace;">3 + 4 =</span>
+                        <input type="number" id="mathAnswer" class="memo-input" placeholder="답" required style="width: 48px; text-align: center; padding: 9px 4px;">
+                        <button type="submit" id="btnSubmitMemo" class="memo-btn">등록</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Comments List -->
+            <div id="commentsList" style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Dynamic Items rendered here -->
+            </div>
+        </section>
+
+        <footer style="text-align: center; color: #94a3b8; font-size: 13px; margin: 40px 0 20px 0;">
+            ThePathLab Metal News Briefing System | Data Sources: Trading Economics, Mining.com, Naver Finance
+        </footer>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, 3000);
+        }
+
+        function copyPriceTable() {
+            const table = document.getElementById('naver-copy-table');
+            const range = document.createRange();
+            range.selectNode(table);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                showToast('✅ 네이버 블로그용 표가 복사되었습니다! 네이버 글쓰기 화면에 Ctrl+V로 붙여넣으세요.');
+            } catch(e) {
+                alert('복사 실패: 표를 직접 마우스로 드래그하여 Ctrl+C 로 복사해 주세요.');
+            }
+        }
+
+        function copySectionText(elementId) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const text = el.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('📋 분석 코멘트 텍스트가 복사되었습니다!');
+            }).catch(() => {
+                const range = document.createRange();
+                range.selectNode(el);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                showToast('📋 분석 코멘트 텍스트가 복사되었습니다!');
+            });
+        }
+
+        // === 💬 익명 한줄 요청 & 문의 메모장 로직 ===
+        let numA = Math.floor(Math.random() * 8) + 2;
+        let numB = Math.floor(Math.random() * 8) + 1;
+        let correctSum = numA + numB;
+        const quizEl = document.getElementById('mathQuizLabel');
+        if (quizEl) quizEl.innerText = numA + ' + ' + numB + ' =';
+
+        const pageKey = 'metals_memo_' + '2026-09-15';
+
+        function getComments() {
+            try {
+                const data = localStorage.getItem(pageKey);
+                return data ? JSON.parse(data) : [];
+            } catch(e) { return []; }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function renderComments() {
+            const listEl = document.getElementById('commentsList');
+            if (!listEl) return;
+            const comments = getComments();
+            if (comments.length === 0) {
+                listEl.innerHTML = '<div style="text-align:center; padding:18px; color:#94a3b8; font-size:13.5px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">✏️ 아직 등록된 문의나 요청사항이 없습니다. 첫 번째 의견을 남겨보세요!</div>';
+                return;
+            }
+            listEl.innerHTML = comments.slice().reverse().map(c => `
+                <div class="memo-item">
+                    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+                        <strong style="color:#2563eb; font-size:13.5px; white-space:nowrap;">${escapeHtml(c.author)}</strong>
+                        <span style="color:#334155; font-size:13.5px; word-break:break-all;">${escapeHtml(c.text)}</span>
+                    </div>
+                    <span style="font-size:12px; color:#94a3b8; white-space:nowrap;">${escapeHtml(c.time)}</span>
+                </div>
+            `).join('');
+        }
+
+        function handleCommentSubmit(e) {
+            e.preventDefault();
+            // 1. 허니팟 스팸 봇 필터
+            if (document.getElementById('hp_url_check').value !== '') {
+                return false;
+            }
+            // 2. 산수 캡차 검증
+            const userAns = parseInt(document.getElementById('mathAnswer').value);
+            if (userAns !== correctSum) {
+                alert('스팸 방지 산수 문제의 정답이 올바르지 않습니다.');
+                return false;
+            }
+            // 3. 쿨다운 검사 (10초)
+            const lastPost = localStorage.getItem('last_metals_memo_time');
+            const now = Date.now();
+            if (lastPost && now - parseInt(lastPost) < 10000) {
+                alert('도배 방지를 위해 10초 후에 다시 작성하실 수 있습니다.');
+                return false;
+            }
+
+            const author = document.getElementById('commentAuthor').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+            if (!author || !text) return;
+
+            const d = new Date();
+            const timeStr = (d.getMonth()+1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+
+            const comments = getComments();
+            comments.push({ author, text, time: timeStr });
+            localStorage.setItem(pageKey, JSON.stringify(comments));
+            localStorage.setItem('last_metals_memo_time', now.toString());
+
+            document.getElementById('commentText').value = '';
+            document.getElementById('mathAnswer').value = '';
+            renderComments();
+            showToast('✅ 의견이 성공적으로 등록되었습니다!');
+
+            // 문제 새로고침
+            numA = Math.floor(Math.random() * 8) + 2;
+            numB = Math.floor(Math.random() * 8) + 1;
+            correctSum = numA + numB;
+            if (quizEl) quizEl.innerText = numA + ' + ' + numB + ' =';
+            return false;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderComments);
+    </script>
+</body>
+</html>
+    
