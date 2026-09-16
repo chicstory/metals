@@ -397,6 +397,8 @@ def build_website_index() -> str:
         copper_p = "-"
         gold_p = "-"
         pd_p = "-"
+        pd_raw = 57941
+        rh_raw = 420951
         if os.path.exists(c_path):
             with open(c_path, "r", encoding="utf-8-sig") as cf:
                 c_rows = list(csv.DictReader(cf))
@@ -413,7 +415,18 @@ def build_website_index() -> str:
                         elif cr.get("자원명") == "금":
                             gold_p = f"{int(float(cr['원화시장단가(원)'])):,}원/g"
                         elif cr.get("자원명") == "팔라듐":
-                            pd_p = f"{int(float(cr['원화시장단가(원)'])):,}원/g"
+                            try:
+                                val = int(float(cr['원화시장단가(원)']))
+                                pd_p = f"{val:,}원/g"
+                                pd_raw = val
+                            except Exception:
+                                pass
+                        elif cr.get("자원명") == "로듐":
+                            try:
+                                val = int(float(cr['원화시장단가(원)']))
+                                rh_raw = val
+                            except Exception:
+                                pass
         report_filename = f"[통합브리핑] 9대_금속원자재_{d}.html"
         if not os.path.exists(os.path.join(RESOURCES_DIR, d, report_filename)):
             report_filename = f"[통합브리핑] 7대_금속원자재_{d}.html"
@@ -430,6 +443,8 @@ def build_website_index() -> str:
             "copper": copper_p,
             "gold": gold_p,
             "palladium": pd_p,
+            "pd_raw": pd_raw,
+            "rh_raw": rh_raw,
             "report_url": report_url,
             "csv_url": csv_url,
             "is_latest": (d == latest_date)
@@ -452,6 +467,15 @@ def build_website_index() -> str:
     <link rel="canonical" href="{SITE_URL}/">
     <meta name="google-adsense-account" content="ca-pub-1876940323402065">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
+    
+    <!-- Google Analytics 4 (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3PFHN6VW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag('js', new Date());
+      gtag('config', 'G-K3PFHN6VW7');
+    </script>
     <link rel="alternate" type="application/rss+xml" title="ThePathLab 9대 금속원자재 시황 RSS" href="{SITE_URL}/rss.xml">
 
     <!-- Open Graph / Social Sharing -->
@@ -1047,6 +1071,204 @@ def build_website_index() -> str:
             color: #34d399;
             font-weight: 800;
             text-align: right;
+        }}
+
+        /* 🚗 Catalytic Converter Calculator Styles */
+        .calc-tab-nav {{
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 5px;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }}
+        .calc-tab-btn {{
+            flex: 1;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            font-size: 14.5px;
+            font-weight: 700;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }}
+        .calc-tab-btn.active {{
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+        }}
+        .calc-sub-hint {{
+            font-size: 12.5px;
+            color: #94a3b8;
+        }}
+        .cat-grid {{
+            display: grid;
+            grid-template-columns: 1.1fr 1.5fr;
+            gap: 20px;
+            align-items: start;
+        }}
+        .cat-result-card {{
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 18px 20px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }}
+        .cat-quote-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }}
+        .cat-quote-label {{
+            font-size: 13px;
+            color: var(--text-sub);
+            font-weight: 600;
+        }}
+        .cat-diff-tag {{
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }}
+        .cat-quote-main {{
+            font-size: clamp(22px, 4vw, 28px);
+            color: #34d399;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(52, 211, 153, 0.25);
+        }}
+        .cat-quote-desc {{
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #1e293b;
+        }}
+        /* 5-Day Trend Timeline */
+        .cat-trend-box {{
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+        }}
+        .cat-trend-head {{
+            font-size: 12px;
+            font-weight: 700;
+            color: #93c5fd;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }}
+        .cat-trend-list {{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }}
+        .cat-trend-row {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12.5px;
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: rgba(15, 23, 42, 0.4);
+        }}
+        .cat-trend-date {{
+            color: var(--text-sub);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }}
+        .cat-trend-val {{
+            font-weight: 700;
+            color: #f8fafc;
+        }}
+        /* Chart jump links */
+        .cat-actions-grid {{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 14px;
+        }}
+        .btn-cat-chart {{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 12px;
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #93c5fd;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }}
+        .btn-cat-chart:hover {{
+            background: #334155;
+            border-color: #60a5fa;
+            color: #ffffff;
+            text-decoration: none;
+        }}
+        /* Notice & hsmp Banner */
+        .cat-notice-box {{
+            background: rgba(245, 158, 11, 0.08);
+            border-left: 3px solid #f59e0b;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }}
+        .hsmp-col-banner {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 10px;
+            padding: 12px 16px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }}
+        .hsmp-col-banner:hover {{
+            border-color: #34d399;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            transform: translateY(-1px);
+        }}
+        .hsmp-banner-text {{
+            font-size: 12.5px;
+            color: #e2e8f0;
+            font-weight: 600;
+            line-height: 1.4;
+        }}
+        .hsmp-banner-btn {{
+            background: #10b981;
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            white-space: nowrap;
         }}
 
         /* Price Section Header */
@@ -1817,6 +2039,30 @@ def build_website_index() -> str:
                 grid-template-columns: 1fr;
                 gap: 12px;
             }}
+            .calc-tab-nav {{
+                flex-direction: column;
+                gap: 6px;
+            }}
+            .calc-tab-btn {{
+                padding: 10px 12px;
+                font-size: 13.5px;
+            }}
+            .cat-grid {{
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+            }}
+            .cat-actions-grid {{
+                grid-template-columns: 1fr;
+            }}
+            .hsmp-col-banner {{
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }}
+            .hsmp-banner-btn {{
+                width: 100%;
+                text-align: center;
+            }}
             
             /* 모바일에서는 테이블 숨기고, 전용 카드 뷰 활성화 */
             .table-wrap {{
@@ -2078,37 +2324,116 @@ def build_website_index() -> str:
             </div>
         </section>
 
-        <!-- 🧮 실시간 스크랩 계산기 위젯 -->
-        <section class="calc-box">
-            <div class="calc-header">
-                <h2>🧮 실시간 스크랩 매입 예상 견적 계산기</h2>
-                <span style="font-size: 12.5px; color: #94a3b8;">* 오늘자 환산 시장가 대비 감모·정제 마진(70~80%) 자동 적용</span>
+        <!-- 🧮 실시간 스크랩 & 폐촉매 계산기 위젯 -->
+        <section class="calc-box" id="calcSection">
+            <!-- 2-Track 탭 스위처 -->
+            <div class="calc-tab-nav">
+                <button type="button" class="calc-tab-btn active" id="tab-btn-metals" onclick="switchCalcTab('metals')">
+                    <i class="bi-calculator"></i> 🪙 9대 원자재 중량 계산
+                </button>
+                <button type="button" class="calc-tab-btn" id="tab-btn-catalyst" onclick="switchCalcTab('catalyst')">
+                    <i class="bi-car-front-fill"></i> 🚗 가솔린·LPG 폐촉매 실무 견적
+                </button>
             </div>
-            <div class="calc-grid">
-                <div class="calc-field">
-                    <label for="calc-metal">품목 선택</label>
-                    <select id="calc-metal" class="calc-select" onchange="onMetalChange()">
-                        <!-- JS injected -->
-                    </select>
+
+            <!-- Track 1: 기존 9대 금속 스크랩 계산기 -->
+            <div id="panel-calc-metals">
+                <div class="calc-header">
+                    <h2>🧮 실시간 스크랩 매입 예상 견적 계산기</h2>
+                    <span style="font-size: 12.5px; color: #94a3b8;">* 오늘자 환산 시장가 대비 감모·정제 마진(70~80%) 자동 적용</span>
                 </div>
-                <div class="calc-field">
-                    <label for="calc-qty">수량 (<span id="calc-unit-label">kg</span>)</label>
-                    <input type="number" id="calc-qty" class="calc-input" value="100" min="0.1" step="any" oninput="calculateScrap()">
-                    <div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">
-                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=3.75; calculateScrap();" style="padding:2px 7px; font-size:11px;">1돈(3.75g)</button>
-                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=37.5; calculateScrap();" style="padding:2px 7px; font-size:11px;">10돈(37.5g)</button>
-                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=100; calculateScrap();" style="padding:2px 7px; font-size:11px;">100(g/kg)</button>
-                        <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=1000; calculateScrap();" style="padding:2px 7px; font-size:11px;">1,000(1kg/1톤)</button>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="calc-metal">품목 선택</label>
+                        <select id="calc-metal" class="calc-select" onchange="onMetalChange()">
+                            <!-- JS injected -->
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label for="calc-qty">수량 (<span id="calc-unit-label">kg</span>)</label>
+                        <input type="number" id="calc-qty" class="calc-input" value="100" min="0.1" step="any" oninput="calculateScrap()">
+                        <div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">
+                            <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=3.75; calculateScrap();" style="padding:2px 7px; font-size:11px;">1돈(3.75g)</button>
+                            <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=37.5; calculateScrap();" style="padding:2px 7px; font-size:11px;">10돈(37.5g)</button>
+                            <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=100; calculateScrap();" style="padding:2px 7px; font-size:11px;">100(g/kg)</button>
+                            <button type="button" class="btn-sm btn-sub" onclick="document.getElementById('calc-qty').value=1000; calculateScrap();" style="padding:2px 7px; font-size:11px;">1,000(1kg/1톤)</button>
+                        </div>
+                    </div>
+                    <div class="calc-result-box">
+                        <div class="calc-res-row">
+                            <span class="calc-res-label">원자재 환산 시장 가치</span>
+                            <span id="res-market" class="calc-res-val">- 원</span>
+                        </div>
+                        <div class="calc-res-row">
+                            <span class="calc-res-label">♻️ 스크랩 매입 예상 (70%~80%)</span>
+                            <span id="res-scrap" class="calc-res-highlight">- 원</span>
+                        </div>
                     </div>
                 </div>
-                <div class="calc-result-box">
-                    <div class="calc-res-row">
-                        <span class="calc-res-label">원자재 환산 시장 가치</span>
-                        <span id="res-market" class="calc-res-val">- 원</span>
+            </div>
+
+            <!-- Track 2: 가솔린/LPG 폐촉매 실무 견적 계산기 -->
+            <div id="panel-calc-catalyst" style="display: none;">
+                <div class="calc-header">
+                    <h2>🚗 가솔린·LPG 순정 폐촉매 예상 매입 견적기</h2>
+                    <span class="calc-sub-hint">* 오늘자 국제 PGM(팔라듐·로듐) 공시 지표 및 실무 매입 마진(30% 안전할인) 반영</span>
+                </div>
+                <div class="cat-grid">
+                    <div>
+                        <div class="calc-field" style="margin-bottom: 14px;">
+                            <label for="cat-select" style="font-size: 13.5px; font-weight: 700; color: #93c5fd; margin-bottom: 8px;">
+                                <i class="bi-check-circle-fill" style="color: #38bdf8;"></i> 내 차종 / 파워트레인 선택
+                            </label>
+                            <select id="cat-select" class="calc-select" onchange="calculateCatalystQuote()" style="border-color: #3b82f6;">
+                                <!-- JS injected options -->
+                            </select>
+                        </div>
+
+                        <!-- 주의사항 박스 -->
+                        <div class="cat-notice-box">
+                            <div>⚠️ <strong>출고 당시 순정 정품 촉매</strong> 장착 차량 기준입니다. (사제·재생 촉매는 귀금속이 없어 매입 불가)</div>
+                            <div style="margin-top: 4px;">⚠️ 내부 세라믹 벌집 담체 파손, 털림, 백화 시 매입이 제한될 수 있습니다.</div>
+                        </div>
+
+                        <!-- hsmp 전문 칼럼 배너 -->
+                        <a href="https://hsmp.tistory.com/96" target="_blank" rel="noopener" class="hsmp-col-banner" title="hsmp 블로그 전문 분석 칼럼 새창 열기">
+                            <div class="hsmp-banner-text">
+                                💡 촉매 떼서 팔면 200만원? 폐촉매 가치 산정 공식과 폐차비의 진실
+                            </div>
+                            <span class="hsmp-banner-btn">분석 칼럼 보기 ↗</span>
+                        </a>
                     </div>
-                    <div class="calc-res-row">
-                        <span class="calc-res-label">♻️ 스크랩 매입 예상 (70%~80%)</span>
-                        <span id="res-scrap" class="calc-res-highlight">- 원</span>
+
+                    <!-- 견적 결과 및 추이 카드 -->
+                    <div class="cat-result-card">
+                        <div class="cat-quote-header">
+                            <span class="cat-quote-label">💰 오늘자 예상 실무 매입 견적</span>
+                            <span class="cat-diff-tag diff-up" id="cat-quote-diff">▲ +0원</span>
+                        </div>
+                        <div class="cat-quote-main" id="cat-quote-val">- 원</div>
+                        <div class="cat-quote-desc">
+                            국제 원자재(팔라듐·로듐) 당일 공시 지표와 실무 유통/제련 마진을 반영한 차주 실매입 추정가입니다.
+                        </div>
+
+                        <!-- 최근 5일 시세 추이 -->
+                        <div class="cat-trend-box">
+                            <div class="cat-trend-head">
+                                <i class="bi-clock-history"></i> 최근 5일 매입 시세 추이 (원자재 시세 반영)
+                            </div>
+                            <div class="cat-trend-list" id="cat-trend-list">
+                                <!-- JS injected -->
+                            </div>
+                        </div>
+
+                        <!-- 원자재 1년 차트 바로가기 버튼 (2열 그리드) -->
+                        <div class="cat-actions-grid">
+                            <a href="#card-palladium" class="btn-cat-chart" onclick="scrollToMetalCard('card-palladium'); return false;">
+                                <i class="bi-graph-up-arrow"></i> 🚗 팔라듐 1년 차트 ↓
+                            </a>
+                            <a href="#card-rhodium" class="btn-cat-chart" onclick="scrollToMetalCard('card-rhodium'); return false;">
+                                <i class="bi-gem"></i> 💎 로듐 1년 차트 ↓
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2370,6 +2695,171 @@ def build_website_index() -> str:
             document.getElementById('res-scrap').innerText = `${{scrap70Total.toLocaleString()}} 원 ~ ${{scrap80Total.toLocaleString()}} 원`;
         }}
 
+        // ----------------------------------------------------
+        // 🚗 촉매 계산기 로직 (Catalytic Converter Calculator)
+        // ----------------------------------------------------
+        function switchCalcTab(mode) {{
+            const btnMetals = document.getElementById('tab-btn-metals');
+            const btnCat = document.getElementById('tab-btn-catalyst');
+            const pnlMetals = document.getElementById('panel-calc-metals');
+            const pnlCat = document.getElementById('panel-calc-catalyst');
+
+            if (mode === 'metals') {{
+                btnMetals.classList.add('active');
+                btnCat.classList.remove('active');
+                pnlMetals.style.display = 'block';
+                pnlCat.style.display = 'none';
+            }} else {{
+                btnCat.classList.add('active');
+                btnMetals.classList.remove('active');
+                pnlCat.style.display = 'block';
+                pnlMetals.style.display = 'none';
+                if (!window.CATALYST_INITIALIZED) {{
+                    initCatalystCalculator();
+                    window.CATALYST_INITIALIZED = true;
+                }}
+            }}
+        }}
+
+        // 가솔린·LPG 차종별 귀금속(Pd, Rh) 엔지니어링 추정 계수
+        // (사용자에게는 비율/g수가 비공개되며 30% 실무 마진 선차감 적용)
+        const CATALYST_PRESETS = [
+            {{
+                id: "lpi_20",
+                label: "🚗 [LPG 가스차] 쏘나타 · K5 · 그랜저 (2.0~3.0 LPi)",
+                pd: 1.9,
+                rh: 0.85
+            }},
+            {{
+                id: "gdi_na_16_20",
+                label: "🚗 [직분사 가솔린] 아반떼MD · YF/K5 · 그랜저HG (1.6~2.4 GDi)",
+                pd: 2.1,
+                rh: 0.45
+            }},
+            {{
+                id: "tgdi_16_20",
+                label: "⚡ [터보 가솔린] 아반떼 N라인 · 쏘나타 터보 · 벨로스터 (1.6T~2.0T)",
+                pd: 2.5,
+                rh: 0.65
+            }},
+            {{
+                id: "mpi_na_10_16",
+                label: "🚙 [자연흡기 가솔린] 모닝 · 레이 · 아반떼 (1.0~1.6 MPi)",
+                pd: 1.8,
+                rh: 0.20
+            }},
+            {{
+                id: "hev_16_20",
+                label: "🔋 [하이브리드] 니로 · 아반떼 · 쏘나타 (1.6~2.0 HEV)",
+                pd: 2.2,
+                rh: 0.50
+            }}
+        ];
+
+        function initCatalystCalculator() {{
+            const sel = document.getElementById('cat-select');
+            if (!sel) return;
+            sel.innerHTML = '';
+            CATALYST_PRESETS.forEach(preset => {{
+                const opt = document.createElement('option');
+                opt.value = preset.id;
+                opt.innerText = preset.label;
+                sel.appendChild(opt);
+            }});
+            calculateCatalystQuote();
+        }}
+
+        function calculateCatalystQuote() {{
+            const sel = document.getElementById('cat-select');
+            if (!sel) return;
+            const preset = CATALYST_PRESETS.find(p => p.id === sel.value) || CATALYST_PRESETS[0];
+
+            // 1. 오늘자 Pd, Rh 단가 추출
+            const pdMetal = METALS.find(m => m.key === 'palladium');
+            const rhMetal = METALS.find(m => m.key === 'rhodium');
+            const pdPrice = pdMetal ? pdMetal.price : 57941;
+            const rhPrice = rhMetal ? rhMetal.price : 420951;
+
+            // 2. 귀금속 이론가 = (Pd g * Pd단가) + (Rh g * Rh단가)
+            const rawValue = (preset.pd * pdPrice) + (preset.rh * rhPrice);
+
+            // 3. 실무 매입 마진 30% 추가 할인 적용 (이론가의 50% ~ 55% 수준)
+            const minQuote = Math.round((rawValue * 0.50) / 10000) * 10000;
+            const maxQuote = Math.round((rawValue * 0.56) / 10000) * 10000;
+
+            const quoteEl = document.getElementById('cat-quote-val');
+            if (quoteEl) {{
+                quoteEl.innerText = `${{minQuote.toLocaleString()}} ~ ${{maxQuote.toLocaleString()}} 원`;
+            }}
+
+            // 4. 최근 5일 추이 계산 및 전일 대비 변동량 산출
+            renderCatalystTrend(preset, rawValue);
+        }}
+
+        function renderCatalystTrend(preset, currentRawValue) {{
+            const trendListEl = document.getElementById('cat-trend-list');
+            const diffTagEl = document.getElementById('cat-quote-diff');
+            if (!trendListEl) return;
+
+            trendListEl.innerHTML = '';
+
+            // 최근 5개 일자 아카이브 추출
+            const recentArchives = ARCHIVES.slice(0, 5);
+            let prevAvgQuote = 0;
+            let currentAvgQuote = 0;
+
+            recentArchives.forEach((item, idx) => {{
+                const pdP = item.pd_raw || 57941;
+                const rhP = item.rh_raw || 420951;
+                const rVal = (preset.pd * pdP) + (preset.rh * rhP);
+                const qMin = Math.round((rVal * 0.50) / 10000) * 10000;
+                const qMax = Math.round((rVal * 0.56) / 10000) * 10000;
+                const avg = (qMin + qMax) / 2;
+
+                if (idx === 0) currentAvgQuote = avg;
+                if (idx === 1) prevAvgQuote = avg;
+
+                const row = document.createElement('div');
+                row.className = 'cat-trend-row';
+                
+                const dateLabel = idx === 0 ? `${{item.date.substring(5)}} (오늘)` : item.date.substring(5);
+                const dateSpan = document.createElement('span');
+                dateSpan.className = 'cat-trend-date';
+                dateSpan.innerText = dateLabel;
+
+                const valSpan = document.createElement('span');
+                valSpan.className = 'cat-trend-val';
+                valSpan.innerText = `${{(qMin / 10000).toFixed(0)}}만 ~ ${{(qMax / 10000).toFixed(0)}}만 원`;
+
+                row.appendChild(dateSpan);
+                row.appendChild(valSpan);
+                trendListEl.appendChild(row);
+            }});
+
+            // 전일 대비 변동 배지 계산
+            if (diffTagEl && prevAvgQuote > 0) {{
+                const diff = currentAvgQuote - prevAvgQuote;
+                const diffPct = ((diff / prevAvgQuote) * 100).toFixed(1);
+                if (diff > 0) {{
+                    diffTagEl.className = 'cat-diff-tag diff-up';
+                    diffTagEl.innerText = `▲ +${{diff.toLocaleString()}}원 (+${{diffPct}}%)`;
+                }} else if (diff < 0) {{
+                    diffTagEl.className = 'cat-diff-tag diff-down';
+                    diffTagEl.innerText = `▼ ${{diff.toLocaleString()}}원 (${{diffPct}}%)`;
+                }} else {{
+                    diffTagEl.className = 'cat-diff-tag diff-flat';
+                    diffTagEl.innerText = `- 변동 없음 (0.0%)`;
+                }}
+            }}
+        }}
+
+        function scrollToMetalCard(targetId) {{
+            const el = document.getElementById(targetId);
+            if (el) {{
+                el.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+            }}
+        }}
+
         // Category Filter (동시에 모바일 카드도 필터링)
         function filterCategory(cat, btn) {{
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -2547,6 +3037,7 @@ def build_website_index() -> str:
 
         window.addEventListener('DOMContentLoaded', () => {{
             initCalculator();
+            initCatalystCalculator();
             renderCalendar();
             renderScrollList();
             if (ARCHIVES.length > 0) {{
