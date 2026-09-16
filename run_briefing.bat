@@ -19,7 +19,7 @@ if /i "%AUTO_PUSH%"=="n" goto SKIP_PUSH
 
 echo.
 echo [안내] metals GitHub 웹사이트로 배포 진행 중...
-git add index.html latest.json sitemap.xml rss.xml robots.txt resources/
+git add index.html latest.json sitemap.xml rss.xml robots.txt ads.txt resources/
 git commit -m "Auto update daily briefing" > nul 2>&1
 git push origin main
 echo.
@@ -33,7 +33,7 @@ if exist "%PORTAL_DIR%\index.html" (
     echo.
     echo [안내] 메인 포털(chicstory.github.io) 배포 진행 중...
     pushd "%PORTAL_DIR%"
-    git add index.html sitemap.xml rss.xml robots.txt
+    git add index.html sitemap.xml rss.xml robots.txt ads.txt
     git commit -m "Auto sync portal daily metal briefing & SEO: %date%" > nul 2>&1
     git push origin main
     popd

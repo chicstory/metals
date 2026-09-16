@@ -450,6 +450,8 @@ def build_website_index() -> str:
     <meta name="keywords" content="고철시세, 철스크랩가격, 구리kg가격, 알루미늄시세, 납시세, 금시세, 은시세, 백금시세, 팔라듐시세, 로듐가격, 폐촉매가격, 폐배터리시세, 조달청원자재판매가격, 더패스랩, ThePathLab">
     <meta name="author" content="ThePathLab">
     <link rel="canonical" href="{SITE_URL}/">
+    <meta name="google-adsense-account" content="ca-pub-1876940323402065">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
     <link rel="alternate" type="application/rss+xml" title="ThePathLab 9대 금속원자재 시황 RSS" href="{SITE_URL}/rss.xml">
 
     <!-- Open Graph / Social Sharing -->

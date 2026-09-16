@@ -32,7 +32,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 :: 3. GitHub 웹사이트로 자동 배포 (Push)
 echo [%date% %time%] 브리핑 생성 완료. GitHub 배포 진행 중... >> "%LOG_FILE%"
-git add index.html latest.json sitemap.xml rss.xml robots.txt resources/ >> "%LOG_FILE%" 2>&1
+git add index.html latest.json sitemap.xml rss.xml robots.txt ads.txt resources/ >> "%LOG_FILE%" 2>&1
 git commit -m "Auto daily metal briefing: %date%" >> "%LOG_FILE%" 2>&1
 git push origin main >> "%LOG_FILE%" 2>&1
 
@@ -48,7 +48,7 @@ set "PORTAL_DIR=%~dp0..\chicstory.github.io"
 if exist "%PORTAL_DIR%\index.html" (
     echo [%date% %time%] 메인 포털(chicstory.github.io) 자동 배포 진행 중... >> "%LOG_FILE%"
     pushd "%PORTAL_DIR%"
-    git add index.html sitemap.xml rss.xml robots.txt >> "%LOG_FILE%" 2>&1
+    git add index.html sitemap.xml rss.xml robots.txt ads.txt >> "%LOG_FILE%" 2>&1
     git commit -m "Auto sync portal daily metal briefing & SEO: %date%" >> "%LOG_FILE%" 2>&1
     git push origin main >> "%LOG_FILE%" 2>&1
     popd
