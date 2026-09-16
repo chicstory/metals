@@ -406,7 +406,7 @@ def fetch_mining_com_feed() -> List[Dict[str, Any]]:
                         "pub_str": pub_str,
                         "description": desc,
                         "categories": categories,
-                        "source": "Mining.com (공식 피드)",
+                        "source": "Mining.com (RSS)",
                     })
         print(f"    -> 총 {len(articles)}개 기사 확보", flush=True)
     except Exception as e:

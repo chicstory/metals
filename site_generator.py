@@ -144,7 +144,7 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
                     articles.append({
                         "title": am[0].strip(),
                         "link": am[1].strip(),
-                        "source": am[2].strip(),
+                        "source": am[2].strip().replace(" (공식 피드)", " (RSS)").replace("(공식 피드)", "(RSS)"),
                         "pub_str": am[3].strip(),
                         "description": am[4].strip() if len(am) > 4 else ""
                     })
@@ -2067,10 +2067,10 @@ def build_website_index() -> str:
                 <div class="hero-meta-bar" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
                     <span class="meta-tag"><i class="bi-calendar3"></i> 기준 일시: <strong>{data['date_str']}</strong></span>
                     <span class="meta-tag"><i class="bi-currency-exchange"></i> 적용 환율: <strong style="color: #38bdf8;">1 USD = {data['usd_rate']:,.1f}원</strong></span>
-                    <span class="meta-tag" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;"><i class="bi-shield-check"></i> LME · 조달청 공식 검증</span>
+                    <span class="meta-tag"><i class="bi-info-circle"></i> 공개 시장 지표 참조</span>
                 </div>
                 <h1>📊 오늘의 9대 금속원자재 & 스크랩 실시간 시황</h1>
-                <p>국제 시장 종가(Trading Economics) 및 조달청 공식 판매가격표를 바탕으로, 비철·철스크랩·귀금속(금·은)·PGM(폐촉매)의 원화 환산 단가와 실무 스크랩 매입 추정 시세(70~80%)를 매일 아침 자동 산출합니다.</p>
+                <p>국제 시장 종가(Trading Economics) 및 조달청 비축물자 판매고시표를 바탕으로, 비철·철스크랩·귀금속(금·은)·PGM(폐촉매)의 원화 환산 기준 단가와 스크랩 매입 추정 시세(70~80%)를 매일 아침 자동 산출합니다.</p>
             </div>
             <div class="hero-actions">
                 <button onclick="copyNaverTable()" class="btn btn-green">📋 네이버 블로그용 표 복사</button>
@@ -2082,7 +2082,7 @@ def build_website_index() -> str:
         <section class="calc-box">
             <div class="calc-header">
                 <h2>🧮 실시간 스크랩 매입 예상 견적 계산기</h2>
-                <span style="font-size: 12.5px; color: #94a3b8;">* 오늘자 공식 시세 대비 감모·정제 마진(70~80%) 자동 적용</span>
+                <span style="font-size: 12.5px; color: #94a3b8;">* 오늘자 환산 시장가 대비 감모·정제 마진(70~80%) 자동 적용</span>
             </div>
             <div class="calc-grid">
                 <div class="calc-field">
@@ -2103,7 +2103,7 @@ def build_website_index() -> str:
                 </div>
                 <div class="calc-result-box">
                     <div class="calc-res-row">
-                        <span class="calc-res-label">공식 원자재 시장 가치</span>
+                        <span class="calc-res-label">원자재 환산 시장 가치</span>
                         <span id="res-market" class="calc-res-val">- 원</span>
                     </div>
                     <div class="calc-res-row">
@@ -2244,7 +2244,7 @@ def build_website_index() -> str:
             <p><strong>THEPATHLAB METALS & SCRAP INTELLIGENCE</strong> | Automated Market Intelligence Platform</p>
             <p style="margin-top: 6px; font-size: 12px; color: #64748b;">
                 Data Sources: Trading Economics, Mining.com, Public Procurement Service(조달청), Naver Finance.<br>
-                본 데이터는 정보 제공용이며, 실제 매입·매매 거래 시 품위, 운송비, 제련 감모율에 따라 변동될 수 있습니다.
+                본 사이트에서 제공하는 모든 시세 정보 및 분석 데이터는 공개된 시장 지표를 바탕으로 산출된 <strong>단순 참고용 추정치</strong>이며, 법적 보증이나 거래 계약의 기준이 되지 않습니다. 실제 매입·매매 거래 시 품위, 운송비, 제련 수수료 및 각 유통업체 기준에 따라 실거래 단가는 상이할 수 있습니다.
             </p>
         </div>
     </footer>
@@ -2277,7 +2277,7 @@ def build_website_index() -> str:
                     <div class="guide-tip-icon">🧮</div>
                     <div class="guide-tip-content">
                         <strong>원화 환산 시장가 & 전일 대비 변화량</strong>
-                        <p>LME·조달청 국제 종가에 <strong>당일 원/달러 환율</strong>을 실시간 반영하여 원/kg 또는 원/g 실거래 단가를 산출합니다. 뱃지(▲/▼)는 환율 변동과 국제시세 변동이 모두 결합된 전일 대비 실질 단가 변동량입니다.</p>
+                        <p>국제 시장 종가 및 조달청 고시가에 <strong>당일 원/달러 환율</strong>을 반영하여 원/kg 또는 원/g 환산 시장가를 산출합니다. 뱃지(▲/▼)는 환율 변동과 시장 시세 변동이 결합된 전일 대비 환산 단가 변동량입니다.</p>
                     </div>
                 </div>
                 <div class="guide-tip-item">
