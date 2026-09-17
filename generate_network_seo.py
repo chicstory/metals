@@ -223,6 +223,12 @@ def generate_autoissue_seo() -> List[Dict[str, Any]]:
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>{site_url}/safepick.html</loc>
+    <lastmod>{today_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>
 """
     with open(os.path.join(AUTOISSUE_DIR, "sitemap.xml"), "w", encoding="utf-8") as f:
@@ -310,6 +316,18 @@ def generate_portal_seo(metals_items: List[Dict[str, Any]], autoissue_items: Lis
     <loc>{portal_url}/autoissue/</loc>
     <lastmod>{today_str}</lastmod>
     <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>{portal_url}/autoissue/safepick.html</loc>
+    <lastmod>{today_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>{portal_url}/autocost/</loc>
+    <lastmod>{today_str}</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
