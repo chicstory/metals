@@ -96,6 +96,12 @@ def generate_metals_seo() -> List[Dict[str, Any]]:
         '    <changefreq>daily</changefreq>',
         '    <priority>1.0</priority>',
         '  </url>',
+        '  <url>',
+        f'    <loc>{site_url}/scrap.html</loc>',
+        f'    <lastmod>{today_str}</lastmod>',
+        '    <changefreq>daily</changefreq>',
+        '    <priority>0.95</priority>',
+        '  </url>',
     ]
 
     rss_items = []

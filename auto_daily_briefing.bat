@@ -32,7 +32,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 :: 3. GitHub 웹사이트로 자동 배포 (Push)
 echo [%date% %time%] 브리핑 생성 완료. GitHub 배포 진행 중... >> "%LOG_FILE%"
-git add index.html latest.json sitemap.xml rss.xml robots.txt ads.txt resources/ >> "%LOG_FILE%" 2>&1
+git add index.html scrap.html latest.json sitemap.xml rss.xml robots.txt ads.txt resources/ >> "%LOG_FILE%" 2>&1
 git commit -m "Auto daily metal briefing: %date%" >> "%LOG_FILE%" 2>&1
 git push origin main >> "%LOG_FILE%" 2>&1
 
