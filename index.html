@@ -1726,7 +1726,7 @@
         <div class="tpl-nav-links">
           <a href="https://chicstory.github.io/" class="tpl-nav-link"><i class="bi-house-door"></i> 포털 홈</a>
           <a href="https://chicstory.github.io/metals/" class="tpl-nav-link active"><i class="bi-graph-up-arrow"></i> 금속 시황</a>
-          <a href="https://thapathlab.com/metals/scrap.html" class="tpl-nav-link"><i class="bi-recycle"></i> 고철·비철 등급단가</a>
+          <a href="./scrap.html" class="tpl-nav-link"><i class="bi-recycle"></i> 고철·비철 등급단가</a>
           <a href="https://chicstory.github.io/autocost/" class="tpl-nav-link"><i class="bi-calculator-fill"></i> 유지비·보험</a>
           <a href="https://chicstory.github.io/autoissue/" class="tpl-nav-link"><i class="bi-bell-fill"></i> 결함·리콜</a>
           <a href="https://chicstory.github.io/engines/" class="tpl-nav-link"><i class="bi-cpu"></i> 파워트레인</a>
@@ -1800,7 +1800,7 @@
               <div class="tpl-drawer-item-desc">일일 시세 분석 · 1초 즉시 계산기 · 캘린더 아카이브</div>
             </div>
           </a>
-          <a href="https://thapathlab.com/metals/scrap.html" class="tpl-drawer-item">
+          <a href="./scrap.html" class="tpl-drawer-item">
             <div class="tpl-drawer-icon" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;"><i class="bi-recycle"></i></div>
             <div class="tpl-drawer-item-text">
               <div class="tpl-drawer-item-title">고철·비철 스크랩 등급별 시세표</div>
@@ -1879,10 +1879,32 @@
                 <p>국제 시장 종가(Trading Economics) 및 조달청 비축물자 판매고시표를 바탕으로, 비철·철스크랩·귀금속(금·은)·PGM(폐촉매)의 원화 환산 기준 단가와 스크랩 매입 추정 시세(70~80%)를 매일 아침 자동 산출합니다.</p>
             </div>
             <div class="hero-actions">
+                <a href="./scrap.html" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a; font-weight: 700; border: none; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);"><i class="bi-recycle"></i> 🏗️ 등급별 고철·비철 단가표</a>
                 <button onclick="copyNaverTable()" class="btn btn-green">📋 네이버 블로그용 표 복사</button>
                 <a href="./resources/2026-09-19/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-19.csv" download class="btn btn-outline">📥 오늘자 CSV</a>
             </div>
         </section>
+
+        <!-- 📢 등급별 스크랩 시세표 & A4 출력 바로가기 배너 -->
+        <div style="margin: 0 0 24px 0; background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(30, 41, 59, 0.85) 100%); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 14px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="width: 52px; height: 52px; border-radius: 12px; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.35); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fbbf24; flex-shrink: 0;">
+                    <i class="bi-recycle"></i>
+                </div>
+                <div>
+                    <div style="font-size: 1.15rem; font-weight: 800; color: #f8fafc; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                        <span>🏗️ 고철·비철 등급별 실거래 추정 단가표</span>
+                        <span style="font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px; background: #f59e0b; color: #0f172a; font-weight: 800;">A4 1장 인쇄 전용</span>
+                    </div>
+                    <div style="font-size: 0.88rem; color: #cbd5e1;">
+                        생철A(455원대)·중량A/B·경량·선반설 6대 고철 및 구리(A동/상동)·신주·알루미늄 6대 비철 실무 매입단가 & 마진 계산기
+                    </div>
+                </div>
+            </div>
+            <a href="./scrap.html" style="display: inline-flex; align-items: center; gap: 8px; background: #f59e0b; color: #0f172a; font-weight: 800; font-size: 0.95rem; padding: 12px 22px; border-radius: 10px; text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);">
+                등급별 시세표 & A4 출력 <i class="bi-arrow-right-short" style="font-size: 1.4rem;"></i>
+            </a>
+        </div>
 
         <!-- 🧮 실시간 스크랩 & 폐촉매 계산기 위젯 -->
         <section class="calc-box" id="calcSection">
@@ -2049,6 +2071,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('copper')">🧮 계산</button>
+                <a href="./scrap.html" class="btn-sm" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); text-decoration: none;" title="생철/중량/구리A동 품목별 실거래 시세표">📋 등급단가 ↗</a>
                 <a href="#card-copper" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2065,6 +2088,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('iron_scrap')">🧮 계산</button>
+                <a href="./scrap.html" class="btn-sm" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); text-decoration: none;" title="생철/중량/구리A동 품목별 실거래 시세표">📋 등급단가 ↗</a>
                 <a href="#card-iron_scrap" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2081,6 +2105,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('aluminum')">🧮 계산</button>
+                
                 <a href="#card-aluminum" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2097,6 +2122,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('lead')">🧮 계산</button>
+                
                 <a href="#card-lead" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2113,6 +2139,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('gold')">🧮 계산</button>
+                
                 <a href="#card-gold" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2129,6 +2156,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('silver')">🧮 계산</button>
+                
                 <a href="#card-silver" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2145,6 +2173,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('platinum')">🧮 계산</button>
+                
                 <a href="#card-platinum" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2161,6 +2190,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('palladium')">🧮 계산</button>
+                
                 <a href="#card-palladium" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2177,6 +2207,7 @@
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('rhodium')">🧮 계산</button>
+                
                 <a href="#card-rhodium" class="btn-sm btn-outline">차트·분석 ↓</a>
             </td>
         </tr>
@@ -2214,6 +2245,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('copper')">🧮 계산기에 넣기</button>
+                <a href="./scrap.html" class="btn-sm" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); text-decoration: none; display: flex; align-items: center; justify-content: center;">📋 생철·중량·구리 등급단가표 ↗</a>
                 <a href="#card-copper" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2245,6 +2277,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('iron_scrap')">🧮 계산기에 넣기</button>
+                <a href="./scrap.html" class="btn-sm" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); text-decoration: none; display: flex; align-items: center; justify-content: center;">📋 생철·중량·구리 등급단가표 ↗</a>
                 <a href="#card-iron_scrap" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2276,6 +2309,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('aluminum')">🧮 계산기에 넣기</button>
+                
                 <a href="#card-aluminum" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2307,6 +2341,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('lead')">🧮 계산기에 넣기</button>
+                
                 <a href="#card-lead" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2338,6 +2373,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('gold')">🧮 계산기에 넣기</button>
+                
                 <a href="#card-gold" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2369,6 +2405,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('silver')">🧮 계산기에 넣기</button>
+                
                 <a href="#card-silver" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2400,6 +2437,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('platinum')">🧮 계산기에 넣기</button>
+                
                 <a href="#card-platinum" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2431,6 +2469,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('palladium')">🧮 계산기에 넣기</button>
+                
                 <a href="#card-palladium" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2462,6 +2501,7 @@
             </div>
             <div class="m-card-btns">
                 <button class="btn-sm btn-blue-sm" onclick="setCalculatorTarget('rhodium')">🧮 계산기에 넣기</button>
+                
                 <a href="#card-rhodium" class="btn-sm btn-outline">차트 & AI 분석 ↓</a>
             </div>
         </div>
@@ -2544,9 +2584,9 @@
                     <p class='art-desc'>“Higher prices improve project economics, but they cannot compress every stage of development or quickly replenish the discovery pipeline."......</p>
                 </li>
                 <li class="art-item">
-                    <a href="https://www.mining.com/luca-adds-3rd-mexican-property-in-60m-agnico-deal/" target="_blank" rel="noopener" class="art-title">Luca Mining adds 3rd Mexican property in $60M Agnico deal ↗</a>
-                    <div class="art-meta">출처: <span>Mining.com (RSS)</span> | 일시: Thu, 17 Sep 2026 14:47:45 +0000</div>
-                    <p class='art-desc'>Luca is adding the El Barqueño gold-silver-copper project in Jalisco, Mexico, as its third asset in the country.......</p>
+                    <a href="https://news.google.com/rss/articles/CBMirwFBVV95cUxNdF9ReWU2X2R4UDBaMUNrVVdnREVkMjk4VHRvdnZjM2FBaHJLenAzRnNXLUo1MlZ5NDBqTzg3b016REpxR0JaSk92M3h6bzNORlZJV0p0OHp6c284Y1ptYjVVdERpeUtyVVM2YW5LOVVvVlpNQ1hXSkJGUTA0Z0pkbVkwSTBMT3JhMk4wNEFjYVRJVmlKUTBhTVl1Wk9Yak1xMlZlNWdOMEROdUlIcGNn?oc=5" target="_blank" rel="noopener" class="art-title">Indigenous Tribes Form Resistance Camp Against Proposed Copper Mine in Michigan - Truthout ↗</a>
+                    <div class="art-meta">출처: <span>Truthout (검색 수집)</span> | 일시: Sat, 19 Sep 2026 13:11:18 GMT</div>
+                    <p class='art-desc'>Indigenous Tribes Form Resistance Camp Against Proposed Copper Mine in Michigan Truthout......</p>
                 </li>
                     </ul>
                 </div>
@@ -2556,7 +2596,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (공급망 리스크의 성격 변화 및 신규 생산 투자 동향이 교차하는 시점)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>공급망 리스크 완화 신호</strong>: Sprott 분석에 따르면, 고금리 및 고가격 환경이 광산 프로젝트의 경제성을 개선함에 따라 2017년 이후 처음으로 구리 공급 리스크가 감소세로 전환됨. 단, 신규 광구 발굴 및 개발 파이프라인의 물리적 시간 소요는 여전히 변수임.</p><p class='ai-para'>*   <strong>생산 능력 확대 움직임</strong>: Aura Minerals가 아메리카 대륙 내 구리-금-은 광산(Aranzazu)을 포함한 사업 확장을 위해 2억 달러 규모의 대출을 확보하며 실제 생산량 증대를 위한 자본 투입이 가속화됨.</p><p class='ai-para'>*   <strong>환경 규제 및 자원 재활용 정책</strong>: 미국 에너지부(DOE)가 구리, 리튬 등 핵심 광물이 포함된 노후 부지의 정화 및 자원 회수를 산업계에 요청함에 따라, 향후 폐광 및 폐기물에서의 2차 자원 확보(Urban Mining)가 정책적 주요 의제로 부상함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기적 관점</strong>: 프로젝트 경제성 개선으로 인한 신규 공급 물량 유입 기대감이 형성되나, 광산 개발의 시차(Time-lag)로 인해 즉각적인 가격 하락보다는 하방 경직성을 확보하는 흐름이 예상됨.</p><p class='ai-para'>*   <strong>중기적 관점</strong>: 아메리카 대륙 중심의 생산량 확대가 본격화될 경우 글로벌 공급 과잉 우려가 일부 해소될 수 있으나, 수요 측면의 전기차(EV) 및 신재생에너지 전환 속도가 이를 상회할 경우 구조적 공급 부족은 지속될 전망임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>비철 스크랩 단가</strong>: 공급 리스크 완화 신호가 시장에 반영될 경우, 고철 및 비철 스크랩의 매입 단가 상승 폭이 둔화될 수 있음. 특히 구리 함량이 높은 자동차 배선, 알터네이터 등 핵심 부품 스크랩의 가치 산정 시 공급망 안정화 추이를 모니터링해야 함.</p><p class='ai-para'>*   <strong>재생/재활용 시장</strong>: 미국 DOE의 노후 부지 정화 및 자원 회수 움직임은 국내외 폐차 부품 및 스크랩 유통 업계에도 '자원 순환' 측면의 규제 및 기회 요인으로 작용할 가능성이 높음. 향후 단순 폐기물 처리가 아닌, 핵심 광물 회수 기술을 결합한 고부가가치 재생 소재 시장의 비중이 확대될 것으로 보임.</p><p class='ai-para'>*   <strong>실무적 대응</strong>: 수입 단가 변동성에 대비하여 스크랩 매입 시 단기 시세보다는 장기적인 공급망 안정성 및 재활용 효율성을 고려한 재고 확보 전략이 필요함.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (사유: 구리 공급망의 구조적 수급 불균형과 환경 규제 강화, 그리고 생산 거점 확대를 위한 자본 유입이 동시에 진행되는 전환기적 상황임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>미국 정부의 핵심 광물 환경 정화 추진</strong>: 미국 에너지부(DOE)가 구리를 포함한 핵심 광물 매장지의 환경 정화 작업을 위해 민간 부문의 참여를 유도하고 있으며, 이는 향후 광산 개발 및 재활용 과정에서의 환경 규제 준수 비용 상승을 시사함.</p><p class='ai-para'>*   <strong>아메리카 지역 생산 거점 확대</strong>: Aura Minerals가 아메리카 대륙 내 구리-금-은 광산 확장을 위해 2억 달러 규모의 대출을 확보하며, 고비용 환경 속에서도 구리 생산량 확보를 위한 자본 투입이 지속되고 있음을 보여줌.</p><p class='ai-para'>*   <strong>공급 리스크 완화와 구조적 수급 불균형의 공존</strong>: Sprott 분석에 따르면 구리 광산의 단기적 공급 리스크는 2017년 이후 처음으로 감소세에 있으나, 높은 가격이 프로젝트 경제성을 개선하더라도 신규 광산 개발에 소요되는 긴 리드타임(Lead-time)은 단기간에 해결될 수 없는 구조적 문제임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기/중기 전망</strong>: 구리 가격은 생산 단가 상승과 신규 공급 지연이라는 상방 압력이 지속될 것으로 보임. 단기적으로는 공급 리스크 완화가 가격 하방을 지지할 수 있으나, 중장기적으로는 수요 대비 공급 속도가 느린 '구조적 부족' 현상이 가격을 견인할 전망임.</p><p class='ai-para'>*   <strong>공급망 동향</strong>: 아메리카 대륙을 중심으로 한 생산 거점 확대는 공급망 다변화에 기여하겠으나, DOE의 환경 정화 움직임은 향후 광산 및 제련소 운영에 있어 ESG 규제 비용을 상향시키는 요인으로 작용할 것임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>국내 비철/고철 유통 단가</strong>: 구리 가격의 견조한 흐름은 국내 비철 금속 스크랩 단가 상승으로 직결됨. 특히 구리 함량이 높은 자동차 배선, 알터네이터 등 부품 스크랩의 매입 단가가 상향 조정될 가능성이 높음.</p><p class='ai-para'>*   <strong>재생/재활용 시장 파급 효과</strong>: 미국 DOE의 환경 정화 및 핵심 광물 관리 움직임은 향후 '도시 광산(Urban Mining)' 및 폐차 부품에서의 핵심 광물 회수 중요성을 증대시킬 것임. 스크랩 유통업계는 단순 수거를 넘어 고순도 구리 추출 및 환경 규제에 부합하는 재활용 공정의 효율성을 확보하는 것이 향후 수익성 확보의 핵심이 될 것으로 판단됨.</p>
                     </div>
                 </div>
             </div>
@@ -2612,9 +2652,9 @@
                     <p class='art-desc'>Steel price rally likely to lift earnings; MOFSL favours JSW, Tata Steel Business Standard......</p>
                 </li>
                 <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNVDNzV1E1U3p2eDZkdWVYNUw3LTJYQWNOemY0Tm54TnpLb0lTWkEzTmpObzlSbGY2WUdwak5YT2pBR0VoeUlBYzFGU3htMkpTa0psOExqZl8tMnp4YWNhMmJ6T0pjVnhYOVlDTi1CWWRPR1ctM0dPMzdzSktiZUk4WHZBYzFsbFR2REhZdERRUFlMcTRCdVRPOWFkYWlXbWtKUGd0LWIzc2cxSkNBWUxyX2dHVk9wRU0xbTg0a1VnanlQbGtUSEJSUw?oc=5" target="_blank" rel="noopener" class="art-title">Steel price surge sets off alarm bells for MSMEs: CICU seeks immediate government intervention - cityairnews.com ↗</a>
-                    <div class="art-meta">출처: <span>cityairnews.com (검색 수집)</span> | 일시: Fri, 18 Sep 2026 14:25:16 GMT</div>
-                    <p class='art-desc'>Steel price surge sets off alarm bells for MSMEs: CICU seeks immediate government intervention cityairnews.com......</p>
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNVDNzV1E1U3p2eDZkdWVYNUw3LTJYQWNOemY0Tm54TnpLb0lTWkEzTmpObzlSbGY2WUdwak5YT2pBR0VoeUlBYzFGU3htMkpTa0psOExqZl8tMnp4YWNhMmJ6T0pjVnhYOVlDTi1CWWRPR1ctM0dPMzdzSktiZUk4WHZBYzFsbFR2REhZdERRUFlMcTRCdVRPOWFkYWlXbWtKUGd0LWIzc2cxSkNBWUxyX2dHVk9wRU0xbTg0a1VnanlQbGtUSEJSUw?oc=5" target="_blank" rel="noopener" class="art-title">Steel price surge sets off alarm bells for MSMEs: CICU seeks immediate government intervention - Cityairnews ↗</a>
+                    <div class="art-meta">출처: <span>Cityairnews (검색 수집)</span> | 일시: Fri, 18 Sep 2026 14:25:16 GMT</div>
+                    <p class='art-desc'>Steel price surge sets off alarm bells for MSMEs: CICU seeks immediate government intervention Cityairnews......</p>
                 </li>
                     </ul>
                 </div>
@@ -2624,7 +2664,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (글로벌 철강 가격 상승세와 지역별 수급 불균형에 따른 공급망 변동성 확대)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>지역별 수급 양극화</strong>: 미국 고철(Ferrous Scrap) 시장은 안정세를 유지하고 있는 반면, 유럽 시장은 공급 부족 현상으로 인해 가격이 상승하는 양극화 현상 발생.</p><p class='ai-para'>*   <strong>철강 가격 상승 및 수익성 개선</strong>: 글로벌 철강 가격 상승세가 지속됨에 따라 주요 철강 생산 기업(JSW, Tata Steel 등)의 수익성 개선이 기대되는 상황.</p><p class='ai-para'>*   <strong>중소기업(MSME) 부담 가중</strong>: 급격한 철강 가격 상승으로 인해 중소 제조 기업들의 비용 부담이 한계치에 도달했으며, 이에 따른 정부 차원의 개입 요청이 제기됨.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기 전망</strong>: 유럽발 공급 부족과 글로벌 수요 견인으로 인해 철강 및 고철 가격은 단기적으로 추가 상승 압력을 받을 가능성이 높음.</p><p class='ai-para'>*   <strong>중기 전망</strong>: 대형 생산 기업과 중소 제조 기업 간의 비용 격차가 심화될 것이며, 공급망 불안정성이 지속될 경우 원자재 확보를 위한 선제적 계약 및 재고 확보 경쟁이 치열해질 전망임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>고철/비철 유통 단가</strong>: 철강 가격 상승은 고철(Ferrous Scrap) 매입 단가 상승으로 직결됨. 이는 자동차 차체 및 구조재를 사용하는 부품 제조사의 원가 부담을 가중시키는 요인임.</p><p class='ai-para'>*   <strong>폐차 부품 및 재생 시장</strong>: 고철 가격 상승은 폐차장 및 스크랩 수집업자에게는 유리한 환경이나, 이를 원료로 사용하는 재생강재 및 부품 재활용 시장에서는 생산 단가 상승으로 인한 마진 압박이 발생할 수 있음.</p><p class='ai-para'>*   <strong>실무적 파급 효과</strong>: 부품 제조사들은 원가 상승분을 판매가에 전가하기 위한 협상력을 강화해야 하며, 스크랩 유통사는 가격 변동성에 대비한 효율적인 재고 관리와 고부가가치 비철금속/고품질 스크랩 선별을 통한 수익성 방어 전략이 필요함.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (글로벌 철강 가격 상승세와 지역별 수급 불균형에 따른 생산자-소비자 간 양극화 심화)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>유럽 내 고철 수급 타이트 및 가격 상승</strong>: 유럽 지역은 공급 부족으로 인해 철스크랩(Ferrous Scrap) 가격이 상승세에 있는 반면, 미국 시장은 상대적으로 안정적인 흐름을 유지함.</p><p class='ai-para'>*   <strong>철강 가격 랠리에 따른 수익성 양극화</strong>: 글로벌 철강 가격 상승으로 대형 철강사(JSW, Tata Steel 등)는 수익성 개선이 기대되나, 중소기업(MSMEs)은 원가 부담 급증으로 인해 정부 개입을 요청하는 등 생존 위기에 직면함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기/중기 전망) 유럽발 공급 부족 현상이 지속될 경우, 글로벌 철스크랩 가격의 하방 경직성이 강화되며 전반적인 철강재 가격 상승 압력이 지속될 전망임.</p><p class='ai-para'>*   (공급망 동향) 대형 생산사들은 높은 마진을 확보하겠지만, 원가 상승을 견디지 못하는 중소 제조사들의 생산 위축이 발생할 수 있으며, 이는 장기적으로 공급망의 재편이나 생산 단가 전가로 이어질 가능성이 높음.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (국내 고철/비철 유통 단가) 유럽 및 글로벌 철스크랩 가격 상승세는 국내 고철 매입 단가 상승으로 직결될 수 있음. 특히 수입 의존도가 높은 경우 환율과 연동되어 고철 수집 및 유통 단가의 변동성이 커질 것으로 예상됨.</p><p class='ai-para'>*   (폐차 부품 매입·매매가) 철강재 원가 상승은 자동차 차체, 휠 등 주요 부품의 신품 가격 상승을 초래함. 이는 중고차 및 폐차 부품 시장에서 '매입가 상승'과 '재생 부품 수요 감소'라는 양면성을 띠게 될 것이며, 특히 재생/재활용 시장에서는 원재료비 상승에 따른 수익성 보전이 핵심 과제가 될 것임.</p><p class='ai-para'>*   (실무적 파급 효과) 고철 유통사는 매입 단가 상승에 대비한 재고 확보 전략이 필요하며, 자동차 부품 제조사는 원가 압박을 상쇄하기 위한 공정 효율화 및 고부가가치 재생 부품(재생 휠, 차체 부품 등)의 품질 차별화 전략이 중요해질 전망임.</p>
                     </div>
                 </div>
             </div>
@@ -2697,7 +2737,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (미국 내 환경 규제 강화 움직임과 고부가가치 수요처 확대, 주요 기업의 관세 의존도 완화 등 복합적 변수 발생)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>미국 정부의 핵심 광물 환경 정화 정책</strong>: 미국 에너지부(DOE)가 알루미늄을 포함한 핵심 광물(Critical Minerals)이 포함된 노후 부지의 정화를 위해 민간 산업계의 참여를 유도함. 이는 향후 알루미늄 생산 및 재활용 과정에서 환경 규제 준수 비용 상승과 순환경제(Circular Economy) 기반의 공급망 재편을 시사함.</p><p class='ai-para'>*   <strong>고부가가치 알루미나 수요 확대</strong>: 킬른 알루미나(Kiln Alumina) 시장이 2035년까지 연평균 6~8%의 성장세를 보일 것으로 전망됨. 특히 전통적인 산업용 수요보다 반도체 및 광학 산업 등 고부가가치 기술 분야의 수요가 성장을 견인할 것으로 분석됨.</p><p class='ai-para'>*   <strong>관세 기반 성장 기대감 후퇴</strong>: 주요 알루미늄 기업인 Century Aluminum(CENX)이 관세에 기반한 성장 기대감을 축소함. 이는 무역 분쟁에 따른 단기적 가격 급등보다는 실질적인 수급 펀더멘털과 수요처 다변화에 기반한 시장 분석이 중요해졌음을 의미함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기적 관점</strong>: 관세 효과에 대한 기대감이 일부 후퇴함에 따라, 무역 정책에 의한 급격한 가격 변동성은 다소 완화될 수 있으나, 미국 내 환경 규제 강화에 따른 생산 단가 상승 압력은 상존할 전망임.</p><p class='ai-para'>*   <strong>중기적 관점</strong>: 반도체 및 광학용 고순도 알루미나 수요가 급증함에 따라 알루미늄 제품의 '양극화'가 진행될 것으로 보임. 일반 산업용과 고부가가치 기술용 알루미나 간의 가격 격차가 확대될 가능성이 높으며, 공급망 내에서 고순도 제품 확보 경쟁이 치열해질 것으로 예상됨.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>고품질 스크랩 수요 및 단가 영향</strong>: 미국 DOE의 환경 정화 및 순환경제 정책은 장기적으로 '재활용 알루미늄'의 가치를 높이는 방향으로 작용함. 이는 고품질 자동차 부품 스크랩(휠, 차체 등)의 선별 및 수거 체계 강화로 이어질 수 있으며, 고순도 재생 알루미늄에 대한 프리미엄이 형성될 가능성이 있음.</p><p class='ai-para'>*   <strong>실무적 파급 효과</strong>: 국내외 유통사 및 폐차 부품 매입 업체는 단순 물량 확보보다는 '고순도/저탄소' 인증이 가능한 스크랩 확보에 집중해야 함. 특히 반도체 및 광학 분야로의 수요 전이가 가속화됨에 따라, 자동차 부품 제조 공정에서 발생하는 알루미늄 스크랩의 품질 관리 수준이 향후 매입·매매 단가를 결정짓는 핵심 요소가 될 것으로 판단됨.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (장기적 수요 구조 변화 및 정책적 환경 변화에 따른 기초 체력 분석 단계)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>미국 정부의 핵심 광물 환경 정화 추진</strong>: 미국 에너지부(DOE)가 알루미늄, 구리, 리튬 등 핵심 광물이 포함된 노후 부지(Legacy sites)의 정화 작업을 위해 산업계의 참여를 요청함. 이는 공급망 내 환경적 책임과 지속 가능한 자원 확보를 위한 정책적 움직임으로 해석됨.</p><p class='ai-para'>*   <strong>고부가가치 산업 중심의 알루미나 수요 성장</strong>: 킬른 알루미나(Kiln Alumina) 원료 시장이 2035년까지 연평균 6~8%의 성장률을 기록할 것으로 전망됨. 특히 반도체 및 광학 산업의 수요가 주요 성장 동력으로 작용할 예정임.</p><p class='ai-para'>*   <strong>관세 기반 성장 기대감 완화</strong>: 주요 알루미늄 기업(Century Aluminum 등)이 관세 정책에 의존한 성장 기대감을 일부 조정하며, 보다 실질적인 수요와 시장 기반의 성장 동력을 모색하는 신중한 태도를 보임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기적 관점</strong>: 관세 정책에 의한 가격 펌핑 효과보다는 실제 수요(반도체, 광학 등)에 기반한 가격 형성 기조가 강화될 것으로 보임. 관세 기대감에 따른 과도한 프리미엄은 조정될 가능성이 있음.</p><p class='ai-para'>*   <strong>중·장기적 관점</strong>: 반도체 및 광학 분야의 꾸준한 수요 증가는 알루미늄/알루미나 시장의 하방 경직성을 확보해 줄 것임. 또한, 미국 DOE의 환경 정화 움직임은 향후 '친환경/지속가능한 공급망' 인증이 수입 및 유통의 핵심 변수로 작용함을 시사하며, 이는 장기적으로 저탄소/재활용 알루미늄의 가치를 높이는 요인이 됨.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>스크랩 유통 단가 및 매입 전략</strong>: 고부가가치 산업(반도체 등)으로의 수요 분산은 자동차용 알루미늄 스크랩의 상대적 수급 불균형을 초래할 수 있음. 특히 고순도 알루미늄 스크랩에 대한 수요가 강화될 수 있으므로, 폐차 부품 및 스크랩 매입 시 품질 분류(Sorting)에 따른 단가 차별화가 더욱 중요해질 전망임.</p><p class='ai-para'>*   <strong>재생/재활용 시장 파급 효과</strong>: 미국 정부의 핵심 광물 관리 정책은 국내외 재생 알루미늄 시장에도 간접적인 영향을 미칠 수 있음. 폐차 부품(휠, 차체 등)에서 추출되는 알루미늄의 재활용 효율성을 높이는 기술적 요구가 강화될 것이며, 이는 스크랩 유통사들에게 단순 수거를 넘어선 '고순도 재생 원료 공급망' 구축이라는 과제를 부여할 것임.</p>
                     </div>
                 </div>
             </div>
@@ -2755,7 +2795,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (납 배터리 기술 고도화 및 특정 프로젝트 투자 승인 사례)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   ABC사가 1.15MW급 바이폴라(Bipolar) 납 배터리 프로젝트를 위한 자금 조달 승인을 획득함.</p><p class='ai-para'>*   리튬이온 배터리 중심의 시장 재편 속에서도, 특정 용도(산업용, ESS 등)에 특화된 납 배터리 기술의 고도화 및 상용화 투자가 지속되고 있음을 시사함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기/중기 전망) 납(Lead)은 리튬이온 배터리 대비 저렴한 비용과 검증된 안정성을 바탕으로 산업용 및 특수 배터리 시장에서 견고한 수요를 유지할 전망임. 바이폴라 기술과 같은 고효율 납 배터리 프로젝트의 증가는 장기적으로 납 수요의 하방 경직성을 확보하는 요인으로 작용할 수 있음.</p><p class='ai-para'>*   (공급망 동향) 신규 프로젝트 승인은 납 제련 및 가공 공정의 가동률 유지에 긍정적이며, 이는 글로벌 납 가격의 급격한 변동성을 억제하는 완충 역할을 할 것으로 보임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (스크랩 유통 단가) 납 배터리 재활용(Recycling)은 비철금속 스크랩 시장의 핵심 축임. 바이폴라 배터리와 같은 고성능 납 배터리의 보급 확대는 향후 폐배터리 수거 및 재활용 공정에서 고순도 납 회수 기술에 대한 수요를 높일 수 있음.</p><p class='ai-para'>*   (실무적 파급 효과) 국내외 고철/비철 유통업체 입장에서는 단순 폐배터리 매입을 넘어, 기술적으로 고도화된 배터리 팩에서 납을 효율적으로 추출하는 공정 효율화가 중요해질 것임. 특히, 납 배터리 기반의 산업용/특수용 수요가 유지됨에 따라, 자동차용 납 배터리 스크랩뿐만 아니라 산업용 폐배터리 수거 채널 확보가 수익성 개선의 핵심이 될 전망임.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [특이 이슈 발생] (납축전지 기술 고도화 및 신규 프로젝트 투자를 통한 납 배터리 시장의 기술적 변곡점 시사)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   ABC사가 1.15MW급 바이폴라(Bipolar) 납 배터리 프로젝트를 위한 자금 조달 승인을 획득함.</p><p class='ai-para'>*   기존 납축전지 대비 성능, 수명 및 에너지 밀도를 개선할 수 있는 바이폴라 기술에 대한 민간/공공 투자가 지속되고 있음을 확인.</p><p class='ai-para'>*   리튬이온 배터리(LiB)의 확산세 속에서도 특정 산업 및 고성능 요구 분야에서 납 배터리의 기술적 생존 전략이 구체화되고 있음.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>(단기/중기) 리튬이온 배터리 시장의 성장에 따른 납 수요 감소 우려와 달리, 바이폴라와 같은 고성능 납 배터리 기술 투자는 납 배터리 시장의 '고부가가치화'를 의미함. 이는 단기적으로 납 가격의 급변동보다는 고순도 납(Lead Grade)에 대한 수요를 유지시키는 요인으로 작용할 것임.</li><li class='ai-bullet'>(공급망) 기술 혁신을 통한 배터리 수명 연장은 장기적으로 단위 시간당 납 소비량을 줄일 수 있으나, 고성능 제품군으로의 수요 전환에 따라 제련 및 정련 공정에서의 고순도 품질 관리 요구가 강화될 전망임.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'>(유통 단가 및 매입) 국내외 고철/비철 유통 시장에서 단순 납축전지 스크랩의 단가 변동성은 리튬 가격 및 수요에 민감하게 반응하겠으나, 바이폴라 배터리와 같은 고성능 제품이 보급될 경우 폐차 부품 매입 시 배터리 종류에 따른 선별 및 단가 차별화가 발생할 수 있음.</li><li class='ai-bullet'>(재생/재활용) 재생 배터리 시장에서는 기존 납축전지 재활용 공정 외에, 바이폴라 배터리의 특성에 맞는 분해 및 소재 회수 공정의 고도화가 필요함. 이는 스크랩 수거 업체 및 재생 배터리 제조사에 기술적 진입장벽을 형성하는 동시에, 고성능 배터리 소재 회수 시 더 높은 부가가치를 창출할 수 있는 기회가 될 것임.</li>
                     </div>
                 </div>
             </div>
@@ -2828,7 +2868,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (광산 개발 투자, 규제 병목 현상, 지정학적 자산 이동 등 공급망의 구조적 요인이 지속적으로 노출되는 단계임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>생산 능력 확대</strong>: Aura Minerals가 브라질, 온두라스, 멕시코 내 광산 운영 및 확장을 위해 2억 달러 규모의 대출을 확보하며 공급량 증대를 위한 투자를 지속함.</p><p class='ai-para'>*   <strong>공급망 병목 현상</strong>: 캐나다 내 금 개발 프로젝트(연간 약 110억 달러 규모)가 인허가 문제로 정체되어, 장기적인 공급 측면에서의 제약 요인이 확인됨.</p><p class='ai-para'>*   <strong>지정학적 자산 이동</strong>: 베네수엘라가 31톤 규모의 금을 뉴욕으로 이전하여 정부 차입을 위한 담보로 활용하려는 움직임을 보이며, 시장 내 유동성 및 자산 흐름에 변화 가능성 시사.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기) 베네수엘라의 금 이동은 시장 내 유동성 공급 및 단기적 가격 변동성을 자극할 수 있으나, 이는 실물 수급보다는 금융적 담보 가치에 집중될 전망임.</p><p class='ai-para'>*   (중기) 캐나다의 인허가 지연은 공급 측면의 구조적 한계를 의미하며, 이는 장기적으로 금 가격의 하방 경직성을 확보하는 요인으로 작용할 수 있음. 반면, Aura Minerals와 같은 기업의 적극적인 투자는 공급 과잉을 억제하려는 시도로 해석됨.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (국내 유통 단가) 금은 자동차 전자장치(ECU), 커넥터, 고부가가치 센서 및 일부 촉매 장치에 포함되는 핵심 소재임. 금 가격의 변동성은 고부가가치 폐차 부품 및 전자 폐기물(E-waste)의 스크랩 매입 단가에 미세하게 반영될 수 있음.</p><p class='ai-para'>*   (실무적 파급 효과) 특히 전기차(EV) 보급 확대에 따른 배터리 및 고전압 시스템 내 귀금속 회수 수요가 증가하는 상황에서, 금을 포함한 비철금속의 공급망 불안정성은 재생/재활용 시장에서 '도시 광산'의 중요성을 더욱 부각시킬 것임. 폐차 부품 매입 시 고부가가치 전자 부품의 선별 및 회수 공정 강화가 필요함.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (광산 생산 확대와 공급망 병목 현상, 지정학적 이동이 동시에 발생하며 장기적 수급 불균형 심화 가능성 시사)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>생산 능력 확대</strong>: Aura Minerals가 브라질, 온두라스, 멕시코 내 광산 확장을 위해 2억 달러 규모의 대출을 확보하며 금 생산량 증대를 위한 투자를 지속함.</p><p class='ai-para'>*   <strong>공급 병목 현상</strong>: 캐나다 내 약 110억 달러 규모의 금 개발 프로젝트가 인허가 단계에 머물러 있어, 신규 공급원이 시장에 진입하는 데 구조적 지연 발생.</p><p class='ai-para'>*   <strong>지정학적 자산 이동</strong>: 베네수엘라의 약 40억 달러 규모 금 매물(31톤)이 뉴욕으로 이동하여 정부 차관을 위한 담보로 활용될 예정이며, 이는 글로벌 금 유동성 및 전략적 비축 흐름에 변화를 초래함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기 전망</strong>: 베네수엘라 금의 이동과 같은 지정학적 변수는 단기적인 가격 변동성을 확대할 수 있으나, 전반적으로는 '안전 자산'으로서의 수요가 견고함.</p><p class='ai-para'>*   <strong>중장기 전망</strong>: 캐나다의 인허가 병목 현상은 신규 공급의 공급 부족(Supply Shortage)을 장기화하는 요인임. Aura Minerals와 같은 기업의 생산 확대 노력에도 불구하고, 신규 광산 개발 지연은 금 가격의 하방 경직성을 강화하고 중장기적 우상향 압력을 높일 것으로 분석됨.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>스크랩 유통 단가</strong>: 금 가격의 상승 및 수급 불균형은 고부가가치 비철금속 스크랩(특히 전자부품, 촉매제 포함 스크랩)의 매입 단가 상승을 견인할 수 있음.</p><p class='ai-para'>*   <strong>재생/재활용 시장</strong>: 촉매(Catalytic Converter) 및 자동차 전자제어장치(ECU) 내 포함된 귀금속의 회수 가치가 상승함에 따라, 폐차 부품 및 고철 스크랩 수거 업체의 마진 구조가 개선될 전망임.</p><p class='ai-para'>*   <strong>실무적 파급 효과</strong>: 스크랩 유통사는 고가 비철금속 함유량이 높은 폐차 부품 및 전자 폐기물 확보를 위한 경쟁이 치열해질 것이며, 재활용 공정에서의 금 추출 효율성 및 순도 관리가 수익성의 핵심 지표가 될 것으로 예상됨.</p>
                     </div>
                 </div>
             </div>
@@ -2889,9 +2929,9 @@
                     <p class='art-desc'>New drilling results expand high-grade silver mineralization around the open pit and central area of the Zgounder mine in Morocco.......</p>
                 </li>
                 <li class="art-item">
-                    <a href="https://www.mining.com/luca-adds-3rd-mexican-property-in-60m-agnico-deal/" target="_blank" rel="noopener" class="art-title">Luca Mining adds 3rd Mexican property in $60M Agnico deal ↗</a>
-                    <div class="art-meta">출처: <span>Mining.com (RSS)</span> | 일시: Thu, 17 Sep 2026 14:47:45 +0000</div>
-                    <p class='art-desc'>Luca is adding the El Barqueño gold-silver-copper project in Jalisco, Mexico, as its third asset in the country.......</p>
+                    <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTE50RW9wNl9DcUJqSXo2bWVNdEZMSnhqRHBjaDB1SnVKUzdOTUV3N0hEMERJeEtyanY2OHpVRklSaWthbDJCQ0g2ZGI3dEdfYmJvcEFKQXRGZi1xbk4zNkY4RWxXbVI2R0JSblR2MDZWZw?oc=5" target="_blank" rel="noopener" class="art-title">Current price of silver as of Friday, Sept. 18, 2026 - Fortune ↗</a>
+                    <div class="art-meta">출처: <span>Fortune (검색 수집)</span> | 일시: Fri, 18 Sep 2026 13:53:54 GMT</div>
+                    <p class='art-desc'>Current price of silver as of Friday, Sept. 18, 2026 Fortune......</p>
                 </li>
                     </ul>
                 </div>
@@ -2901,7 +2941,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] - 공급망 확장 및 환경 규제 관련 기초 동향이 관측됨</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   미국 에너지부(DOE)가 은(Silver)을 포함한 핵심 광물(Critical Minerals)의 노후 부지 정화 및 산업적 활용을 위한 계획 수립 착수.</p><p class='ai-para'>*   Aura Minerals가 미주 지역(브라질, 온두라스, 멕시코) 내 금·구리·은 광산 확장을 위해 2억 달러 규모의 대규모 자금 조달 성공.</p><p class='ai-para'>*   모로코 Zgounder 광산 인근에서 고품위 및 천층(shallow) 은 광맥이 확인됨에 따라 신규 생산 가능성 확대.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>(단기/중기 전망) 신규 광산 개발을 위한 자금 조달과 고품위 광맥 발견은 중장기적으로 은 공급 과잉 리스크를 높이는 요인으로 작용할 수 있으며, 이는 가격 상승을 억제하는 하방 압력으로 작용할 전망임.</li><li class='ai-bullet'>(공급망 동향) 미국 DOE의 핵심 광물 관리 움직임은 향후 은을 포함한 주요 광물의 공급망 투명성 및 환경 규제 강화로 이어질 가능성이 높음. 이는 단순 채굴을 넘어 '친환경적 추출 및 재활용'이 글로벌 표준이 될 것임을 시사함.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'>(유통 단가 및 매입가) 은은 자동차 전자부품, 촉매제, 배터리 관련 소재 등에 활용되므로, 광산 공급 확대는 은 함유 스크랩(폐전자제품, 자동차 부품 등)의 매입 단가에 하방 압력을 가할 수 있음.</li><li class='ai-bullet'>(실무적 파급 효과) 미국 DOE의 노후 부지 정화 사례는 향후 국내외 스크랩 유통 및 재활용 공정에서도 환경 준수 비용(Compliance Cost) 상승을 예고함. 따라서 스크랩 수거 및 재활용 업체들은 단순 매입·매매를 넘어, 환경 규제에 부합하는 고부가가치 재활용 기술 및 친환경 공정 확보가 수익성 방어의 핵심 요소가 될 것으로 판단됨.</li>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (신규 광산 개발 및 공급망 확보를 위한 투자와 정책적 움직임이 지속되는 단계)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>공급망 다변화 및 생산 확대</strong>: Aura Minerals의 2억 달러 규모 자금 조달을 통한 미주 지역(멕시코, 온두라스 등) 생산 확대와 Aya의 모로코 내 고품위·천층 은 광맥 발견으로 신규 공급원 확보 움직임이 가속화됨.</p><p class='ai-para'>*   <strong>미국 내 핵심 광물 재활용 정책 강화</strong>: 미국 에너지부(DOE)가 은을 포함한 핵심 광물이 포함된 노후 부지의 정화 및 자원 회수를 산업계에 요청하며, 폐광 및 산업 폐기물로부터의 자원 재순환(Circular Economy)을 위한 정책적 기반 마련.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기/중기 전망) 신규 광산 개발(모로코, 미주)과 대규모 자금 투입은 중장기적으로 은의 공급 과잉을 방지하고 수급 안정성을 높이는 요인임. 특히 모로코의 고품위·천층 광맥은 채굴 비용 절감으로 이어져 공급 단가 하락 압력으로 작용할 수 있음.</p><p class='ai-para'>*   (공급망 동향) 미국 DOE의 정책은 단순 채굴을 넘어 '도시 광산' 및 '폐기물 재활용'을 통한 공급망 내재화 의지를 보여줌. 이는 은의 전략적 가치가 단순 귀금속을 넘어 핵심 광물로서 강화되고 있음을 시사함.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (유통 단가 및 매입·매매) 은은 자동차 전자부품 및 일부 촉매제에 활용되므로, 광산 생산 확대에 따른 공급 안정화는 스크랩 시장의 은 함유 부품(알터네이터, 배터리 관련 부품 등) 매입 단가의 변동성을 완화하는 요인이 됨.</p><p class='ai-para'>*   (재생/재활용 시장) 미국 DOE의 움직임과 궤를 같이하여, 향후 국내외 스크랩 유통 시장에서도 폐차 및 산업 폐기물 내 은 추출 효율을 높이는 기술적 요구가 증가할 전망임. 스크랩 수거 업체는 단순 매매를 넘어 고순도 은 회수가 가능한 폐기물 분류 및 전처리 공정의 중요성이 더욱 커질 것으로 예상됨.</p>
                     </div>
                 </div>
             </div>
@@ -2957,9 +2997,9 @@
                     <p class='art-desc'>Nike Air Max 1000.3 "Pure Platinum" Releases Fall 2026 sneakerfiles.com......</p>
                 </li>
                 <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxOazRHNW9DVHBYVm9yR1ozRFNvYzFkOV81M3RRWFo4cU4wSEJHQnBBTndXUzdxMklrNWo4M1BuUXpOOUpRTmNPcFcxS1dlenFUWWxNc0VDYzhDN05GdjV4Sy04Sm9mdEdXcXZsazBYbXlRdXE3RXBNcEFMRFl3dFFQbGZZdTFNVUdaalc5UktaQXNTTV82QmVLVjI5cDg5RGE2?oc=5" target="_blank" rel="noopener" class="art-title">Flat PGM Mine Supply Exposes a Growing Replacement-Ounce Problem - Article - Crux Investor ↗</a>
-                    <div class="art-meta">출처: <span>Crux Investor (검색 수집)</span> | 일시: Fri, 18 Sep 2026 15:42:36 GMT</div>
-                    <p class='art-desc'>Flat PGM Mine Supply Exposes a Growing Replacement-Ounce Problem - Article Crux Investor......</p>
+                    <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxOazRHNW9DVHBYVm9yR1ozRFNvYzFkOV81M3RRWFo4cU4wSEJHQnBBTndXUzdxMklrNWo4M1BuUXpOOUpRTmNPcFcxS1dlenFUWWxNc0VDYzhDN05GdjV4Sy04Sm9mdEdXcXZsazBYbXlRdXE3RXBNcEFMRFl3dFFQbGZZdTFNVUdaalc5UktaQXNTTV82QmVLVjI5cDg5RGE2?oc=5" target="_blank" rel="noopener" class="art-title">Flat PGM Mine Supply Exposes a Growing Replacement-Ounce Problem - Article - cruxinvestor.com ↗</a>
+                    <div class="art-meta">출처: <span>cruxinvestor.com (검색 수집)</span> | 일시: Fri, 18 Sep 2026 15:42:36 GMT</div>
+                    <p class='art-desc'>Flat PGM Mine Supply Exposes a Growing Replacement-Ounce Problem - Article cruxinvestor.com......</p>
                 </li>
                 <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPRzFpLXJPV1YxYV9LUHZHZndSVElwQ3NOQmFHZmN1VTVSYmpHYW9TTnFNUW5aMVNPemhtNk1oRXBlaHQ1cXlZMUgtbzVhWTFGRGRhMlVqUGRDclpMNDZKSzZXcTcyLWMwRlYxeUE2bkpSa2R3U1RkeHkzM2JUa2psS2NOeVZjLWRxdk1VQ2hJbDF5VUVVVEpuZ2w3Q3JDWE1ONTVj?oc=5" target="_blank" rel="noopener" class="art-title">Platinum ETF PPLT shows strong sell signals ami... - Pluang ↗</a>
@@ -2974,7 +3014,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] - PGM(백금족 금속) 광산 공급의 구조적 한계 노출 및 공급 부족 심화에 따른 가격 변동성 확대 전망</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>PGM 광산 공급 부족 심화</strong>: PGM(백금족 금속) 광산의 생산량이 수요를 따라가지 못하는 '교체 온스(Replacement-Ounce) 문제'가 부각됨에 따라, 신규 광산 개발 및 기존 광산의 생산성 저하가 공급망의 핵심 리스크로 부상함.</p><p class='ai-para'>*   <strong>미국 정부의 전략적 관리 강화</strong>: 미국 에너지부(DOE)가 백금을 포함한 핵심 광물의 유휴 부지 정화 및 관리에 착수함에 따라, 핵심 광물의 환경적 관리와 공급망 안정성에 대한 규제 및 정책적 중요성이 증대됨.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>(단기/중기 전망) 광산 공급의 구조적 한계로 인해 백금을 포함한 PGM 가격은 중장기적으로 우상향 압력을 받을 가능성이 높음. 특히 신규 광산 확보가 어려운 상황에서 공급 부족이 가시화될 경우 가격 변동성이 확대될 수 있음.</li><li class='ai-bullet'>(공급망 동향) 광산 생산량의 한계로 인해 글로벌 제련소들은 재활용(Recycling)을 통한 공급망 확보에 더욱 집중할 것이며, 이는 공급망의 불확실성을 상쇄하기 위한 핵심 전략이 될 것임.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'>(유통 단가 및 매입·매매가) 백금은 자동차 촉매제(Catalytic Converter)의 핵심 소재임. PGM 공급 부족은 신규 촉매제 단가 상승으로 이어지며, 이는 곧 폐차 및 중고 부품 시장에서 수거되는 촉매제 스크랩의 매입 단가 상승을 견인할 것임.</li><li class='ai-bullet'>(재생/재활용 시장 파급 효과) 광산 채굴량 감소에 따라 '도시 광산(Urban Mining)'의 가치가 더욱 높아질 전망임. 고철 및 비철 유통 업계에서는 촉매제 등 PGM 함유 부품의 선별 및 회수 효율을 높이는 공정 고도화가 수익성 확보의 핵심 경쟁력이 될 것으로 보임. 특히 고부가가치 비철 스크랩의 선별 유통이 더욱 중요해질 것으로 판단됨.</li>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (PGM 광산 공급 정체에 따른 구조적 수급 불균형 및 재활용 시장의 중요성 증대)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>PGM 공급 부족 심화</strong>: PGM(백금족 금속) 광산 공급이 정체된 상황에서 수요를 대체할 신규 공급량이 부족해지는 'Replacement-Ounce Problem'이 부각되며, 이는 향후 공급망 불안정의 핵심 요인으로 작용할 전망임.</p><p class='ai-para'>*   <strong>핵심 광물 정화 및 관리</strong>: 미국 에너지부(DOE)가 백금을 포함한 핵심 광물(Critical Minerals)이 포함된 노후 부지의 정화 및 관리를 위해 산업계의 참여를 요청함. 이는 환경 규제와 맞물려 핵심 광물의 회수 및 관리 체계에 대한 정책적 관심이 높아지고 있음을 시사함.</p><p class='ai-para'>*   <strong>소비재 마케팅 동향</strong>: 나이키 등 소비재 브랜드에서 'Pure Platinum'을 활용한 마케팅이 지속되고 있으나, 이는 산업용 공급망의 구조적 결함과는 별개의 소비 트렌드로 분류됨.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기/중기 전망) 신규 광산 생산량 대비 수요가 상회하는 'Replacement-Ounce Problem'으로 인해 백금(Pt)을 포함한 PGM 가격의 상방 압력이 지속될 것으로 보임.</p><p class='ai-para'>*   (공급망 동향) 광산 생산의 한계로 인해 신규 채굴보다는 기존 매장량 활용 및 재활용(Recycling) 비중이 급격히 확대될 것이며, 이는 글로벌 공급망 내에서 재활용된 금속의 비중을 높이는 결과를 초래할 것임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (유통 단가 및 매입가) 촉매제(Catalytic Converter) 내 백금 함량의 중요성이 더욱 부각됨에 따라, 폐차 및 산업 폐기물에서 추출되는 백금 스크랩의 가치가 상승할 전망임.</p><p class='ai-para'>*   (실무적 파급 효과) 국내 고철 및 비철 유통사 입장에서는 촉매제 등 고부가가치 스크랩의 매입 단가 상승에 대비해야 하며, 특히 '도시 광산(Urban Mining)' 개념의 재활용 공정 효율화가 수익성을 결정짓는 핵심 요소가 될 것임.</p><p class='ai-para'>*   (재생 시장) DOE의 핵심 광물 관리 움직임은 향후 폐기물 내 금속 회수 기술에 대한 정책적 지원이나 규제 강화로 이어질 수 있으므로, 관련 재활용 설비 및 공정 기술을 보유한 업체들의 경쟁력이 강화될 것으로 예상됨.</p>
                     </div>
                 </div>
             </div>
@@ -3031,7 +3071,7 @@
                 </li>
                 <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE9ibWVJY0VEeXM4ZDRQS3ZkbHFNN3BRM2lNLVNNMVdCZ2U5d2pmNmZNZUhValF6SEtLZ0FrZnJvWlVqcVNEekVfTXE4cVVyalJXNmkzT0t1ZEs2QUt6c2FlRDBNWGhXY1BBSU85bG9nQVQ?oc=5" target="_blank" rel="noopener" class="art-title">Bus Palladium, Paris: rock ’n’ roll history with room service - Financial Times ↗</a>
-                    <div class="art-meta">출처: <span>Financial Times (검색 수집)</span> | 일시: Sat, 19 Sep 2026 04:00:43 GMT</div>
+                    <div class="art-meta">출처: <span>Financial Times (검색 수집)</span> | 일시: Sat, 19 Sep 2026 04:00:05 GMT</div>
                     <p class='art-desc'>Bus Palladium, Paris: rock ’n’ roll history with room service Financial Times......</p>
                 </li>
                 <li class="art-item">
@@ -3047,7 +3087,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: 특이 이슈 없음 (제공된 뉴스 중 2건은 매체명 및 호텔 명칭으로, 원자재 시장과 무관함)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>* Abrdn Palladium ETF Trust(RPALL)의 실시간 가격 및 시장 데이터가 금융 시장에서 모니터링되고 있음.</p><p class='ai-para'>* 기타 뉴스(미시간 주택 가격, 파리 호텔 역사)는 원자재 '팔라듐'과 전혀 무관한 정보임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>* <strong>원자재 가격 및 글로벌 수급 여파</strong>: 현재 제공된 뉴스만으로는 공급망의 물리적 변화나 생산량 변동을 파악하기 어려움. 단기적으로는 ETF를 통한 투자 심리 변화를 주시해야 하며, 중장기적으로는 내연기관차용 촉매 수요 감소와 전기차/수소차 전환 속도에 따른 팔라듐의 재고 수준 및 가격 변동성이 핵심 변수가 될 전망임.</p><p class='ai-para'>* <strong>자동차 부품 및 스크랩 유통 영향</strong>: 이번 뉴스에 따른 직접적인 유통 단가 변동 요인은 없음. 다만, 촉매(Catalytic Converter) 내 팔라듐 함량과 관련하여 폐차 부품 매입 시 촉매 회수 단가는 글로벌 시세 및 투자 심리에 연동되므로, 스크랩 수거 및 재활용 업체는 ETF 가격 흐름을 참고하여 매입 단가 방어 전략을 수립할 필요가 있음.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [특이 이슈 없음] (제공된 뉴스 중 2건은 매체명 및 장소명에 포함된 단어로, 원자재 시장과 무관함)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   Abrdn Palladium ETF Trust(RPALL)의 실시간 주가 및 시장 데이터가 공유됨 (금융 시장 내 팔라듐 투자 지표 모니터링).</p><p class='ai-para'>*   기타 뉴스(미시간 주택 가격, 파리 호텔 정보)는 매체명 및 고유 명칭에 포함된 'Palladium'으로, 원자재 수급이나 가격과 전혀 무관한 정보임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>이번 뉴스들은 팔라듐의 실질적인 수급 불균형이나 광산 생산량 변화를 시사하지 않음.</li><li class='ai-bullet'>단기적으로는 금융 상품(ETF)을 통한 투자 심리 변화를 주시해야 하나, 근본적인 가격 변동성은 내연기관차용 촉매제 수요 감소와 전기차 전환 속도에 따른 장기적 수요 구조 변화에 의해 결정될 전망임.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'>촉매제(Catalytic Converter) 내 팔라듐 함량은 여전히 고가 비철금속의 핵심 수익원임.</li><li class='ai-bullet'>이번 뉴스로 인한 즉각적인 스크랩 매입·매매가 변동은 예상되지 않으나, 실무적으로는 촉매제 수거량 확보와 재생 공정 효율화를 통한 회수율 극대화에 집중해야 함.</li><li class='ai-bullet'>특히 고철 및 비철 유통 단가와 연동되는 촉매제 스크랩 가격의 하방 경직성을 확인하며 재고 관리에 유의할 필요가 있음.</li>
                     </div>
                 </div>
             </div>
@@ -3093,14 +3133,14 @@
                     <ul class="art-list">
                         
                 <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMi1wFBVV95cUxOck01SHZTbWJWUlpaYmZpS0I5ODlOQmU1d0FyQ0tfRWJ5TEZnTEJUNU9uRVdFZFNDN19seFd2LWJ6dUpYcGFMQjVPY29BTDBjSWJUTVo0X0dWNXdHaGNKVkFFajNkb3FXcUVxd2FmUUNaRzJFMGlNUngxOHQ1Sllpc21XMFY5Mk9qQzBZTHR4eEx0WHhyRVRoLUVaazMwaTVhZFc1OGFxSlFKcFZnM04yZGN4anQ0cWFWTWVnLW5ZSEhrNkpTZkpjLTg3S0RMMFhfSkNrekNvNA?oc=5" target="_blank" rel="noopener" class="art-title">Major Chinese AI Models Combined Generate Only About 10% Of OpenAI And Anthropic Revenue – Research Firm Rhodium Group - Tekedia ↗</a>
-                    <div class="art-meta">출처: <span>Tekedia (검색 수집)</span> | 일시: Thu, 17 Sep 2026 20:27:04 GMT</div>
-                    <p class='art-desc'>Major Chinese AI Models Combined Generate Only About 10% Of OpenAI And Anthropic Revenue – Research Firm Rhodium Group Tekedia......</p>
-                </li>
-                <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE9pOV9jQTRoVE9Hd3FsY2l4SmZSQTNqOXo0UnJoMVI0cFVILWxETUxRYW9IZ19GUzZmeEVLUUQ4QzBEcElCTDhPV29tdEpINy1tTEhjRGVGS090WGlDVXhmck1ERXowWUlueDE4QjNiMmdHSXlDa0E?oc=5" target="_blank" rel="noopener" class="art-title">Chinese AI Models Generate Only a Tenth of OpenAI and Anthropic's Revenue, Rhodium Says - finance.biggo.com ↗</a>
                     <div class="art-meta">출처: <span>finance.biggo.com (검색 수집)</span> | 일시: Thu, 17 Sep 2026 18:32:00 GMT</div>
                     <p class='art-desc'>Chinese AI Models Generate Only a Tenth of OpenAI and Anthropic's Revenue, Rhodium Says finance.biggo.com......</p>
+                </li>
+                <li class="art-item">
+                    <a href="https://news.google.com/rss/articles/CBMi1wFBVV95cUxOck01SHZTbWJWUlpaYmZpS0I5ODlOQmU1d0FyQ0tfRWJ5TEZnTEJUNU9uRVdFZFNDN19seFd2LWJ6dUpYcGFMQjVPY29BTDBjSWJUTVo0X0dWNXdHaGNKVkFFajNkb3FXcUVxd2FmUUNaRzJFMGlNUngxOHQ1Sllpc21XMFY5Mk9qQzBZTHR4eEx0WHhyRVRoLUVaazMwaTVhZFc1OGFxSlFKcFZnM04yZGN4anQ0cWFWTWVnLW5ZSEhrNkpTZkpjLTg3S0RMMFhfSkNrekNvNA?oc=5" target="_blank" rel="noopener" class="art-title">Major Chinese AI Models Combined Generate Only About 10% Of OpenAI And Anthropic Revenue – Research Firm Rhodium Group - Tekedia ↗</a>
+                    <div class="art-meta">출처: <span>Tekedia (검색 수집)</span> | 일시: Thu, 17 Sep 2026 20:27:04 GMT</div>
+                    <p class='art-desc'>Major Chinese AI Models Combined Generate Only About 10% Of OpenAI And Anthropic Revenue – Research Firm Rhodium Group Tekedia......</p>
                 </li>
                     </ul>
                 </div>
@@ -3110,7 +3150,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [특이 이슈 없음] (해당 뉴스는 비철금속 '로듐(Rh)'이 아닌, 'Rhodium Group'이라는 이름의 시장 조사 기관에 관한 내용임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   시장 조사 기관인 'Rhodium Group'의 분석에 따르면, 중국의 주요 AI 모델들이 창출하는 매출은 OpenAI 및 Anthropic의 약 10% 수준에 불과함.</p><p class='ai-para'>*   이는 글로벌 AI 산업 내에서 미국 기반 기업들의 압도적인 수익성 및 시장 지배력을 시사하는 데이터임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>: 본 뉴스는 비철금속 로듐(Rh)의 생산량, 제련 동향, 혹은 글로벌 공급망과 관련된 내용이 아님. 따라서 로듐 가격의 단기/중기 변동성이나 원자재 수급에 미치는 영향은 전혀 없음.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>: 자동차 촉매제 등에 포함되는 로듐 가격이나 국내 고철/비철 유통 단가, 폐차 부품 매입·매매가에 미치는 실무적 파급 효과는 없음. 블로그 작성 시 해당 뉴스를 로듐 금속 시장과 연계하여 해석하지 않도록 주의가 필요함.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: 특이 이슈 없음 (해당 뉴스는 원자재 '로듐(Rhodium)'이 아닌 금융 연구소 'Rhodium Group'의 AI 산업 분석 보고서임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   금융 연구소 Rhodium Group은 중국의 주요 AI 모델들이 OpenAI 및 Anthropic의 매출 합계의 약 10% 수준에 불과하다고 분석함.</p><p class='ai-para'>*   이는 글로벌 AI 시장에서 미국 기업의 수익성 및 시장 지배력이 중국 기업을 압도하고 있음을 시사함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>: 해당 뉴스는 소프트웨어 및 AI 산업의 수익 구조에 관한 내용으로, 귀금속 원자재인 로듐(Rh)의 광산 생산, 제련, 글로벌 수급 및 가격 변동과는 전혀 무관함. 원자재 시장에 미치는 영향은 없음.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>: AI 모델의 매출 비중과 자동차 촉매(로듐 포함), 고철, 비철금속 유통 시장 간의 직접적인 상관관계는 없음. 실무적으로는 국내 고철/비철 유통 단가, 폐차 부품 매입·매매가, 재생/재활용 시장에 미치는 파급 효과가 전무함.</p>
                     </div>
                 </div>
             </div>
