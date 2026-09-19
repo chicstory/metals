@@ -1725,11 +1725,11 @@
 
         <div class="tpl-nav-links">
           <a href="https://chicstory.github.io/" class="tpl-nav-link"><i class="bi-house-door"></i> 포털 홈</a>
-          <a href="https://chicstory.github.io/autoissue/" class="tpl-nav-link"><i class="bi-bell-fill"></i> 자동차 데일리 이슈</a>
+          <a href="https://chicstory.github.io/metals/" class="tpl-nav-link active"><i class="bi-graph-up-arrow"></i> 금속 시황</a>
+          <a href="https://thapathlab.com/metals/scrap.html" class="tpl-nav-link"><i class="bi-recycle"></i> 고철·비철 등급단가</a>
           <a href="https://chicstory.github.io/autocost/" class="tpl-nav-link"><i class="bi-calculator-fill"></i> 유지비·보험</a>
-          <a href="https://chicstory.github.io/metals/" class="tpl-nav-link active"><i class="bi-graph-up-arrow"></i> 금속 원자재·스크랩</a>
-          <a href="https://chicstory.github.io/engines/hyundai_kia_engine_table.html" class="tpl-nav-link"><i class="bi-table"></i> 제조사별 스펙표</a>
-          <a href="https://chicstory.github.io/engines/" class="tpl-nav-link"><i class="bi-cpu"></i> 엔진 전수 백과</a>
+          <a href="https://chicstory.github.io/autoissue/" class="tpl-nav-link"><i class="bi-bell-fill"></i> 결함·리콜</a>
+          <a href="https://chicstory.github.io/engines/" class="tpl-nav-link"><i class="bi-cpu"></i> 파워트레인</a>
           <a href="https://chicstory.github.io/guide.html" class="tpl-nav-link"><i class="bi-compass"></i> 이용 가이드</a>
         </div>
 
@@ -1796,8 +1796,15 @@
           <a href="https://chicstory.github.io/metals/" class="tpl-drawer-item" style="border-color: rgba(255, 184, 0, 0.4); background: rgba(255, 184, 0, 0.08);">
             <div class="tpl-drawer-icon icon-metals"><i class="bi-graph-up-arrow"></i></div>
             <div class="tpl-drawer-item-text">
-              <div class="tpl-drawer-item-title" style="color: #ffb800;">9대 금속 원자재 & 스크랩 허브 (현재)</div>
+              <div class="tpl-drawer-item-title" style="color: #ffb800;">9대 금속 원자재 시황 (현재)</div>
               <div class="tpl-drawer-item-desc">일일 시세 분석 · 1초 즉시 계산기 · 캘린더 아카이브</div>
+            </div>
+          </a>
+          <a href="https://thapathlab.com/metals/scrap.html" class="tpl-drawer-item">
+            <div class="tpl-drawer-icon" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;"><i class="bi-recycle"></i></div>
+            <div class="tpl-drawer-item-text">
+              <div class="tpl-drawer-item-title">고철·비철 스크랩 등급별 시세표</div>
+              <div class="tpl-drawer-item-desc">생철/중량/경량 및 구리A동/신주 실시간 도·소매 계산기</div>
             </div>
           </a>
           <a href="https://chicstory.github.io/engines/hyundai_kia_engine_table.html" class="tpl-drawer-item">
@@ -1865,7 +1872,7 @@
             <div class="hero-left">
                 <div class="hero-meta-bar" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
                     <span class="meta-tag"><i class="bi-calendar3"></i> 기준 일시: <strong>2026-09-19</strong></span>
-                    <span class="meta-tag"><i class="bi-currency-exchange"></i> 적용 환율: <strong style="color: #38bdf8;">1 USD = 1,388.0원</strong></span>
+                    <span class="meta-tag"><i class="bi-currency-exchange"></i> 적용 환율: <strong style="color: #38bdf8;">1 USD = 1,389.0원</strong></span>
                     <span class="meta-tag"><i class="bi-info-circle"></i> 공개 시장 지표 참조</span>
                 </div>
                 <h1>📊 오늘의 9대 금속원자재 & 스크랩 실시간 시황</h1>
@@ -1879,7 +1886,7 @@
 
         <!-- 🧮 실시간 스크랩 & 폐촉매 계산기 위젯 -->
         <section class="calc-box" id="calcSection">
-            <!-- 2-Track 탭 스위처 -->
+            <!-- 3-Track 탭 스위처 -->
             <div class="calc-tab-nav">
                 <button type="button" class="calc-tab-btn active" id="tab-btn-metals" onclick="switchCalcTab('metals')">
                     <i class="bi-calculator"></i> 🪙 9대 원자재 중량 계산
@@ -1887,13 +1894,21 @@
                 <button type="button" class="calc-tab-btn" id="tab-btn-catalyst" onclick="switchCalcTab('catalyst')">
                     <i class="bi-car-front-fill"></i> 🚗 가솔린·LPG 폐촉매 실무 견적
                 </button>
+                <a href="./scrap.html" class="calc-tab-btn" style="text-decoration: none; color: #38bdf8; border-color: rgba(56, 189, 248, 0.35);">
+                    <i class="bi-recycle"></i> 🏗️ 고철·비철 등급별 단가표 ↗
+                </a>
             </div>
 
             <!-- Track 1: 기존 9대 금속 스크랩 계산기 -->
             <div id="panel-calc-metals">
-                <div class="calc-header">
-                    <h2>🧮 실시간 스크랩 매입 예상 견적 계산기</h2>
-                    <span style="font-size: 12.5px; color: #94a3b8;">* 오늘자 환산 시장가 대비 감모·정제 마진(70~80%) 자동 적용</span>
+                <div class="calc-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <h2>🧮 실시간 스크랩 매입 예상 견적 계산기</h2>
+                        <span style="font-size: 12.5px; color: #94a3b8;">* 오늘자 환산 시장가 대비 감모·정제 마진(70~80%) 자동 적용</span>
+                    </div>
+                    <a href="./scrap.html" class="btn-sm" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); text-decoration: none; padding: 6px 12px; font-weight: 600;">
+                        🏗️ 생철·중량·구리A동 정밀 단가표 보기 ↗
+                    </a>
                 </div>
                 <div class="calc-grid">
                     <div class="calc-field">
@@ -1996,7 +2011,7 @@
             <div class="section-header">
                 <div>
                     <h2 class="section-title">💰 9대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가</h2>
-                    <span style="font-size: 13px; color: var(--text-sub);">환율: 1 USD = 1,388.0원 (네이버 금융 (하나은행 고시환율))</span>
+                    <span style="font-size: 13px; color: var(--text-sub);">환율: 1 USD = 1,389.0원 (네이버 금융 (하나은행 고시환율))</span>
                 </div>
                 <div class="tabs">
                     <button class="tab-btn active" onclick="filterCategory('all', this)">전체보기</button>
@@ -2026,11 +2041,11 @@
             <td class="col-name"><strong>구리</strong> <span class="text-sub">(Copper)</span></td>
             <td class="col-raw font-mono">6.62 USD/Lbs</td>
             <td class="col-krw font-bold text-blue">
-                <div>20,242 원/kg</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +242원 (+1.2%) 상승">▲ +242원 (+1.2%)</span></div>
+                <div>20,257 원/kg</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +257원 (+1.3%) 상승">▲ +257원 (+1.3%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">14,169 ~ 16,194 원/kg</span>
+                <span class="scrap-badge">14,180 ~ 16,205 원/kg</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('copper')">🧮 계산</button>
@@ -2058,11 +2073,11 @@
             <td class="col-name"><strong>알루미늄</strong> <span class="text-sub">(Aluminum)</span></td>
             <td class="col-raw font-mono">3,296.50 USD/T</td>
             <td class="col-krw font-bold text-blue">
-                <div>4,576 원/kg</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +12원 (+0.3%) 상승">▲ +12원 (+0.3%)</span></div>
+                <div>4,579 원/kg</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +15원 (+0.3%) 상승">▲ +15원 (+0.3%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">3,203 ~ 3,660 원/kg</span>
+                <span class="scrap-badge">3,205 ~ 3,663 원/kg</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('aluminum')">🧮 계산</button>
@@ -2074,11 +2089,11 @@
             <td class="col-name"><strong>납</strong> <span class="text-sub">(Lead)</span></td>
             <td class="col-raw font-mono">1,925.03 USD/T</td>
             <td class="col-krw font-bold text-blue">
-                <div>2,672 원/kg</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +22원 (+0.8%) 상승">▲ +22원 (+0.8%)</span></div>
+                <div>2,674 원/kg</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +24원 (+0.9%) 상승">▲ +24원 (+0.9%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">1,870 ~ 2,138 원/kg</span>
+                <span class="scrap-badge">1,872 ~ 2,139 원/kg</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('lead')">🧮 계산</button>
@@ -2090,11 +2105,11 @@
             <td class="col-name"><strong>금</strong> <span class="text-sub">(Gold)</span></td>
             <td class="col-raw font-mono">4,383.45 USD/t.oz</td>
             <td class="col-krw font-bold text-blue">
-                <div>195,612 원/g</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,971원 (+1.0%) 상승">▲ +1,971원 (+1.0%)</span></div>
+                <div>195,753 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +2,112원 (+1.1%) 상승">▲ +2,112원 (+1.1%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">136,929 ~ 156,490 원/g</span>
+                <span class="scrap-badge">137,027 ~ 156,603 원/g</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('gold')">🧮 계산</button>
@@ -2106,11 +2121,11 @@
             <td class="col-name"><strong>은</strong> <span class="text-sub">(Silver)</span></td>
             <td class="col-raw font-mono">66.24 USD/t.oz</td>
             <td class="col-krw font-bold text-blue">
-                <div>2,956 원/g</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +30원 (+1.0%) 상승">▲ +30원 (+1.0%)</span></div>
+                <div>2,958 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +32원 (+1.1%) 상승">▲ +32원 (+1.1%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">2,069 ~ 2,365 원/g</span>
+                <span class="scrap-badge">2,071 ~ 2,366 원/g</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('silver')">🧮 계산</button>
@@ -2122,11 +2137,11 @@
             <td class="col-name"><strong>백금</strong> <span class="text-sub">(Platinum)</span></td>
             <td class="col-raw font-mono">1,806.40 USD/t.oz</td>
             <td class="col-krw font-bold text-blue">
-                <div>80,611 원/g</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +989원 (+1.2%) 상승">▲ +989원 (+1.2%)</span></div>
+                <div>80,669 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,047원 (+1.3%) 상승">▲ +1,047원 (+1.3%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">56,428 ~ 64,489 원/g</span>
+                <span class="scrap-badge">56,468 ~ 64,535 원/g</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('platinum')">🧮 계산</button>
@@ -2138,11 +2153,11 @@
             <td class="col-name"><strong>팔라듐</strong> <span class="text-sub">(Palladium)</span></td>
             <td class="col-raw font-mono">1,319.50 USD/t.oz</td>
             <td class="col-krw font-bold text-blue">
-                <div>58,883 원/g</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +859원 (+1.5%) 상승">▲ +859원 (+1.5%)</span></div>
+                <div>58,925 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +901원 (+1.6%) 상승">▲ +901원 (+1.6%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">41,218 ~ 47,106 원/g</span>
+                <span class="scrap-badge">41,248 ~ 47,140 원/g</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('palladium')">🧮 계산</button>
@@ -2154,11 +2169,11 @@
             <td class="col-name"><strong>로듐</strong> <span class="text-sub">(Rhodium)</span></td>
             <td class="col-raw font-mono">9,150.00 USD/t.oz</td>
             <td class="col-krw font-bold text-blue">
-                <div>408,321 원/g</div>
-                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,177원 (+0.3%) 상승">▲ +1,177원 (+0.3%)</span></div>
+                <div>408,615 원/g</div>
+                <div style='margin-top:3px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,471원 (+0.4%) 상승">▲ +1,471원 (+0.4%)</span></div>
             </td>
             <td class="col-scrap font-bold text-amber">
-                <span class="scrap-badge">285,825 ~ 326,657 원/g</span>
+                <span class="scrap-badge">286,031 ~ 326,892 원/g</span>
             </td>
             <td class="col-action">
                 <button class="btn-sm" onclick="setCalculatorTarget('rhodium')">🧮 계산</button>
@@ -2188,13 +2203,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">20,242 원/kg</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +242원 (+1.2%) 상승">▲ +242원 (+1.2%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">20,257 원/kg</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +257원 (+1.3%) 상승">▲ +257원 (+1.3%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">14,169 ~ 16,194 원/kg</div>
+                    <div class="m-scrap-price font-bold text-amber">14,180 ~ 16,205 원/kg</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2250,13 +2265,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">4,576 원/kg</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +12원 (+0.3%) 상승">▲ +12원 (+0.3%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">4,579 원/kg</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +15원 (+0.3%) 상승">▲ +15원 (+0.3%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">3,203 ~ 3,660 원/kg</div>
+                    <div class="m-scrap-price font-bold text-amber">3,205 ~ 3,663 원/kg</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2281,13 +2296,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">2,672 원/kg</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +22원 (+0.8%) 상승">▲ +22원 (+0.8%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">2,674 원/kg</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +24원 (+0.9%) 상승">▲ +24원 (+0.9%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">1,870 ~ 2,138 원/kg</div>
+                    <div class="m-scrap-price font-bold text-amber">1,872 ~ 2,139 원/kg</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2312,13 +2327,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">195,612 원/g</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,971원 (+1.0%) 상승">▲ +1,971원 (+1.0%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">195,753 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +2,112원 (+1.1%) 상승">▲ +2,112원 (+1.1%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">136,929 ~ 156,490 원/g</div>
+                    <div class="m-scrap-price font-bold text-amber">137,027 ~ 156,603 원/g</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2343,13 +2358,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">2,956 원/g</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +30원 (+1.0%) 상승">▲ +30원 (+1.0%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">2,958 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +32원 (+1.1%) 상승">▲ +32원 (+1.1%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">2,069 ~ 2,365 원/g</div>
+                    <div class="m-scrap-price font-bold text-amber">2,071 ~ 2,366 원/g</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2374,13 +2389,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">80,611 원/g</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +989원 (+1.2%) 상승">▲ +989원 (+1.2%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">80,669 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,047원 (+1.3%) 상승">▲ +1,047원 (+1.3%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">56,428 ~ 64,489 원/g</div>
+                    <div class="m-scrap-price font-bold text-amber">56,468 ~ 64,535 원/g</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2405,13 +2420,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">58,883 원/g</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +859원 (+1.5%) 상승">▲ +859원 (+1.5%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">58,925 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +901원 (+1.6%) 상승">▲ +901원 (+1.6%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">41,218 ~ 47,106 원/g</div>
+                    <div class="m-scrap-price font-bold text-amber">41,248 ~ 47,140 원/g</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2436,13 +2451,13 @@
                 <div class="m-stat-row m-stat-blue">
                     <span class="m-stat-label">원화 환산 시장가</span>
                     <div style="text-align: right;">
-                        <span class="m-stat-val font-bold text-blue">408,321 원/g</span>
-                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,177원 (+0.3%) 상승">▲ +1,177원 (+0.3%)</span></div>
+                        <span class="m-stat-val font-bold text-blue">408,615 원/g</span>
+                        <div style='margin-top:2px;'><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,471원 (+0.4%) 상승">▲ +1,471원 (+0.4%)</span></div>
                     </div>
                 </div>
                 <div class="m-scrap-box">
                     <div class="m-scrap-label">♻️ 스크랩 매입 추정가 (70~80%)</div>
-                    <div class="m-scrap-price font-bold text-amber">285,825 ~ 326,657 원/g</div>
+                    <div class="m-scrap-price font-bold text-amber">286,031 ~ 326,892 원/g</div>
                 </div>
             </div>
             <div class="m-card-btns">
@@ -2489,12 +2504,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">20,242 원/kg</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +242원 (+1.2%) 상승">▲ +242원 (+1.2%)</span></div>
+                        <span class="pill-val">20,257 원/kg</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +257원 (+1.3%) 상승">▲ +257원 (+1.3%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">14,169 ~ 16,194 원/kg</span>
+                        <span class="pill-val">14,180 ~ 16,205 원/kg</span>
                     </div>
                 </div>
             </div>
@@ -2541,7 +2556,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (글로벌 구리 공급망의 구조적 리스크 완화와 생산 시설 확충, 환경 규제 강화가 동시에 진행되는 변곡점임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>공급망 환경 규제 및 정화 동향</strong>: 미국 에너지부(DOE)가 구리, 리튬 등 핵심 광물이 포함된 노후 광산 부지의 정화 사업을 산업계에 요청함에 따라, 향후 광산 운영 및 공급망 전반에 걸친 환경 비용 부담과 규제 준수 리스크가 강화될 전망임.</p><p class='ai-para'>*   <strong>민간 자본을 통한 생산 능력 확대</strong>: Aura Minerals가 미주 지역(브라질, 온두라스, 멕시코) 내 구리-금-은 광산 성장을 위해 2억 달러 규모의 대출을 확보함에 따라, 민간 자본을 활용한 구리 생산량 증대 움직임이 가속화되고 있음.</p><p class='ai-para'>*   <strong>공급 리스크 완화 및 파이프라인 병목</strong>: Sprott 보고서에 따르면 구리 광산 공급 리스크가 2017년 이후 처음으로 감소세로 돌아섰으나, 높은 가격이 프로젝트 경제성을 개선하더라도 신규 광산 발굴 및 개발 파이프라인의 물리적 시간은 단기간에 해결될 수 없는 구조적 한계가 존재함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기적 관점</strong>: Aura Minerals와 같은 민간 기업의 생산 시설 확충 소식은 공급 과잉 우려를 자극하여 가격 변동성을 확대할 수 있으나, 신규 광산 개발에 소요되는 물리적 시간(Time-lag) 때문에 즉각적인 가격 하락으로 이어지기는 어려움.</p><p class='ai-para'>*   <strong>중장기적 관점</strong>: 미국 DOE의 노후 광산 정화 움직임은 공급망 내 '환경적 비용'을 상향시키는 요인임. 이는 장기적으로 구리 생산 단가를 높이는 압박으로 작용할 것이며, '친환경/윤리적 광물'에 대한 프리미엄이 형성될 가능성이 높음.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>스크랩 유통 단가 및 매입 전략</strong>: 구리 공급 리스크 완화 신호에도 불구하고 신규 공급 부족 기조가 유지됨에 따라, 고품질 구리 스크랩의 가격 하방 지지선은 견고할 것으로 보임. 특히 폐차 부품 매입 시 구리 함유량이 높은 배선(Wiring Harness), 알터네이터, 모터류 등 비철금속 함량이 높은 부품에 대한 선별적 매입 및 고단가 확보 전략이 필요함.</p><p class='ai-para'>*   <strong>재생/재활용 시장 파급 효과</strong>: 환경 규제 강화(DOE 동향)는 향후 폐차 부품 및 스크랩의 재활용 공정에서 '추적성(Traceability)'과 '환경적 무결성'을 요구하는 기준으로 발전할 가능성이 큼. 이는 국내 비철 유통사들에게 단순 매입을 넘어선 고품질 스크랩의 선별 및 세척 공정의 중요성을 증대시키는 실무적 요인이 될 것임.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (공급망 리스크의 성격 변화 및 신규 생산 투자 동향이 교차하는 시점)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>공급망 리스크 완화 신호</strong>: Sprott 분석에 따르면, 고금리 및 고가격 환경이 광산 프로젝트의 경제성을 개선함에 따라 2017년 이후 처음으로 구리 공급 리스크가 감소세로 전환됨. 단, 신규 광구 발굴 및 개발 파이프라인의 물리적 시간 소요는 여전히 변수임.</p><p class='ai-para'>*   <strong>생산 능력 확대 움직임</strong>: Aura Minerals가 아메리카 대륙 내 구리-금-은 광산(Aranzazu)을 포함한 사업 확장을 위해 2억 달러 규모의 대출을 확보하며 실제 생산량 증대를 위한 자본 투입이 가속화됨.</p><p class='ai-para'>*   <strong>환경 규제 및 자원 재활용 정책</strong>: 미국 에너지부(DOE)가 구리, 리튬 등 핵심 광물이 포함된 노후 부지의 정화 및 자원 회수를 산업계에 요청함에 따라, 향후 폐광 및 폐기물에서의 2차 자원 확보(Urban Mining)가 정책적 주요 의제로 부상함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기적 관점</strong>: 프로젝트 경제성 개선으로 인한 신규 공급 물량 유입 기대감이 형성되나, 광산 개발의 시차(Time-lag)로 인해 즉각적인 가격 하락보다는 하방 경직성을 확보하는 흐름이 예상됨.</p><p class='ai-para'>*   <strong>중기적 관점</strong>: 아메리카 대륙 중심의 생산량 확대가 본격화될 경우 글로벌 공급 과잉 우려가 일부 해소될 수 있으나, 수요 측면의 전기차(EV) 및 신재생에너지 전환 속도가 이를 상회할 경우 구조적 공급 부족은 지속될 전망임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>비철 스크랩 단가</strong>: 공급 리스크 완화 신호가 시장에 반영될 경우, 고철 및 비철 스크랩의 매입 단가 상승 폭이 둔화될 수 있음. 특히 구리 함량이 높은 자동차 배선, 알터네이터 등 핵심 부품 스크랩의 가치 산정 시 공급망 안정화 추이를 모니터링해야 함.</p><p class='ai-para'>*   <strong>재생/재활용 시장</strong>: 미국 DOE의 노후 부지 정화 및 자원 회수 움직임은 국내외 폐차 부품 및 스크랩 유통 업계에도 '자원 순환' 측면의 규제 및 기회 요인으로 작용할 가능성이 높음. 향후 단순 폐기물 처리가 아닌, 핵심 광물 회수 기술을 결합한 고부가가치 재생 소재 시장의 비중이 확대될 것으로 보임.</p><p class='ai-para'>*   <strong>실무적 대응</strong>: 수입 단가 변동성에 대비하여 스크랩 매입 시 단기 시세보다는 장기적인 공급망 안정성 및 재활용 효율성을 고려한 재고 확보 전략이 필요함.</p>
                     </div>
                 </div>
             </div>
@@ -2583,28 +2598,23 @@
 
             <div class="card-grid">
                 <div class="card-news">
-                    <h4>📰 최근 주요 뉴스 (5건)</h4>
+                    <h4>📰 최근 주요 뉴스 (3건)</h4>
                     <ul class="art-list">
                         
-                <li class="art-item">
-                    <a href="https://www.mining.com/rineharts-nine-deal-spree-takes-her-well-beyond-iron-ore/" target="_blank" rel="noopener" class="art-title">Rinehart’s nine-deal spree takes her well beyond iron ore ↗</a>
-                    <div class="art-meta">출처: <span>Mining.com (RSS)</span> | 일시: Thu, 17 Sep 2026 12:46:00 +0000</div>
-                    <p class='art-desc'>Australia’s richest person is building a strategic-metals portfolio spanning rare earths, copper, gallium, antimony and gold.......</p>
-                </li>
                 <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxPOFNDajlDaE4tS1o4R0pWUWwtTW1wbEZ4Z2RZeXlTUllXbVlxamFIdzBUSlpHZld4RmdMZl80SkRIcVh3dkU4TkR4NW5MYXNvSFkxWWkxTkZTWEJFWTBldHFFZmd1bFEzWVpTUks4Q1JpVzRBWVJwcUpScjdZMll4cW04ck4tMXlPdUpoWGM5UVFRazdkalpWOUhueXN2azI4eFVxRVBvOFNnNlJXNGFiQjcydmVaZE81V2VTb0hhMzl4V1hndlE?oc=5" target="_blank" rel="noopener" class="art-title">US ferrous scrap market holds steady; European prices rise on tighter availability - BigMint ↗</a>
                     <div class="art-meta">출처: <span>BigMint (검색 수집)</span> | 일시: Fri, 18 Sep 2026 12:50:05 GMT</div>
                     <p class='art-desc'>US ferrous scrap market holds steady; European prices rise on tighter availability BigMint......</p>
                 </li>
                 <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxQN09BMFdiSmRPcERRZW15UTdaWW5GRFgtZWN4eHQ5Yy10NWhyT0V6NHhCNUkySFR2SDdtU0pROXJlY1A3VU1IZ2JWaWp0ZVRfSzh6cnJyXzQtWlJtaC1KUHV3M0tjVnpWc2x5RS1iYUVxTGMtSUE0U19sdVBNZ3lYYzVqZ08zdEhtaEgwNEFIMA?oc=5" target="_blank" rel="noopener" class="art-title">MMi Daily Iron Ore Report (September 17) - Shanghai Metals Market ↗</a>
-                    <div class="art-meta">출처: <span>Shanghai Metals Market (검색 수집)</span> | 일시: Thu, 17 Sep 2026 09:59:34 GMT</div>
-                    <p class='art-desc'>MMi Daily Iron Ore Report (September 17) Shanghai Metals Market......</p>
+                    <a href="https://news.google.com/rss/articles/CBMi2AFBVV95cUxPOVdsbzFKUEtDQk53TTBkR0VRZzllU0JTM2ZxeEM4V2F4N0I3TVdoLTZsVGpjLXdRNk1oc3hlV3JlRnJwWldvZkhiNHc4VGpnT0swVnVWbWtRbHhoRktqVXFMRm1ta3hUOWFWcmhQRFpCQlNYQ1B3MGhvU0xzRXE4MmZMVVFpZkZPQTE1ZHZKUnpQeUxRaHRBUThtc2VWQl9ZVHRqTXdUSEdsblgwQjJkTXJoRS10eWhkdUl6U3loc0FLWmVJeVY0alJTeU5wWEZNN1JoLTVOaETSAdgBQVVfeXFMTzlXbG8xSlBLQ0JOd00wZEdFUWc5ZVNCUzNmcXhDOFdheDdCN01XaC02bFRqYy13UTZNaHN4ZVdyZUZycFpXb2ZIYjR3OFRqZ09LMFZ1Vm1rUWx4aEZLalVxTEZtbWt4VDlhVnJoUERaQkJTWENQdzBob1NMc0VxODJmTFVRaWZGT0ExNWR2SlJ6UHlMUWh0QVE4bXNlVkJfWVR0ak13VEhHbG5YMEIyZE1yaEUtdHloZHVJelN5aHNBS1plSXlWNGpSU3lOcFhGTTdSaC01TmhE?oc=5" target="_blank" rel="noopener" class="art-title">Steel price rally likely to lift earnings; MOFSL favours JSW, Tata Steel - Business Standard ↗</a>
+                    <div class="art-meta">출처: <span>Business Standard (검색 수집)</span> | 일시: Fri, 18 Sep 2026 04:55:42 GMT</div>
+                    <p class='art-desc'>Steel price rally likely to lift earnings; MOFSL favours JSW, Tata Steel Business Standard......</p>
                 </li>
                 <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxQdTFPM2xBelYyUHRqVHVjY0duOFQ1ZC1NUC05U0RQakNSeDh2ZmUtRF8tTFhGdnhVZ2hGSDg3VVNkWnVmOVRfZ3BMX0JkcUQ1dC1OYlgxMUdOWUhpMDJJYkE0TVRHRC0zYmNhRTRlZG1aZEE2VzFzcnp6YUVOTTRzaktNWkxwVW9wdk9yellfQXh1RzRtZjVKVkl5d08zME56T29JWWdTMk1PMDBSX0M1c2NBMnB4ejFGcy1mY01PVHk0UQ?oc=5" target="_blank" rel="noopener" class="art-title">[SMM Iron Ore] Lower freight and a firmer yuan narrow imported iron ore losses - Shanghai Metals Market ↗</a>
-                    <div class="art-meta">출처: <span>Shanghai Metals Market (검색 수집)</span> | 일시: Thu, 17 Sep 2026 06:48:48 GMT</div>
-                    <p class='art-desc'>[SMM Iron Ore] Lower freight and a firmer yuan narrow imported iron ore losses Shanghai Metals Market......</p>
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNVDNzV1E1U3p2eDZkdWVYNUw3LTJYQWNOemY0Tm54TnpLb0lTWkEzTmpObzlSbGY2WUdwak5YT2pBR0VoeUlBYzFGU3htMkpTa0psOExqZl8tMnp4YWNhMmJ6T0pjVnhYOVlDTi1CWWRPR1ctM0dPMzdzSktiZUk4WHZBYzFsbFR2REhZdERRUFlMcTRCdVRPOWFkYWlXbWtKUGd0LWIzc2cxSkNBWUxyX2dHVk9wRU0xbTg0a1VnanlQbGtUSEJSUw?oc=5" target="_blank" rel="noopener" class="art-title">Steel price surge sets off alarm bells for MSMEs: CICU seeks immediate government intervention - cityairnews.com ↗</a>
+                    <div class="art-meta">출처: <span>cityairnews.com (검색 수집)</span> | 일시: Fri, 18 Sep 2026 14:25:16 GMT</div>
+                    <p class='art-desc'>Steel price surge sets off alarm bells for MSMEs: CICU seeks immediate government intervention cityairnews.com......</p>
                 </li>
                     </ul>
                 </div>
@@ -2614,7 +2624,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (글로벌 자본의 전략적 금속 이동과 지역별 고철 수급 불균형이 공존하는 상황)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>전략적 금속으로의 자본 이동</strong>: 호주의 대규모 자본(Rinehart)이 철광석을 넘어 희토류, 구리, 갈륨, 안티모니 등 에너지 전환 및 첨단 기술에 필수적인 전략적 금속 포트폴리오를 확장 중임.</p><p class='ai-para'>*   <strong>유럽 고철 시장 수급 불균형</strong>: 미국 고철 시장은 안정세를 유지하는 반면, 유럽은 공급 부족(Tighter Availability)으로 인해 고철 가격이 상승하는 지역적 차별화 현상이 발생함.</p><p class='ai-para'>*   <strong>철광석 시장 모니터링 지속</strong>: 상하이금속거래소(SMM)를 통해 철광석 가격 변동성을 실시간으로 추적하며 글로벌 원자재 기초 가격 흐름을 확인 중임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기) 유럽 내 고철 공급 부족이 지속될 경우, 유럽발 고철 가격 상승이 글로벌 스크랩 거래 가격에 상방 압력으로 작용할 수 있음.</p><p class='ai-para'>*   (중기) 구리, 갈륨 등 전략적 금속에 대한 대규모 자본 유입은 향후 전기차(EV) 및 신재생 에너지 관련 핵심 광물의 공급망 재편을 가속화할 것이며, 이는 관련 비철금속 가격의 변동성을 확대하는 요인이 됨.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (국내 유통) 유럽발 고철 가격 상승 및 글로벌 공급망 재편은 국내 고철 유통 단가의 변동성을 높이는 변수로 작용할 수 있으며, 특히 수출입 물량에 따른 단가 편차를 주시해야 함.</p><p class='ai-para'>*   (부품 및 재활용) 구리 등 전략 금속의 가치 상승은 알터네이터, 배터리 케이스, 배선 등 구리 함량이 높은 자동차 부품의 폐기 시 매입 단가에 긍정적인 영향을 미칠 수 있음.</p><p class='ai-para'>*   (실무적 파급 효과) 단순 고철 재활용을 넘어, 배터리 및 전략 금속 회수를 위한 '고순도 스크랩 선별' 및 '부품 단위 재활용' 공정의 중요성이 증대될 전망임. 폐차 부품 매입 시 전략 금속 함유량에 따른 가치 평가 체계 고도화가 필요함.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (글로벌 철강 가격 상승세와 지역별 수급 불균형에 따른 공급망 변동성 확대)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>지역별 수급 양극화</strong>: 미국 고철(Ferrous Scrap) 시장은 안정세를 유지하고 있는 반면, 유럽 시장은 공급 부족 현상으로 인해 가격이 상승하는 양극화 현상 발생.</p><p class='ai-para'>*   <strong>철강 가격 상승 및 수익성 개선</strong>: 글로벌 철강 가격 상승세가 지속됨에 따라 주요 철강 생산 기업(JSW, Tata Steel 등)의 수익성 개선이 기대되는 상황.</p><p class='ai-para'>*   <strong>중소기업(MSME) 부담 가중</strong>: 급격한 철강 가격 상승으로 인해 중소 제조 기업들의 비용 부담이 한계치에 도달했으며, 이에 따른 정부 차원의 개입 요청이 제기됨.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기 전망</strong>: 유럽발 공급 부족과 글로벌 수요 견인으로 인해 철강 및 고철 가격은 단기적으로 추가 상승 압력을 받을 가능성이 높음.</p><p class='ai-para'>*   <strong>중기 전망</strong>: 대형 생산 기업과 중소 제조 기업 간의 비용 격차가 심화될 것이며, 공급망 불안정성이 지속될 경우 원자재 확보를 위한 선제적 계약 및 재고 확보 경쟁이 치열해질 전망임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>고철/비철 유통 단가</strong>: 철강 가격 상승은 고철(Ferrous Scrap) 매입 단가 상승으로 직결됨. 이는 자동차 차체 및 구조재를 사용하는 부품 제조사의 원가 부담을 가중시키는 요인임.</p><p class='ai-para'>*   <strong>폐차 부품 및 재생 시장</strong>: 고철 가격 상승은 폐차장 및 스크랩 수집업자에게는 유리한 환경이나, 이를 원료로 사용하는 재생강재 및 부품 재활용 시장에서는 생산 단가 상승으로 인한 마진 압박이 발생할 수 있음.</p><p class='ai-para'>*   <strong>실무적 파급 효과</strong>: 부품 제조사들은 원가 상승분을 판매가에 전가하기 위한 협상력을 강화해야 하며, 스크랩 유통사는 가격 변동성에 대비한 효율적인 재고 관리와 고부가가치 비철금속/고품질 스크랩 선별을 통한 수익성 방어 전략이 필요함.</p>
                     </div>
                 </div>
             </div>
@@ -2635,12 +2645,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">4,576 원/kg</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +12원 (+0.3%) 상승">▲ +12원 (+0.3%)</span></div>
+                        <span class="pill-val">4,579 원/kg</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +15원 (+0.3%) 상승">▲ +15원 (+0.3%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">3,203 ~ 3,660 원/kg</span>
+                        <span class="pill-val">3,205 ~ 3,663 원/kg</span>
                     </div>
                 </div>
             </div>
@@ -2665,19 +2675,19 @@
                     <p class='art-desc'>Materials subject to the EOI are aluminum, cesium, chloride, copper, fluorine, lead, lithium hydride, platinum, selenium, silver, tungsten and vanadium.......</p>
                 </li>
                 <li class="art-item">
+                    <a href="https://news.google.com/rss/articles/CBMi8AFBVV95cUxNdnU1RlZfc1VCc3M5MUlpdUlmcnFtYXprdGFXZFpLdjJLTXRZTFNhaTltUXRTaGg5SlZrMEFIRzFRem5pc0phN2toa2I3ak9Zc3I5VnpzajdGSnhwQy1jNnRKeE1GaGc5WWFNYVhBbkJROVlXVlYya0s5Y0pZV2xoc0FZMkM3YzdUclpPY2wtbnVwX1ZpVEtjT1FmcmM1d2xZN3lsZnRzbVMySmhXSzFDWlFYYlZ4QXFkWS1nZFpHaUdVT2pwbzYwdFpPNE80R2J6VHpOanM5b0FsM3R1Y1JJcXpxdHVuUHVMQ1c1dGxVa2E?oc=5" target="_blank" rel="noopener" class="art-title">Kiln Alumina Bearing Raw Input Market To 2035: 6-8% Volume CAGR Backed by Semiconductor and Optical Demand - News and Statistics - IndexBox ↗</a>
+                    <div class="art-meta">출처: <span>IndexBox (검색 수집)</span> | 일시: Sat, 19 Sep 2026 04:21:18 GMT</div>
+                    <p class='art-desc'>Kiln Alumina Bearing Raw Input Market To 2035: 6-8% Volume CAGR Backed by Semiconductor and Optical Demand - News and Statistics IndexBox......</p>
+                </li>
+                <li class="art-item">
+                    <a href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxQZHNVMFVmMlpXaXFVNW1ORVdzRllmYWk2c2xiYmJkRlY4eGVKazU1aUt3NFYtclE1cnZyRFdEOXRHdXI2aTJkN2JYQ09WTlotSlpiU3k4WExFWnZ6X2t5V1dsV09MRXlJOThwY3FxVUlNcHRDT3ZaMnl1dlRRRnJocC1iY3N1ZHZlT0ktNFZmcmttdVRhOFVWM0NaLUllbjRrVWRWQTl1b0xERE1nSGRfemJ3NXV5Z0htUGxEaGV6RmNfMzFDMVVzWkk0MDV0NTJMZUHSAdcBQVVfeXFMTklhd3FBS0xxVThQRjFxVDRtSjJ2V1MwT0NqRG80d28zX1JrWUVkcnRLOThaN2xiUklMalJtT1dpM1A0ZkdaVGJDSUFRQmM4b2daRVZERXBlYlY5eW90V0xSR05pV0l2SUFsQV9TZEhPYS0yMmQtQWNBNUNCUlpHVm00RVVab19YaXFBWERkNGhTM3JLMzRxMHVzcF91b1duemhIRGdDdnhEMjI1S19VSU9MR0hLVGtBUGZ6bXl3Y21XLU8wR1BTRUh5VG1RMzhXbGdhcnVIS2s?oc=5" target="_blank" rel="noopener" class="art-title">Century Aluminum (CENX) Pulls Back On Tariff Backed Growth Hopes, Is The Stock Still Undervalued? - simplywall.st ↗</a>
+                    <div class="art-meta">출처: <span>simplywall.st (검색 수집)</span> | 일시: Sat, 19 Sep 2026 09:44:52 GMT</div>
+                    <p class='art-desc'>Century Aluminum (CENX) Pulls Back On Tariff Backed Growth Hopes, Is The Stock Still Undervalued? simplywall.st......</p>
+                </li>
+                <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxOZGZCTzAyQklQemdiR2FmWVhZbDZMYmtFTUc0NjJzdC1yTmF0Tkh6cG5MT0ZLMXFwYVhiOFlNQklPaUJIdmpBZ3pQR1NlaGFVLW1QSEFtR3h6dUJzWlY0ZDNUWnduX2Vmb3VXYUoyUFltQ0NpQmJhWElvMGk3cG50MFRMbklnUXktWWZwU0tDTVVlbjQ1cEtCZE5LT0VLM1BpdUhaTWtB?oc=5" target="_blank" rel="noopener" class="art-title">What's next for Trump's aluminum smelter project in Oklahoma? - Reuters ↗</a>
                     <div class="art-meta">출처: <span>Reuters (검색 수집)</span> | 일시: Fri, 18 Sep 2026 12:30:47 GMT</div>
                     <p class='art-desc'>What's next for Trump's aluminum smelter project in Oklahoma? Reuters......</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxOS19mdDVHeDkwX3NTUWw5TUE5ZWZWZjl3NHBlamtOR214MG12T1VraE5wcTNFNEhiQjFKNVc0TlBUbTROcy16MzVIVUZXNS1NVERtcGJSRUN1V0FjSlZZX2JqU0ZsQkVrQnhmME1VTHo4cm0yQWwyN2VZNjE1eTQzcmd2djg1TlZYTl9YQzh2SUt3c0QxY2xrbHBZMUxmdm9wT2MwTzVuVEVpNk9wdWV2REIxd2E?oc=5" target="_blank" rel="noopener" class="art-title">Conductive Aluminum Tape Market Forecast to 2035: EV Battery Shielding to Drive Growth - News and Statistics - IndexBox ↗</a>
-                    <div class="art-meta">출처: <span>IndexBox (검색 수집)</span> | 일시: Fri, 18 Sep 2026 23:51:25 GMT</div>
-                    <p class='art-desc'>Conductive Aluminum Tape Market Forecast to 2035: EV Battery Shielding to Drive Growth - News and Statistics IndexBox......</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxQRHNOSlA5bWpOTThXSFlqbE5KdnB3U1VBRzZULUVJV0lPUzYxU3JEVkx6TFpBTnh1ZTVreTNwMVpaSWVhZUJQU0hJbVBTbWxYVU96alZVT0VjT19NMUtneXRfRzZLSURNN09pdk1xSExTTDRrVzFTWHdXZ2RQT2lFY3pwaUJMSU9tSUJ5RU9HMklLcE5WZHpkVkNJYTRqbG1GU2U0cFk4a0FIMVFwS2ZDMzNDV0hrQWI5LTB3MVlybGhSNU9kR0NXb29jcjZwVUZM?oc=5" target="_blank" rel="noopener" class="art-title">Oklahoma aluminium smelter project faces Inola referendum and the $4b facility could change location - AL Circle ↗</a>
-                    <div class="art-meta">출처: <span>AL Circle (검색 수집)</span> | 일시: Fri, 18 Sep 2026 19:07:42 GMT</div>
-                    <p class='art-desc'>Oklahoma aluminium smelter project faces Inola referendum and the $4b facility could change location AL Circle......</p>
                 </li>
                     </ul>
                 </div>
@@ -2687,7 +2697,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (미국 내 공급망 강화 정책, 신규 생산 설비 동향, 그리고 EV 핵심 부품 수요 확대가 맞물린 구조적 변화 시점)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>미국 내 핵심 광물 및 알루미늄 환경 정화 정책</strong>: 미국 에너지부(DOE)가 알루미늄을 포함한 핵심 광물이 포함된 노후 부지(Legacy sites)의 정화 작업을 위해 산업계의 참여를 유도함. 이는 공급망 안정성 확보와 환경 규제 준수를 동시에 목표로 함.</p><p class='ai-para'>*   <strong>미국 내 신규 제련 시설 공급 동향</strong>: 오클라호마주에 추진 중인 알루미늄 제련소 프로젝트의 향방이 주목받고 있으며, 이는 향후 북미 지역 내 알루미늄 공급 능력(Capacity) 변화의 주요 변수로 작용함.</p><p class='ai-para'>*   <strong>EV 배터리용 전도성 알루미늄 테이프 수요 급증</strong>: 2035년까지 전기차(EV) 배터리 차폐(Shielding)용 전도성 알루미늄 테이프 시장이 강력한 성장세를 보일 것으로 전망됨.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>공급 측면</strong>: 오클라호마 제련소 프로젝트 등 신규 생산 설비의 가동 여부에 따라 중장기적 공급 과잉 또는 부족 여부가 결정될 전망임. 특히 미국 내 생산 기반 강화는 보호무역주의와 맞물려 북미 내 알루미늄 가격 변동성을 높이는 요인이 됨.</p><p class='ai-para'>*   <strong>수요 측면</strong>: EV 배터리용 고부가가치 알루미늄 제품(전도성 테이프 등)의 수요 증가는 일반 산업용 알루미늄 대비 고순도·특수 소재에 대한 프리미엄을 형성할 가능성이 높음.</p><p class='ai-para'>*   <strong>환경 규제</strong>: DOE의 노후 부지 정화 정책은 향후 '그린 알루미늄'에 대한 인증 및 환경 비용을 상승시켜, 저가형/고탄소 배출 알루미늄의 시장 경쟁력을 약화시키는 압박으로 작용할 것임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>고순도 스크랩 수요 증가</strong>: EV 배터리 차폐재 등 정밀 부품에 사용되는 알루미늄은 재활용 시 고순도 확보가 필수적임. 따라서 고철/비철 유통업계에서는 단순 스크랩 수거를 넘어, 자동차 부품(차체, 배터리 케이스 등)에서 추출한 고품질 알루미늄 스크랩의 선별 및 분류 공정의 중요성이 커질 것임.</p><p class='ai-para'>*   <strong>폐차 부품 매입·매매가 변동</strong>: EV 보급 확대에 따라 알루미늄 함량이 높은 배터리 하우징, 차체 부품의 폐기량 증가가 예상됨. 이는 중장기적으로 알루미늄 스크랩 공급량을 늘리는 요인이 되나, 동시에 고부가가치 소재로의 재활용(Closed-loop recycling)을 위한 기술적 요구사항이 까다로워지며 유통 단가에 영향을 미칠 것임.</p><p class='ai-para'>*   <strong>실무적 대응</strong>: 유통사는 단순 물량 확보보다는 EV 관련 부품 스크랩의 '품질 기반 분류' 체계를 강화해야 하며, 환경 규제 대응을 위한 공급망 추적성(Traceability) 확보가 향후 주요 경쟁력이 될 전망임.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (미국 내 환경 규제 강화 움직임과 고부가가치 수요처 확대, 주요 기업의 관세 의존도 완화 등 복합적 변수 발생)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>미국 정부의 핵심 광물 환경 정화 정책</strong>: 미국 에너지부(DOE)가 알루미늄을 포함한 핵심 광물(Critical Minerals)이 포함된 노후 부지의 정화를 위해 민간 산업계의 참여를 유도함. 이는 향후 알루미늄 생산 및 재활용 과정에서 환경 규제 준수 비용 상승과 순환경제(Circular Economy) 기반의 공급망 재편을 시사함.</p><p class='ai-para'>*   <strong>고부가가치 알루미나 수요 확대</strong>: 킬른 알루미나(Kiln Alumina) 시장이 2035년까지 연평균 6~8%의 성장세를 보일 것으로 전망됨. 특히 전통적인 산업용 수요보다 반도체 및 광학 산업 등 고부가가치 기술 분야의 수요가 성장을 견인할 것으로 분석됨.</p><p class='ai-para'>*   <strong>관세 기반 성장 기대감 후퇴</strong>: 주요 알루미늄 기업인 Century Aluminum(CENX)이 관세에 기반한 성장 기대감을 축소함. 이는 무역 분쟁에 따른 단기적 가격 급등보다는 실질적인 수급 펀더멘털과 수요처 다변화에 기반한 시장 분석이 중요해졌음을 의미함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기적 관점</strong>: 관세 효과에 대한 기대감이 일부 후퇴함에 따라, 무역 정책에 의한 급격한 가격 변동성은 다소 완화될 수 있으나, 미국 내 환경 규제 강화에 따른 생산 단가 상승 압력은 상존할 전망임.</p><p class='ai-para'>*   <strong>중기적 관점</strong>: 반도체 및 광학용 고순도 알루미나 수요가 급증함에 따라 알루미늄 제품의 '양극화'가 진행될 것으로 보임. 일반 산업용과 고부가가치 기술용 알루미나 간의 가격 격차가 확대될 가능성이 높으며, 공급망 내에서 고순도 제품 확보 경쟁이 치열해질 것으로 예상됨.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>고품질 스크랩 수요 및 단가 영향</strong>: 미국 DOE의 환경 정화 및 순환경제 정책은 장기적으로 '재활용 알루미늄'의 가치를 높이는 방향으로 작용함. 이는 고품질 자동차 부품 스크랩(휠, 차체 등)의 선별 및 수거 체계 강화로 이어질 수 있으며, 고순도 재생 알루미늄에 대한 프리미엄이 형성될 가능성이 있음.</p><p class='ai-para'>*   <strong>실무적 파급 효과</strong>: 국내외 유통사 및 폐차 부품 매입 업체는 단순 물량 확보보다는 '고순도/저탄소' 인증이 가능한 스크랩 확보에 집중해야 함. 특히 반도체 및 광학 분야로의 수요 전이가 가속화됨에 따라, 자동차 부품 제조 공정에서 발생하는 알루미늄 스크랩의 품질 관리 수준이 향후 매입·매매 단가를 결정짓는 핵심 요소가 될 것으로 판단됨.</p>
                     </div>
                 </div>
             </div>
@@ -2708,12 +2718,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">2,672 원/kg</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +22원 (+0.8%) 상승">▲ +22원 (+0.8%)</span></div>
+                        <span class="pill-val">2,674 원/kg</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +24원 (+0.9%) 상승">▲ +24원 (+0.9%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">1,870 ~ 2,138 원/kg</span>
+                        <span class="pill-val">1,872 ~ 2,139 원/kg</span>
                     </div>
                 </div>
             </div>
@@ -2745,7 +2755,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (특정 기업의 프로젝트 펀딩 승인 소식으로, 단기적인 글로벌 수급 변동을 일으킬 수준의 거시적 변화는 아님)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>* ABC사가 1.15MW급 바이폴라(Bipolar) 납 배터리 프로젝트를 위한 자금 조달 승인을 획득함.</p><p class='ai-para'>* 리튬이온 배터리 중심의 시장 흐름 속에서도 납 배터리 기술의 고도화 및 특정 용도(에너지 저장 등)에 대한 수요가 지속되고 있음을 시사함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>* <strong>원자재 가격 및 글로벌 수급 여파</strong>: 납 배터리 기술의 고도화(바이폴라 방식 등)는 납의 에너지 밀도를 높이고 효율성을 개선하는 방향으로 진행되고 있음. 단기적으로 글로벌 납 가격에 급격한 변동을 일으키지는 않으나, 중기적으로는 고성능 납 배터리 수요처 다변화에 따른 안정적인 납 수요를 뒷받침할 전망임. 공급망 측면에서는 고순도 납의 확보가 기술적 핵심이 될 것으로 보임.</p><p class='ai-para'>* <strong>자동차 부품 및 스크랩 유통 영향</strong>: 납 배터리는 고철 및 비철 스크랩 시장에서 매우 중요한 재활용 자원임. 이러한 신규 프로젝트는 납 배터리 재활용(Recycling) 생태계의 중요성을 재확인시켜 주는 사례임. 국내외 스크랩 유통사 및 폐차 부품 매입 업체 입장에서는 폐배터리 수거량 확보와 더불어, 고순도 납 회수를 위한 재활용 공정의 효율성 확보가 향후 수익성 개선 및 원가 경쟁력 확보의 핵심 요소가 될 것임.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (납 배터리 기술 고도화 및 특정 프로젝트 투자 승인 사례)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   ABC사가 1.15MW급 바이폴라(Bipolar) 납 배터리 프로젝트를 위한 자금 조달 승인을 획득함.</p><p class='ai-para'>*   리튬이온 배터리 중심의 시장 재편 속에서도, 특정 용도(산업용, ESS 등)에 특화된 납 배터리 기술의 고도화 및 상용화 투자가 지속되고 있음을 시사함.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기/중기 전망) 납(Lead)은 리튬이온 배터리 대비 저렴한 비용과 검증된 안정성을 바탕으로 산업용 및 특수 배터리 시장에서 견고한 수요를 유지할 전망임. 바이폴라 기술과 같은 고효율 납 배터리 프로젝트의 증가는 장기적으로 납 수요의 하방 경직성을 확보하는 요인으로 작용할 수 있음.</p><p class='ai-para'>*   (공급망 동향) 신규 프로젝트 승인은 납 제련 및 가공 공정의 가동률 유지에 긍정적이며, 이는 글로벌 납 가격의 급격한 변동성을 억제하는 완충 역할을 할 것으로 보임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (스크랩 유통 단가) 납 배터리 재활용(Recycling)은 비철금속 스크랩 시장의 핵심 축임. 바이폴라 배터리와 같은 고성능 납 배터리의 보급 확대는 향후 폐배터리 수거 및 재활용 공정에서 고순도 납 회수 기술에 대한 수요를 높일 수 있음.</p><p class='ai-para'>*   (실무적 파급 효과) 국내외 고철/비철 유통업체 입장에서는 단순 폐배터리 매입을 넘어, 기술적으로 고도화된 배터리 팩에서 납을 효율적으로 추출하는 공정 효율화가 중요해질 것임. 특히, 납 배터리 기반의 산업용/특수용 수요가 유지됨에 따라, 자동차용 납 배터리 스크랩뿐만 아니라 산업용 폐배터리 수거 채널 확보가 수익성 개선의 핵심이 될 전망임.</p>
                     </div>
                 </div>
             </div>
@@ -2766,12 +2776,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">195,612 원/g</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,971원 (+1.0%) 상승">▲ +1,971원 (+1.0%)</span></div>
+                        <span class="pill-val">195,753 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +2,112원 (+1.1%) 상승">▲ +2,112원 (+1.1%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">136,929 ~ 156,490 원/g</span>
+                        <span class="pill-val">137,027 ~ 156,603 원/g</span>
                     </div>
                 </div>
             </div>
@@ -2818,7 +2828,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] (글로벌 공급망 병목 현상과 생산 거점 확대, 지정학적 자산 이동이 동시에 발생하며 중장기 수급 불균형 가능성 시사)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>생산 능력 확대</strong>: Aura Minerals가 미주 지역(브라질, 온두라스, 멕시코) 광산 성장을 위해 2억 달러 규모의 대출을 확보하며 금 생산량 증대를 위한 자본 투입 가속화.</p><p class='ai-para'>*   <strong>공급망 병목 현상</strong>: 캐나다 내 연간 110억 달러 규모의 금 개발 프로젝트가 인허가 문제로 정체되어 있어, 장기적인 신규 공급량 확보에 차질 발생 가능성 상존.</p><p class='ai-para'>*   <strong>지정학적 자산 이동</strong>: 베네수엘라의 금괴(31톤)가 런던에서 뉴욕으로 이동하여 정부 차입을 위한 담보로 활용될 예정이며, 이는 금의 유동성 및 국제적 자산 이동의 변화를 의미.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   <strong>단기적 관점</strong>: 베네수엘라 금괴의 이동은 특정 지역의 유동성 변화를 야기하나, 글로벌 공급량 자체를 급격히 변화시키기보다는 금융적 담보 가치 변화에 집중될 전망.</p><p class='ai-para'>*   <strong>중장기적 관점</strong>: 캐나다의 인허가 정체는 공급 측면의 강력한 '상방 압력'으로 작용함. 신규 광산 개발 지연은 장기적 공급 부족을 초래할 수 있으며, Aura Minerals와 같은 기존 광산의 생산성 확대 노력이 이를 상쇄할 수 있을지가 가격 변동성의 핵심 변수가 될 것임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>비철금속 단가 연동</strong>: 금 가격의 변동성은 고부가가치 비철금속 및 귀금속 함유 스크랩(PCB, 정밀 전자부품 등)의 매입 단가에 간접적인 영향을 미침. 특히 금 공급망 병목이 지속될 경우, 고부가가치 폐기물 내 귀금속 추출 가치가 상승할 수 있음.</p><p class='ai-para'>*   <strong>실무적 파급 효과</strong>: 폐차 부품 및 고철 유통 시, 단순 중량당 단가 외에도 귀금속 함유량이 높은 부품(센서, 커넥터 등)의 선별적 매입 및 재활용 공정에서의 금 회수 효율성이 수익성을 결정짓는 주요 요소가 될 것으로 판단됨. 스크랩 수급 시 금 가격의 장기적 우상향 가능성을 염두에 둔 단가 책정 전략 필요.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (광산 개발 투자, 규제 병목 현상, 지정학적 자산 이동 등 공급망의 구조적 요인이 지속적으로 노출되는 단계임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>생산 능력 확대</strong>: Aura Minerals가 브라질, 온두라스, 멕시코 내 광산 운영 및 확장을 위해 2억 달러 규모의 대출을 확보하며 공급량 증대를 위한 투자를 지속함.</p><p class='ai-para'>*   <strong>공급망 병목 현상</strong>: 캐나다 내 금 개발 프로젝트(연간 약 110억 달러 규모)가 인허가 문제로 정체되어, 장기적인 공급 측면에서의 제약 요인이 확인됨.</p><p class='ai-para'>*   <strong>지정학적 자산 이동</strong>: 베네수엘라가 31톤 규모의 금을 뉴욕으로 이전하여 정부 차입을 위한 담보로 활용하려는 움직임을 보이며, 시장 내 유동성 및 자산 흐름에 변화 가능성 시사.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기) 베네수엘라의 금 이동은 시장 내 유동성 공급 및 단기적 가격 변동성을 자극할 수 있으나, 이는 실물 수급보다는 금융적 담보 가치에 집중될 전망임.</p><p class='ai-para'>*   (중기) 캐나다의 인허가 지연은 공급 측면의 구조적 한계를 의미하며, 이는 장기적으로 금 가격의 하방 경직성을 확보하는 요인으로 작용할 수 있음. 반면, Aura Minerals와 같은 기업의 적극적인 투자는 공급 과잉을 억제하려는 시도로 해석됨.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   (국내 유통 단가) 금은 자동차 전자장치(ECU), 커넥터, 고부가가치 센서 및 일부 촉매 장치에 포함되는 핵심 소재임. 금 가격의 변동성은 고부가가치 폐차 부품 및 전자 폐기물(E-waste)의 스크랩 매입 단가에 미세하게 반영될 수 있음.</p><p class='ai-para'>*   (실무적 파급 효과) 특히 전기차(EV) 보급 확대에 따른 배터리 및 고전압 시스템 내 귀금속 회수 수요가 증가하는 상황에서, 금을 포함한 비철금속의 공급망 불안정성은 재생/재활용 시장에서 '도시 광산'의 중요성을 더욱 부각시킬 것임. 폐차 부품 매입 시 고부가가치 전자 부품의 선별 및 회수 공정 강화가 필요함.</p>
                     </div>
                 </div>
             </div>
@@ -2839,12 +2849,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">2,956 원/g</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +30원 (+1.0%) 상승">▲ +30원 (+1.0%)</span></div>
+                        <span class="pill-val">2,958 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +32원 (+1.1%) 상승">▲ +32원 (+1.1%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">2,069 ~ 2,365 원/g</span>
+                        <span class="pill-val">2,071 ~ 2,366 원/g</span>
                     </div>
                 </div>
             </div>
@@ -2891,7 +2901,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] (신규 광산 개발 및 정책적 움직임이 관찰되나, 즉각적인 수급 불균형을 초래할 수준은 아님)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   미국 에너지부(DOE)가 은(Silver)을 포함한 핵심 광물의 유휴 부지(Legacy sites) 정화 및 회수를 위한 산업계 협력을 추진하며 자원 순환 및 환경 정책 강화 시사.</p><p class='ai-para'>*   모로코(Aya Minerals) 내 고품위·천층 은 매장량 확인 및 멕시코(Aura Minerals) 내 은 포함 광산 확장 자금 확보 등 신규 공급원 확보를 위한 탐사 및 투자 활동 가속화.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>(단기/중기 전망) 모로코와 멕시코발 신규 생산량 증대 소식은 중장기적으로 공급 과잉 압박으로 작용할 수 있으나, 단기적으로는 광산 개발 단계에 있어 가격에 즉각적인 하락 압력을 가하기는 어려움.</li><li class='ai-bullet'>(공급망 동향) 미국 DOE의 움직임은 단순 채굴을 넘어 '도시 광산' 및 '유휴 자원 회수'를 통한 공급망 안정화 정책이 강화되고 있음을 의미하며, 이는 향후 핵심 광물 확보를 위한 국가 간 경쟁을 심화시킬 전망.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'>(유통 단가 및 매입·매매) 은은 전장 부품 및 각종 전자 부품의 핵심 소재로 활용되므로, 핵심 광물 회수 정책이 구체화될 경우 폐차 및 폐기물 내 은 함유 스크랩의 선별 가치가 상승할 가능성이 높음.</li><li class='ai-bullet'>(실무적 파급 효과) 국내 고철/비철 유통 업계에서는 단순 스크랩 매입을 넘어, 은을 포함한 핵심 광물 추출이 용이한 고부가가치 비철금속의 선별 공정 강화가 필요함. 특히 환경 정화와 연계된 자원 회수 모델이 확산될 경우, 재생/재활용 시장 내에서 '친환경적 자원 회수' 프로세스를 갖춘 업체가 유리한 고지를 점할 것으로 예상됨.</li>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황] - 공급망 확장 및 환경 규제 관련 기초 동향이 관측됨</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   미국 에너지부(DOE)가 은(Silver)을 포함한 핵심 광물(Critical Minerals)의 노후 부지 정화 및 산업적 활용을 위한 계획 수립 착수.</p><p class='ai-para'>*   Aura Minerals가 미주 지역(브라질, 온두라스, 멕시코) 내 금·구리·은 광산 확장을 위해 2억 달러 규모의 대규모 자금 조달 성공.</p><p class='ai-para'>*   모로코 Zgounder 광산 인근에서 고품위 및 천층(shallow) 은 광맥이 확인됨에 따라 신규 생산 가능성 확대.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>(단기/중기 전망) 신규 광산 개발을 위한 자금 조달과 고품위 광맥 발견은 중장기적으로 은 공급 과잉 리스크를 높이는 요인으로 작용할 수 있으며, 이는 가격 상승을 억제하는 하방 압력으로 작용할 전망임.</li><li class='ai-bullet'>(공급망 동향) 미국 DOE의 핵심 광물 관리 움직임은 향후 은을 포함한 주요 광물의 공급망 투명성 및 환경 규제 강화로 이어질 가능성이 높음. 이는 단순 채굴을 넘어 '친환경적 추출 및 재활용'이 글로벌 표준이 될 것임을 시사함.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'>(유통 단가 및 매입가) 은은 자동차 전자부품, 촉매제, 배터리 관련 소재 등에 활용되므로, 광산 공급 확대는 은 함유 스크랩(폐전자제품, 자동차 부품 등)의 매입 단가에 하방 압력을 가할 수 있음.</li><li class='ai-bullet'>(실무적 파급 효과) 미국 DOE의 노후 부지 정화 사례는 향후 국내외 스크랩 유통 및 재활용 공정에서도 환경 준수 비용(Compliance Cost) 상승을 예고함. 따라서 스크랩 수거 및 재활용 업체들은 단순 매입·매매를 넘어, 환경 규제에 부합하는 고부가가치 재활용 기술 및 친환경 공정 확보가 수익성 방어의 핵심 요소가 될 것으로 판단됨.</li>
                     </div>
                 </div>
             </div>
@@ -2912,12 +2922,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">80,611 원/g</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +989원 (+1.2%) 상승">▲ +989원 (+1.2%)</span></div>
+                        <span class="pill-val">80,669 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,047원 (+1.3%) 상승">▲ +1,047원 (+1.3%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">56,428 ~ 64,489 원/g</span>
+                        <span class="pill-val">56,468 ~ 64,535 원/g</span>
                     </div>
                 </div>
             </div>
@@ -2942,19 +2952,19 @@
                     <p class='art-desc'>Materials subject to the EOI are aluminum, cesium, chloride, copper, fluorine, lead, lithium hydride, platinum, selenium, silver, tungsten and vanadium.......</p>
                 </li>
                 <li class="art-item">
+                    <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE1qdjdqTXJTbjFDYmhKbzFOMmpQYzJZQUYzaTJXZ1hnUW12TUJUSFpFZEZ0U0FSMm9tbEJjYnNTVkpiZDhUQlhfRXpPaHd4NDQ5d3Z3ZkdnbFhNOUV0Unk1Yk16UkpkXzdHU3R5R1BvYnk?oc=5" target="_blank" rel="noopener" class="art-title">Nike Air Max 1000.3 "Pure Platinum" Releases Fall 2026 - sneakerfiles.com ↗</a>
+                    <div class="art-meta">출처: <span>sneakerfiles.com (검색 수집)</span> | 일시: Sat, 19 Sep 2026 09:23:53 GMT</div>
+                    <p class='art-desc'>Nike Air Max 1000.3 "Pure Platinum" Releases Fall 2026 sneakerfiles.com......</p>
+                </li>
+                <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxOazRHNW9DVHBYVm9yR1ozRFNvYzFkOV81M3RRWFo4cU4wSEJHQnBBTndXUzdxMklrNWo4M1BuUXpOOUpRTmNPcFcxS1dlenFUWWxNc0VDYzhDN05GdjV4Sy04Sm9mdEdXcXZsazBYbXlRdXE3RXBNcEFMRFl3dFFQbGZZdTFNVUdaalc5UktaQXNTTV82QmVLVjI5cDg5RGE2?oc=5" target="_blank" rel="noopener" class="art-title">Flat PGM Mine Supply Exposes a Growing Replacement-Ounce Problem - Article - Crux Investor ↗</a>
                     <div class="art-meta">출처: <span>Crux Investor (검색 수집)</span> | 일시: Fri, 18 Sep 2026 15:42:36 GMT</div>
                     <p class='art-desc'>Flat PGM Mine Supply Exposes a Growing Replacement-Ounce Problem - Article Crux Investor......</p>
                 </li>
                 <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxQRXpVdmdfRS1qdGEtSnUxekJRYVowbzZtQ3hLakNCN3FQejJOZDdjZDRqOVUzUjRsZ3VPTmh0UGRDUUxZS0c1X2hXcWk4TGgyM2twM252UjlVam9odWNwYlR1V0lvc3YxOTl3bUJmLXllSnhCOFRVM2hBcTFIVncxbTlNWF9fTXg2ckxZbjlnVW1vYzNSb01COHpSdEZVTHdJNWotTk8zakgyd1RKT2I0LURCZFRtUWIt?oc=5" target="_blank" rel="noopener" class="art-title">Platinum Supply Risks Persist as Fed Hike Tests the $2,000 Bull Case - FXEmpire ↗</a>
-                    <div class="art-meta">출처: <span>FXEmpire (검색 수집)</span> | 일시: Fri, 18 Sep 2026 10:42:24 GMT</div>
-                    <p class='art-desc'>Platinum Supply Risks Persist as Fed Hike Tests the $2,000 Bull Case FXEmpire......</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxNZjdNUzlfVldjQWQ1V3lYeU5WTDJHS1ViVVAtUFhaQ09fREVwd204U3pvQmJRbVA2OVNLNTY5UmpVeThFcnoyUlVzZXdzWTBxd2w2NUVjeUxWcjMyYU11UFRyZGtJTzFPbUNialhfRGs1VnpMd29wQ3hWcUZJakhOdGU0WWxJdnh1RW5HS2tlMU41dw?oc=5" target="_blank" rel="noopener" class="art-title">Can hydrogen become platinum’s next big market? - Power Technology ↗</a>
-                    <div class="art-meta">출처: <span>Power Technology (검색 수집)</span> | 일시: Thu, 17 Sep 2026 10:18:37 GMT</div>
-                    <p class='art-desc'>Can hydrogen become platinum’s next big market? Power Technology......</p>
+                    <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPRzFpLXJPV1YxYV9LUHZHZndSVElwQ3NOQmFHZmN1VTVSYmpHYW9TTnFNUW5aMVNPemhtNk1oRXBlaHQ1cXlZMUgtbzVhWTFGRGRhMlVqUGRDclpMNDZKSzZXcTcyLWMwRlYxeUE2bkpSa2R3U1RkeHkzM2JUa2psS2NOeVZjLWRxdk1VQ2hJbDF5VUVVVEpuZ2w3Q3JDWE1ONTVj?oc=5" target="_blank" rel="noopener" class="art-title">Platinum ETF PPLT shows strong sell signals ami... - Pluang ↗</a>
+                    <div class="art-meta">출처: <span>Pluang (검색 수집)</span> | 일시: Sat, 19 Sep 2026 08:54:40 GMT</div>
+                    <p class='art-desc'>Platinum ETF PPLT shows strong sell signals ami... Pluang......</p>
                 </li>
                     </ul>
                 </div>
@@ -2964,7 +2974,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] - PGM(백금족 금속) 공급의 구조적 결핍과 거시경제 변수 간의 충돌로 인한 가격 변동성 확대 및 공급망 리스크 심화.</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>구조적 공급 부족(Replacement-Ounce Problem)</strong>: PGM 광산 공급이 정체되면서 신규 채굴량이 수요를 충당하지 못하는 구조적 결핍이 발생하고 있으며, 이는 향후 공급망 불안정의 핵심 요인으로 작용함.</p><p class='ai-para'>*   <strong>거시경제 변수와 공급 리스크의 대립</strong>: 연준(Fed)의 금리 인상이 백금 가격의 $2,000 돌파를 저해하는 하방 압력으로 작용하고 있으나, 공급 측면의 리스크가 이를 상쇄하며 가격 변동성을 키우는 양상임.</p><p class='ai-para'>*   <strong>핵심 광물 관리 및 환경 규제 강화</strong>: 미국 에너지부(DOE)가 백금을 포함한 핵심 광물의 폐기 부지 정화 및 관리 대상으로 포함시킴에 따라, 광물 채굴 및 재활용 과정에서의 환경 규제와 정책적 중요성이 증대됨.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><p class='ai-para'>*   (단기) 금리 인상 여파에 따른 매크로 변동성으로 인해 가격 횡보 또는 단기적 하락 압력이 존재할 수 있음.</p><p class='ai-para'>*   (중기/장기) 광산 생산성 정체에 따른 공급 부족이 고착화됨에 따라 가격 하방 경직성이 강해질 전망이며, 공급망 불안정은 지속적인 가격 상승 압력으로 작용할 것임.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><p class='ai-para'>*   <strong>촉매제(Catalyst) 단가 상승</strong>: 백금 수요가 집중되는 자동차 촉매 부품의 원가 상승이 불가피하며, 이는 부품 제조사의 수익성 압박 및 최종 소비자 가격 전가로 이어질 수 있음.</p><p class='ai-para'>*   <strong>스크랩 유통의 '도시 광산' 가치 증대</strong>: 신규 광산 공급이 제한됨에 따라 폐차 및 폐촉매에서 추출하는 백금의 재활용 가치가 더욱 높아질 전망임. 고순도 PGM 스크랩의 확보와 효율적인 회수 공정 확보가 유통사의 핵심 경쟁력이 될 것임.</p><p class='ai-para'>*   <strong>재생/재활용 시장의 실무적 변화</strong>: 환경 규제 강화와 공급 부족이 맞물려, 신규 채굴보다 폐기물 내 광물 회수(Urban Mining) 비중이 확대되는 추세임. 스크랩 수거 및 분류 단계에서의 품질 관리(Purity)가 유통 단가 결정의 핵심 변수가 될 것으로 예상됨.</p>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [중요 이슈 발생] - PGM(백금족 금속) 광산 공급의 구조적 한계 노출 및 공급 부족 심화에 따른 가격 변동성 확대 전망</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>PGM 광산 공급 부족 심화</strong>: PGM(백금족 금속) 광산의 생산량이 수요를 따라가지 못하는 '교체 온스(Replacement-Ounce) 문제'가 부각됨에 따라, 신규 광산 개발 및 기존 광산의 생산성 저하가 공급망의 핵심 리스크로 부상함.</p><p class='ai-para'>*   <strong>미국 정부의 전략적 관리 강화</strong>: 미국 에너지부(DOE)가 백금을 포함한 핵심 광물의 유휴 부지 정화 및 관리에 착수함에 따라, 핵심 광물의 환경적 관리와 공급망 안정성에 대한 규제 및 정책적 중요성이 증대됨.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>(단기/중기 전망) 광산 공급의 구조적 한계로 인해 백금을 포함한 PGM 가격은 중장기적으로 우상향 압력을 받을 가능성이 높음. 특히 신규 광산 확보가 어려운 상황에서 공급 부족이 가시화될 경우 가격 변동성이 확대될 수 있음.</li><li class='ai-bullet'>(공급망 동향) 광산 생산량의 한계로 인해 글로벌 제련소들은 재활용(Recycling)을 통한 공급망 확보에 더욱 집중할 것이며, 이는 공급망의 불확실성을 상쇄하기 위한 핵심 전략이 될 것임.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'>(유통 단가 및 매입·매매가) 백금은 자동차 촉매제(Catalytic Converter)의 핵심 소재임. PGM 공급 부족은 신규 촉매제 단가 상승으로 이어지며, 이는 곧 폐차 및 중고 부품 시장에서 수거되는 촉매제 스크랩의 매입 단가 상승을 견인할 것임.</li><li class='ai-bullet'>(재생/재활용 시장 파급 효과) 광산 채굴량 감소에 따라 '도시 광산(Urban Mining)'의 가치가 더욱 높아질 전망임. 고철 및 비철 유통 업계에서는 촉매제 등 PGM 함유 부품의 선별 및 회수 효율을 높이는 공정 고도화가 수익성 확보의 핵심 경쟁력이 될 것으로 보임. 특히 고부가가치 비철 스크랩의 선별 유통이 더욱 중요해질 것으로 판단됨.</li>
                     </div>
                 </div>
             </div>
@@ -2985,12 +2995,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">58,883 원/g</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +859원 (+1.5%) 상승">▲ +859원 (+1.5%)</span></div>
+                        <span class="pill-val">58,925 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +901원 (+1.6%) 상승">▲ +901원 (+1.6%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">41,218 ~ 47,106 원/g</span>
+                        <span class="pill-val">41,248 ~ 47,140 원/g</span>
                     </div>
                 </div>
             </div>
@@ -3010,24 +3020,24 @@
                     <ul class="art-list">
                         
                 <li class="art-item">
+                    <a href="https://news.google.com/rss/articles/CBMickFVX3lxTE1MeUROX0FmZ0hhTlE0OFNocDZob0Z5TE1mQXZyMUxCdUM1OEhDNDlieTJTZUF6VDN3SDI4YW9ZSmEyenlETFpjNW9DTm9jS0lPYXZtdi04bC1ZWU9mTktrdktfenBVMGJYa2NpV1pyc25DUQ?oc=5" target="_blank" rel="noopener" class="art-title">Abrdn Palladium ETF Trust rStock Price Today: Live RPALL to USD Price Chart & Market Data - mexc.co ↗</a>
+                    <div class="art-meta">출처: <span>mexc.co (검색 수집)</span> | 일시: Sat, 19 Sep 2026 05:08:52 GMT</div>
+                    <p class='art-desc'>Abrdn Palladium ETF Trust rStock Price Today: Live RPALL to USD Price Chart & Market Data mexc.co......</p>
+                </li>
+                <li class="art-item">
+                    <a href="https://news.google.com/rss/articles/CBMi8gFBVV95cUxNc2gxRWhpcTVEbVBuZnczeHdnd2lvUzZodmQ3ZmhtN2dfWU04RnBBRDN3dkdIQWF3YTlVUmgtRGw2WUpXOTNXWWRiMUZKTlVNSWpPZmFXNFo0MG5pSXpDTWYzT1FFaEp2bjhuMVowbGZucWpObTBxLUxiLXpkLVhBaEZHZ19ySTBjcGRLRXNXQzZkNzBJNTVCQ05jUFVqdUFPTWtoZFNvU09yOTFwd0E2eG5idFprUDB3ekNHaVItWWxjclVYSnEtRmppSjhDMi0wRmw5N1RfbXpCLTZPcUxoWDVIMG1ZSWpvcURaTkRTenBXQQ?oc=5" target="_blank" rel="noopener" class="art-title">Southwest Michigan housing prices decrease in July - The Herald Palladium ↗</a>
+                    <div class="art-meta">출처: <span>The Herald Palladium (검색 수집)</span> | 일시: Sat, 19 Sep 2026 11:30:00 GMT</div>
+                    <p class='art-desc'>Southwest Michigan housing prices decrease in July The Herald Palladium......</p>
+                </li>
+                <li class="art-item">
+                    <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE9ibWVJY0VEeXM4ZDRQS3ZkbHFNN3BRM2lNLVNNMVdCZ2U5d2pmNmZNZUhValF6SEtLZ0FrZnJvWlVqcVNEekVfTXE4cVVyalJXNmkzT0t1ZEs2QUt6c2FlRDBNWGhXY1BBSU85bG9nQVQ?oc=5" target="_blank" rel="noopener" class="art-title">Bus Palladium, Paris: rock ’n’ roll history with room service - Financial Times ↗</a>
+                    <div class="art-meta">출처: <span>Financial Times (검색 수집)</span> | 일시: Sat, 19 Sep 2026 04:00:43 GMT</div>
+                    <p class='art-desc'>Bus Palladium, Paris: rock ’n’ roll history with room service Financial Times......</p>
+                </li>
+                <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxNakFFcWZXUk5LSExRbmZDRS1LOThleFlZYVpoNnlVYWtFZW1Ua1YtU1dyR1k5MFdLdkdLRDAyX2lNbzdjaGxoU1otQ1hoWUpIYWZqdW9kUW5oOFZmZWVhWHBxMURqX3FSLUlETXJkQlNfVWJ6RkhFeWxsdTFqaElVSHhhU1R0U1JBM29ZS25OZHZ0TTRCQWZJTXVIU2lTQm1ZNVBpMFZxdlRLbUp4V0F1QQ?oc=5" target="_blank" rel="noopener" class="art-title">[SMM Flash] Platinum and palladium prices declined on September 16 as - Shanghai Metals Market ↗</a>
                     <div class="art-meta">출처: <span>Shanghai Metals Market (검색 수집)</span> | 일시: Fri, 18 Sep 2026 06:51:31 GMT</div>
                     <p class='art-desc'>[SMM Flash] Platinum and palladium prices declined on September 16 as Shanghai Metals Market......</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxNTXVOUllhS3J6S0hUanRZY3N0SUN1Rk1ZRlA4MkZhZmIyYU9MOFFCY0JXdHRHN0dUa1FTS1VvTTQ2T29SeHNBdE5wMG92YlZ4OWN5SFEtQkVldzBiSDVKOTVfZGstTXZsNV85T1RqMTB6bWNyWGsydlY4a0hOc29EdXctdjdKemhWdHowRjhteExEZ3o4bTRmNllHakpFaHV4UGNWNTlLLS0xMVQ2UzcxbU92Y1lqVGRBY2twWjVxWWtPa2o0Tml6R2ZhdHA3QXJlWGY1YmlscjFlN3Nm?oc=5" target="_blank" rel="noopener" class="art-title">Invest Ontario Supports Construction of Generation Mining's Marathon Copper-Palladium Processing Facility - Invest Ontario ↗</a>
-                    <div class="art-meta">출처: <span>Invest Ontario (검색 수집)</span> | 일시: Fri, 18 Sep 2026 22:24:34 GMT</div>
-                    <p class='art-desc'>Invest Ontario Supports Construction of Generation Mining's Marathon Copper-Palladium Processing Facility Invest Ontario......</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxNaFZVQ3FpdDh3UGdZcUYtQ0JaRzN5TDRQREtQMS1qQVVjOG5ldjRseE04ZGlQTUltTUg3ZlhGOFc0OW1RcHkzRjlLaHZLcURPQUN4dmhKUjkyUi0yQnRpblJRTFFTTVR0azdiRllLeURKUFk1M3g5Q0RDbmZNUDVLbDc2a3FERFVscmNHeHlveUdaaS1acGYzdEZmc1BhTnRLMVdsTndybmo?oc=5" target="_blank" rel="noopener" class="art-title">September 18 US Market Update: Support and Resistance Levels for 18 Instruments (Gold, Silver, Platinum, Palladium, Crude Oil, Natural Gas, Copper, and Ten Major Currency Pairs) - Moomoo ↗</a>
-                    <div class="art-meta">출처: <span>Moomoo (검색 수집)</span> | 일시: Fri, 18 Sep 2026 14:19:51 GMT</div>
-                    <p class='art-desc'>September 18 US Market Update: Support and Resistance Levels for 18 Instruments (Gold, Silver, Platinum, Palladium, Crude Oil, Natural Gas, Copper, and Ten Major Currency Pairs) Mo...</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxPWmZMcVJjUEQ1WEVzSFBCQmVJeEc0SUNKNTlhb2tLYXY5MUFBamVlaW5NR3UzZ0JENXpocjdDLWdjOEUwMUdtaDZucUNvS0dwTU83VzE2ZlRvMkh4aVFnZXhSMnB0dkxTUHZQVGJXdlc0Rkg4ZVBBSjBuTEpJeHpwMUZJdjFaWmhGdHN1cFdoODJ3bFlTUldmSG9xR3hqSmt4eTVvOFRucw?oc=5" target="_blank" rel="noopener" class="art-title">September 18 US Market Update: Support and Resistance Levels for 18 Instruments (Gold, Silver, Platinum, Palladium, Crude Oil, Natural Gas, Copper, and Ten Major Currency Pairs) - 富途牛牛 ↗</a>
-                    <div class="art-meta">출처: <span>富途牛牛 (검색 수집)</span> | 일시: Fri, 18 Sep 2026 13:54:16 GMT</div>
-                    <p class='art-desc'>September 18 US Market Update: Support and Resistance Levels for 18 Instruments (Gold, Silver, Platinum, Palladium, Crude Oil, Natural Gas, Copper, and Ten Major Currency Pairs) 富途...</p>
                 </li>
                     </ul>
                 </div>
@@ -3037,7 +3047,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [단순 시황]</p><p class='ai-para'>(단기적인 가격 하락세와 장기적인 공급망 인프라 투자 소식이 혼재된 일반적인 시장 동향임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>* <strong>단기 가격 하락</strong>: 상하이금속시장(SMM) 기준, 9월 16일 팔라듐 및 백금 가격이 하락세를 기록하며 단기적인 매도 압력이 확인됨.</p><p class='ai-para'>* <strong>공급망 인프라 투자</strong>: 캐나다 온타리오주 정부가 Generation Mining의 Marathon 구리-팔라듐 처리 시설 건설을 지원하기로 결정하며, 북미 지역 내 공급망 강화 및 생산 능력 확대 움직임이 포착됨.</p><p class='ai-para'>* <strong>기술적 분석 지표</strong>: 주요 금융 플랫폼에서 팔라듐을 포함한 주요 원자재의 지지 및 저항선을 업데이트함에 따라, 단기 변동성에 대비한 기술적 대응이 필요한 시점임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>* <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'><strong>단기 전망</strong>: 시장 심리 위축 및 기술적 저항선에 부딪힌 단기적 가격 조정 국면이 지속될 수 있음.</li><li class='ai-bullet'><strong>중장기 전망</strong>: 북미 내 구리-팔라듐 동시 처리 시설 건설 지원은 장기적으로 공급 안정성을 높이는 요인임. 특히 구리와 팔라듐의 통합 처리는 생산 효율성을 극대화하여 향후 공급 과잉 리스크를 완화하고 가격 하방 경직성을 확보하는 데 기여할 것으로 보임.</li><p class='ai-para'>* <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'><strong>스크랩 유통 단가</strong>: 팔라듐 가격 하락세는 촉매(Catalytic Converter) 등 고부가가치 비철금속 스크랩의 매입 단가에 즉각적인 하방 압력으로 작용할 수 있음. 스크랩 수거 및 유통 업체는 매입 단가 조정을 검토해야 하는 시점임.</li><li class='ai-bullet'><strong>실무적 파급 효과</strong>: 재생 금속 시장에서는 원가 하락에 따른 마진 확보를 위해 재활용 공정 효율화가 중요해질 전망임. 또한, 기술적 지지선 확인 전까지는 스크랩 매도 시점을 보수적으로 잡고, 공급망 인프라 확충 소식에 따른 중장기적 수급 변화를 모니터링하며 재고 관리에 유의해야 함.</li>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: 특이 이슈 없음 (제공된 뉴스 중 2건은 매체명 및 호텔 명칭으로, 원자재 시장과 무관함)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>* Abrdn Palladium ETF Trust(RPALL)의 실시간 가격 및 시장 데이터가 금융 시장에서 모니터링되고 있음.</p><p class='ai-para'>* 기타 뉴스(미시간 주택 가격, 파리 호텔 역사)는 원자재 '팔라듐'과 전혀 무관한 정보임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>* <strong>원자재 가격 및 글로벌 수급 여파</strong>: 현재 제공된 뉴스만으로는 공급망의 물리적 변화나 생산량 변동을 파악하기 어려움. 단기적으로는 ETF를 통한 투자 심리 변화를 주시해야 하며, 중장기적으로는 내연기관차용 촉매 수요 감소와 전기차/수소차 전환 속도에 따른 팔라듐의 재고 수준 및 가격 변동성이 핵심 변수가 될 전망임.</p><p class='ai-para'>* <strong>자동차 부품 및 스크랩 유통 영향</strong>: 이번 뉴스에 따른 직접적인 유통 단가 변동 요인은 없음. 다만, 촉매(Catalytic Converter) 내 팔라듐 함량과 관련하여 폐차 부품 매입 시 촉매 회수 단가는 글로벌 시세 및 투자 심리에 연동되므로, 스크랩 수거 및 재활용 업체는 ETF 가격 흐름을 참고하여 매입 단가 방어 전략을 수립할 필요가 있음.</p>
                     </div>
                 </div>
             </div>
@@ -3058,12 +3068,12 @@
                     </div>
                     <div class="pill pill-blue">
                         <span class="pill-label">원화 환산 시장가</span>
-                        <span class="pill-val">408,321 원/g</span>
-                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,177원 (+0.3%) 상승">▲ +1,177원 (+0.3%)</span></div>
+                        <span class="pill-val">408,615 원/g</span>
+                        <div style="margin-top:2px;"><span class="diff-badge diff-up" title="전일 대비 환율·시세 종합 +1,471원 (+0.4%) 상승">▲ +1,471원 (+0.4%)</span></div>
                     </div>
                     <div class="pill pill-amber">
                         <span class="pill-label">♻️ 스크랩 추정가(70~80%)</span>
-                        <span class="pill-val">285,825 ~ 326,657 원/g</span>
+                        <span class="pill-val">286,031 ~ 326,892 원/g</span>
                     </div>
                 </div>
             </div>
@@ -3079,23 +3089,13 @@
 
             <div class="card-grid">
                 <div class="card-news">
-                    <h4>📰 최근 주요 뉴스 (5건)</h4>
+                    <h4>📰 최근 주요 뉴스 (2건)</h4>
                     <ul class="art-list">
                         
                 <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMiZkFVX3lxTE8xMUl2SlRnd3RpWjZ4Rlh6VHh1b1lNTUp0YmcxZ1hwblNUZ1dvOVdjbTZNWjlZZHVwN0pUSndJdlBYNXdLd1VlTkZiRWdIMjZ2eUhUYkJ0RjdPY0ZDbjNQUk9rLVBOZw?oc=5" target="_blank" rel="noopener" class="art-title">Examining China’s AI Financing - Rhodium Group ↗</a>
-                    <div class="art-meta">출처: <span>Rhodium Group (검색 수집)</span> | 일시: Thu, 17 Sep 2026 11:49:09 GMT</div>
-                    <p class='art-desc'>Examining China’s AI Financing Rhodium Group......</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxPd1ZGT2FfOGNzV0M0Mnlja29ybFZRN284QW45ekRfa2NXVmtCaF9USDVHOW5XS084OXJkb2o0b0RhQjd0TXAxZXh1UmNnVWRoSGNRWVpoWi1STUowdVJOQmUydzlBR29pRVN6aWtfQ1k1aTJlWUg4eEdXcS1GX3c5N21mMWVTYW9PVXdLWURrcURnZGtWU3N2WG5FUzR2eGxDZkZCNmNn0gGrAUFVX3lxTE5uZUZRbWozZWFOUURoaDVORnBpRzEtcDZPaWNQVE9uUDgwbEw4eVBsYWkySWVUODNhd1NUN0gzeGRVcUdGemZzbV82YVR2ZWQxNHFqdEdrdV9uYVZFX2daYjRjaGF4RlJrQXVXZEpJaW1Ja2VnRHNneVJVSUlYWEtvekFISDJpTUJjRUtCdlhndEY0d1g4NGhVZzN6S2FCNXhHVTFpWnBaMTlUSQ?oc=5" target="_blank" rel="noopener" class="art-title">OpenAI and Anthropic are making 10 times more revenue than all Chinese AI models combined, research group Rhodium says - CNBC ↗</a>
-                    <div class="art-meta">출처: <span>CNBC (검색 수집)</span> | 일시: Thu, 17 Sep 2026 09:00:01 GMT</div>
-                    <p class='art-desc'>OpenAI and Anthropic are making 10 times more revenue than all Chinese AI models combined, research group Rhodium says CNBC......</p>
-                </li>
-                <li class="art-item">
-                    <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNbk5GVG5lYXA1aWFzMEJqWHZYeE9MM09pVkRORFZUcmtPN0V2c09rTG1HUGl5RzFkXzB0SmJMV3pvS09JZDBUMWdCaWp5U3VCa0hJMHk0UEVHaXZYLVYySk1DNWpSUmtpRk5tVkdNYUJkNTZQQzdWNGdNT1lHaUxpZ3NVbzIzQ2liRG0wMTVval9vOW1SaXhBc29pSGxINDhHQmVueGJ1ZUstMWxzQ3VQendUR0E?oc=5" target="_blank" rel="noopener" class="art-title">KCC to Sell Platinum, Rhodium to Affiliate for KRW56.4 Billion - marketscreener.com ↗</a>
-                    <div class="art-meta">출처: <span>marketscreener.com (검색 수집)</span> | 일시: Thu, 17 Sep 2026 11:09:04 GMT</div>
-                    <p class='art-desc'>KCC to Sell Platinum, Rhodium to Affiliate for KRW56.4 Billion marketscreener.com......</p>
+                    <a href="https://news.google.com/rss/articles/CBMi1wFBVV95cUxOck01SHZTbWJWUlpaYmZpS0I5ODlOQmU1d0FyQ0tfRWJ5TEZnTEJUNU9uRVdFZFNDN19seFd2LWJ6dUpYcGFMQjVPY29BTDBjSWJUTVo0X0dWNXdHaGNKVkFFajNkb3FXcUVxd2FmUUNaRzJFMGlNUngxOHQ1Sllpc21XMFY5Mk9qQzBZTHR4eEx0WHhyRVRoLUVaazMwaTVhZFc1OGFxSlFKcFZnM04yZGN4anQ0cWFWTWVnLW5ZSEhrNkpTZkpjLTg3S0RMMFhfSkNrekNvNA?oc=5" target="_blank" rel="noopener" class="art-title">Major Chinese AI Models Combined Generate Only About 10% Of OpenAI And Anthropic Revenue – Research Firm Rhodium Group - Tekedia ↗</a>
+                    <div class="art-meta">출처: <span>Tekedia (검색 수집)</span> | 일시: Thu, 17 Sep 2026 20:27:04 GMT</div>
+                    <p class='art-desc'>Major Chinese AI Models Combined Generate Only About 10% Of OpenAI And Anthropic Revenue – Research Firm Rhodium Group Tekedia......</p>
                 </li>
                 <li class="art-item">
                     <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE9pOV9jQTRoVE9Hd3FsY2l4SmZSQTNqOXo0UnJoMVI0cFVILWxETUxRYW9IZ19GUzZmeEVLUUQ4QzBEcElCTDhPV29tdEpINy1tTEhjRGVGS090WGlDVXhmck1ERXowWUlueDE4QjNiMmdHSXlDa0E?oc=5" target="_blank" rel="noopener" class="art-title">Chinese AI Models Generate Only a Tenth of OpenAI and Anthropic's Revenue, Rhodium Says - finance.biggo.com ↗</a>
@@ -3110,7 +3110,7 @@
                         <span class="ai-tag">Gemma 4</span>
                     </div>
                     <div class="ai-body">
-                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [특이 이슈 없음] (AI 관련 'Rhodium Group'은 연구기관 명칭으로 금속 시장과 무관하며, KCC의 거래는 개별 기업의 자산 이동임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   <strong>KCC의 백금·로듐 매각</strong>: 국내 소재 기업 KCC가 계열사에 백금 및 로듐을 약 564억 원 규모로 매각하는 거래를 진행함.</p><p class='ai-para'>*   <strong>명칭 혼동 주의</strong>: 최근 화제가 되고 있는 'Rhodium Group' 관련 뉴스(AI 금융, OpenAI 매출 등)는 금속 원자재인 로듐(Rhodium)과는 전혀 무관한 AI 전문 연구기관의 리포트임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>:</p><li class='ai-bullet'>KCC의 매각은 국내 기업 간의 재무적 자산 이동 및 재고 조정 성격이 강하며, 글로벌 로듐 공급망이나 국제 시세에 즉각적인 충격을 줄 수준은 아님.</li><li class='ai-bullet'>로듐은 여전히 공급이 제한적인 희귀 금속으로, 단기적으로는 글로벌 경기 상황과 자동차 촉매 수요에 따라 변동성을 유지할 전망임.</li><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>:</p><li class='ai-bullet'><strong>스크랩 유통</strong>: 로듐은 자동차 촉매(Catalytic Converter)의 핵심 성분으로, KCC와 같은 대형 소재사의 재고 이동은 국내 비철금속 유통 시장 내의 공급 물량 변화를 모니터링하는 지표가 될 수 있음.</li><li class='ai-bullet'><strong>실무적 파급 효과</strong>: 폐차 부품 및 촉매 스크랩 매입 단가는 로듐/백금 시세에 민감하게 반응하므로, 국내 대형 기업의 재고 매각 동향을 파악하여 향후 스크랩 수거 및 재활용 시장의 단가 변동성을 예측하는 기초 자료로 활용 필요.</li>
+                        <p class='ai-para'><strong>1. 이슈 판정</strong>: [특이 이슈 없음] (해당 뉴스는 비철금속 '로듐(Rh)'이 아닌, 'Rhodium Group'이라는 이름의 시장 조사 기관에 관한 내용임)</p><p class='ai-para'><strong>2. 핵심 내용 요약</strong>:</p><p class='ai-para'>*   시장 조사 기관인 'Rhodium Group'의 분석에 따르면, 중국의 주요 AI 모델들이 창출하는 매출은 OpenAI 및 Anthropic의 약 10% 수준에 불과함.</p><p class='ai-para'>*   이는 글로벌 AI 산업 내에서 미국 기반 기업들의 압도적인 수익성 및 시장 지배력을 시사하는 데이터임.</p><p class='ai-para'><strong>3. 향후 시장 여파 및 전망 코멘트</strong>:</p><p class='ai-para'>*   <strong>원자재 가격 및 글로벌 수급 여파</strong>: 본 뉴스는 비철금속 로듐(Rh)의 생산량, 제련 동향, 혹은 글로벌 공급망과 관련된 내용이 아님. 따라서 로듐 가격의 단기/중기 변동성이나 원자재 수급에 미치는 영향은 전혀 없음.</p><p class='ai-para'>*   <strong>자동차 부품 및 스크랩 유통 영향</strong>: 자동차 촉매제 등에 포함되는 로듐 가격이나 국내 고철/비철 유통 단가, 폐차 부품 매입·매매가에 미치는 실무적 파급 효과는 없음. 블로그 작성 시 해당 뉴스를 로듐 금속 시장과 연계하여 해석하지 않도록 주의가 필요함.</p>
                     </div>
                 </div>
             </div>
@@ -3254,8 +3254,8 @@
     </div>
 
     <script>
-        const METALS = [{"key": "copper", "name": "구리", "unit": "kg", "unit_label": "원/kg", "price": 20242, "scrap_70": 14169, "scrap_80": 16194, "emoji": "🥉", "cat": "nonferrous"}, {"key": "iron_scrap", "name": "철·철스크랩", "unit": "kg", "unit_label": "원/kg", "price": 561, "scrap_70": 393, "scrap_80": 449, "emoji": "🏗️", "cat": "steel"}, {"key": "aluminum", "name": "알루미늄", "unit": "kg", "unit_label": "원/kg", "price": 4576, "scrap_70": 3203, "scrap_80": 3660, "emoji": "🥫", "cat": "nonferrous"}, {"key": "lead", "name": "납", "unit": "kg", "unit_label": "원/kg", "price": 2672, "scrap_70": 1870, "scrap_80": 2138, "emoji": "🔋", "cat": "nonferrous"}, {"key": "gold", "name": "금", "unit": "g", "unit_label": "원/g (1돈=3.75g)", "price": 195612, "scrap_70": 136929, "scrap_80": 156490, "emoji": "🥇", "cat": "precious"}, {"key": "silver", "name": "은", "unit": "g", "unit_label": "원/g (1kg=1,000g)", "price": 2956, "scrap_70": 2069, "scrap_80": 2365, "emoji": "🥈", "cat": "precious"}, {"key": "platinum", "name": "백금", "unit": "g", "unit_label": "원/g", "price": 80611, "scrap_70": 56428, "scrap_80": 64489, "emoji": "💍", "cat": "pgm"}, {"key": "palladium", "name": "팔라듐", "unit": "g", "unit_label": "원/g", "price": 58883, "scrap_70": 41218, "scrap_80": 47106, "emoji": "🚗", "cat": "pgm"}, {"key": "rhodium", "name": "로듐", "unit": "g", "unit_label": "원/g", "price": 408321, "scrap_70": 285825, "scrap_80": 326657, "emoji": "💎", "cat": "pgm"}];
-        const ARCHIVES = [{"date": "2026-09-19", "rate": 1388.0, "steel": "561원/kg", "copper": "20,242원/kg", "gold": "195,612원/g", "palladium": "58,883원/g", "pd_raw": 58883, "rh_raw": 408321, "report_url": "./resources/2026-09-19/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-19.html", "csv_url": "./resources/2026-09-19/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-19.csv", "is_latest": true}, {"date": "2026-09-18", "rate": 1384.0, "steel": "558원/kg", "copper": "20,000원/kg", "gold": "193,641원/g", "palladium": "58,024원/g", "pd_raw": 58024, "rh_raw": 407144, "report_url": "./resources/2026-09-18/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-18.html", "csv_url": "./resources/2026-09-18/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-18.csv", "is_latest": false}, {"date": "2026-09-17", "rate": 1381.8, "steel": "562원/kg", "copper": "19,534원/kg", "gold": "191,433원/g", "palladium": "57,954원/g", "pd_raw": 57954, "rh_raw": 413161, "report_url": "./resources/2026-09-17/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-17.html", "csv_url": "./resources/2026-09-17/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-17.csv", "is_latest": false}, {"date": "2026-09-16", "rate": 1371.0, "steel": "550원/kg", "copper": "19,309원/kg", "gold": "189,003원/g", "palladium": "57,941원/g", "pd_raw": 57941, "rh_raw": 420951, "report_url": "./resources/2026-09-16/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-16.html", "csv_url": "./resources/2026-09-16/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-16.csv", "is_latest": false}, {"date": "2026-09-15", "rate": 1348.8, "steel": "536원/kg", "copper": "18,770원/kg", "gold": "186,657원/g", "palladium": "56,179원/g", "pd_raw": 56179, "rh_raw": 414135, "report_url": "./resources/2026-09-15/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-15.html", "csv_url": "./resources/2026-09-15/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-15.csv", "is_latest": false}, {"date": "2026-09-14", "rate": 1345.3, "steel": "533원/kg", "copper": "18,997원/kg", "gold": "188,085원/g", "palladium": "56,877원/g", "pd_raw": 56877, "rh_raw": 420630, "report_url": "./resources/2026-09-14/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-14.html", "csv_url": "./resources/2026-09-14/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-14.csv", "is_latest": false}, {"date": "2026-09-12", "rate": 1343.8, "steel": "532원/kg", "copper": "19,166원/kg", "gold": "187,954원/g", "palladium": "57,202원/g", "pd_raw": 57202, "rh_raw": 424481, "report_url": "./resources/2026-09-12/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-12.html", "csv_url": "./resources/2026-09-12/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-12.csv", "is_latest": false}, {"date": "2026-09-11", "rate": 1348.8, "steel": "529원/kg", "copper": "19,201원/kg", "gold": "187,545원/g", "palladium": "55,876원/g", "pd_raw": 55876, "rh_raw": 426060, "report_url": "./resources/2026-09-11/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-11.html", "csv_url": "./resources/2026-09-11/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-11.csv", "is_latest": false}, {"date": "2026-09-10", "rate": 1340.4, "steel": "531원/kg", "copper": "20,023원/kg", "gold": "190,190원/g", "palladium": "58,781원/g", "pd_raw": 58781, "rh_raw": 416943, "report_url": "./resources/2026-09-10/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-10.html", "csv_url": "./resources/2026-09-10/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-10.csv", "is_latest": false}, {"date": "2026-09-09", "rate": 1338.1, "steel": "540원/kg", "copper": "19,632원/kg", "gold": "188,074원/g", "palladium": "58,422원/g", "pd_raw": 58422, "rh_raw": 411925, "report_url": "./resources/2026-09-09/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%207%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-09.html", "csv_url": "./resources/2026-09-09/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-09.csv", "is_latest": false}, {"date": "2026-09-08", "rate": 1344.4, "steel": "542원/kg", "copper": "19,828원/kg", "gold": "188,290원/g", "palladium": "60,556원/g", "pd_raw": 60556, "rh_raw": 409542, "report_url": "./resources/2026-09-08/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%207%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-08.html", "csv_url": "./resources/2026-09-08/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-08.csv", "is_latest": false}];
+        const METALS = [{"key": "copper", "name": "구리", "unit": "kg", "unit_label": "원/kg", "price": 20257, "scrap_70": 14180, "scrap_80": 16205, "emoji": "🥉", "cat": "nonferrous"}, {"key": "iron_scrap", "name": "철·철스크랩", "unit": "kg", "unit_label": "원/kg", "price": 561, "scrap_70": 393, "scrap_80": 449, "emoji": "🏗️", "cat": "steel"}, {"key": "aluminum", "name": "알루미늄", "unit": "kg", "unit_label": "원/kg", "price": 4579, "scrap_70": 3205, "scrap_80": 3663, "emoji": "🥫", "cat": "nonferrous"}, {"key": "lead", "name": "납", "unit": "kg", "unit_label": "원/kg", "price": 2674, "scrap_70": 1872, "scrap_80": 2139, "emoji": "🔋", "cat": "nonferrous"}, {"key": "gold", "name": "금", "unit": "g", "unit_label": "원/g (1돈=3.75g)", "price": 195753, "scrap_70": 137027, "scrap_80": 156603, "emoji": "🥇", "cat": "precious"}, {"key": "silver", "name": "은", "unit": "g", "unit_label": "원/g (1kg=1,000g)", "price": 2958, "scrap_70": 2071, "scrap_80": 2366, "emoji": "🥈", "cat": "precious"}, {"key": "platinum", "name": "백금", "unit": "g", "unit_label": "원/g", "price": 80669, "scrap_70": 56468, "scrap_80": 64535, "emoji": "💍", "cat": "pgm"}, {"key": "palladium", "name": "팔라듐", "unit": "g", "unit_label": "원/g", "price": 58925, "scrap_70": 41248, "scrap_80": 47140, "emoji": "🚗", "cat": "pgm"}, {"key": "rhodium", "name": "로듐", "unit": "g", "unit_label": "원/g", "price": 408615, "scrap_70": 286031, "scrap_80": 326892, "emoji": "💎", "cat": "pgm"}];
+        const ARCHIVES = [{"date": "2026-09-19", "rate": 1389.0, "steel": "561원/kg", "copper": "20,257원/kg", "gold": "195,753원/g", "palladium": "58,925원/g", "pd_raw": 58925, "rh_raw": 408615, "report_url": "./resources/2026-09-19/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-19.html", "csv_url": "./resources/2026-09-19/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-19.csv", "is_latest": true}, {"date": "2026-09-18", "rate": 1384.0, "steel": "558원/kg", "copper": "20,000원/kg", "gold": "193,641원/g", "palladium": "58,024원/g", "pd_raw": 58024, "rh_raw": 407144, "report_url": "./resources/2026-09-18/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-18.html", "csv_url": "./resources/2026-09-18/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-18.csv", "is_latest": false}, {"date": "2026-09-17", "rate": 1381.8, "steel": "562원/kg", "copper": "19,534원/kg", "gold": "191,433원/g", "palladium": "57,954원/g", "pd_raw": 57954, "rh_raw": 413161, "report_url": "./resources/2026-09-17/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-17.html", "csv_url": "./resources/2026-09-17/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-17.csv", "is_latest": false}, {"date": "2026-09-16", "rate": 1371.0, "steel": "550원/kg", "copper": "19,309원/kg", "gold": "189,003원/g", "palladium": "57,941원/g", "pd_raw": 57941, "rh_raw": 420951, "report_url": "./resources/2026-09-16/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-16.html", "csv_url": "./resources/2026-09-16/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-16.csv", "is_latest": false}, {"date": "2026-09-15", "rate": 1348.8, "steel": "536원/kg", "copper": "18,770원/kg", "gold": "186,657원/g", "palladium": "56,179원/g", "pd_raw": 56179, "rh_raw": 414135, "report_url": "./resources/2026-09-15/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-15.html", "csv_url": "./resources/2026-09-15/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-15.csv", "is_latest": false}, {"date": "2026-09-14", "rate": 1345.3, "steel": "533원/kg", "copper": "18,997원/kg", "gold": "188,085원/g", "palladium": "56,877원/g", "pd_raw": 56877, "rh_raw": 420630, "report_url": "./resources/2026-09-14/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-14.html", "csv_url": "./resources/2026-09-14/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-14.csv", "is_latest": false}, {"date": "2026-09-12", "rate": 1343.8, "steel": "532원/kg", "copper": "19,166원/kg", "gold": "187,954원/g", "palladium": "57,202원/g", "pd_raw": 57202, "rh_raw": 424481, "report_url": "./resources/2026-09-12/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-12.html", "csv_url": "./resources/2026-09-12/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-12.csv", "is_latest": false}, {"date": "2026-09-11", "rate": 1348.8, "steel": "529원/kg", "copper": "19,201원/kg", "gold": "187,545원/g", "palladium": "55,876원/g", "pd_raw": 55876, "rh_raw": 426060, "report_url": "./resources/2026-09-11/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-11.html", "csv_url": "./resources/2026-09-11/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-11.csv", "is_latest": false}, {"date": "2026-09-10", "rate": 1340.4, "steel": "531원/kg", "copper": "20,023원/kg", "gold": "190,190원/g", "palladium": "58,781원/g", "pd_raw": 58781, "rh_raw": 416943, "report_url": "./resources/2026-09-10/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%209%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-10.html", "csv_url": "./resources/2026-09-10/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-10.csv", "is_latest": false}, {"date": "2026-09-09", "rate": 1338.1, "steel": "540원/kg", "copper": "19,632원/kg", "gold": "188,074원/g", "palladium": "58,422원/g", "pd_raw": 58422, "rh_raw": 411925, "report_url": "./resources/2026-09-09/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%207%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-09.html", "csv_url": "./resources/2026-09-09/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-09.csv", "is_latest": false}, {"date": "2026-09-08", "rate": 1344.4, "steel": "542원/kg", "copper": "19,828원/kg", "gold": "188,290원/g", "palladium": "60,556원/g", "pd_raw": 60556, "rh_raw": 409542, "report_url": "./resources/2026-09-08/%5B%ED%86%B5%ED%95%A9%EB%B8%8C%EB%A6%AC%ED%95%91%5D%207%EB%8C%80_%EA%B8%88%EC%86%8D%EC%9B%90%EC%9E%90%EC%9E%AC_2026-09-08.html", "csv_url": "./resources/2026-09-08/9%EB%8C%80%EC%9E%90%EC%9B%90_%ED%99%98%EC%82%B0%EC%8B%9C%EC%84%B8_2026-09-08.csv", "is_latest": false}];
 
         // Current calendar view state
         let currentYear = 2026;
