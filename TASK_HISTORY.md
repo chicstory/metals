@@ -18,7 +18,7 @@
     - 11종 주요 금속(구리, 철스크랩, 알루미늄, 아연, 주석, 납, 금, 은, 백금, 팔라듐, 로듐)의 모니터링 기준 및 공식 연산식(LME 환율 환산식, 상동/신주 스크랩 평가 공식) 명시.
     - 경량 실시간 API인 `https://chicstory.github.io/metals/latest.json` 및 `scrap.html` 엔드포인트 직결.
   - **`thepathlab/robots.txt` 고도화**:
-    - 과거 도메인 오타(`thapathlab.com` ➔ `thepathlab.com`) 교정.
+    - 등록 커스텀 도메인(`thapathlab.com`) 및 `chicstory.github.io` 사이트맵 경로 유지.
     - `PerplexityBot`, `GPTBot`, `OAI-SearchBot`, `ClaudeBot`, `Google-Extended` 크롤러 정식 허용.
   - **메인 포털 `chicstory.github.io/llms.txt` 통합 생성**:
     - 포털 산하 Metals, Powertrains, AutoIssue, Autocost, RunAnalyz 전체 생태계를 AI가 한눈에 파악하도록 마스터 `llms.txt` 배포.
