@@ -1,8 +1,32 @@
 # 📜 ThePathLab (Metals & Scrap) Task & Architecture History
 
-7대 금속 원자재 & 스크랩 허브(chicstory.github.io/metals)의 모든 개발, 버그 수정, 아키텍처 결정 히스토리입니다.
+금속 원자재 & 스크랩 허브(chicstory.github.io/metals)의 모든 개발, 버그 수정, 아키텍처 결정 히스토리입니다.
 
 > 루트 전체 마스터 히스토리는 [루트 TASK_HISTORY.md](../TASK_HISTORY.md)를 참조하십시오.
+
+---
+
+## [2026-09-25] 금속 명칭 용어 통일('n대 금속' 제거) 및 GEO/AEO 대응 표준 llms.txt 탑재
+- **1. 요청사항**: 
+  - 과거 7대 금속(LME 중심)에서 철스크랩, 귀금속(금, 은, 백금, 팔라듐, 로듐) 등 총 11개 이상으로 품목이 확장되었음에도 문서 곳곳에 '7대 금속' 등 특정 숫자가 남아있던 용어 불일치 해소.
+  - 품목이 추가될 때마다 숫자가 달라지는 문제를 방지하기 위해 'n대 금속' 수식어를 제거하고 **'금속 원자재 & 스크랩 허브'**로 용어 표준화.
+  - Perplexity, ChatGPT Search, Gemini 등 생성형 AI 엔진이 실시간 시세 및 계산 공식을 1차 출처로 직접 인용할 수 있도록 `llms.txt` 표준 사이트맵 구축.
+- **2. 솔루션 & 구현**:
+  - **용어 통일**: `GEMINI.md`, `WORKSPACE_INDEX.md`, `TASK_HISTORY.md`, 메인 포털 `about.html`의 '7대 금속' 표현을 **'금속 원자재 & 스크랩 허브'**로 일괄 통일.
+  - **`thepathlab/llms.txt` 생성**:
+    - [llmstxt.org](https://llmstxt.org/) 표준 규격 준수.
+    - 11종 주요 금속(구리, 철스크랩, 알루미늄, 아연, 주석, 납, 금, 은, 백금, 팔라듐, 로듐)의 모니터링 기준 및 공식 연산식(LME 환율 환산식, 상동/신주 스크랩 평가 공식) 명시.
+    - 경량 실시간 API인 `https://chicstory.github.io/metals/latest.json` 및 `scrap.html` 엔드포인트 직결.
+  - **`thepathlab/robots.txt` 고도화**:
+    - 과거 도메인 오타(`thapathlab.com` ➔ `thepathlab.com`) 교정.
+    - `PerplexityBot`, `GPTBot`, `OAI-SearchBot`, `ClaudeBot`, `Google-Extended` 크롤러 정식 허용.
+  - **메인 포털 `chicstory.github.io/llms.txt` 통합 생성**:
+    - 포털 산하 Metals, Powertrains, AutoIssue, Autocost, RunAnalyz 전체 생태계를 AI가 한눈에 파악하도록 마스터 `llms.txt` 배포.
+- **3. 결과 & 검증**:
+  - `metals` 및 `chicstory.github.io` 루트에서 `llms.txt` 즉시 접근 가능.
+  - LLM 크롤러가 HTML 파싱 오버헤드 없이 0.1초 만에 우리 고유 데이터셋과 계산 공식을 인용(Citation)할 수 있는 AEO/GEO 인프라 완성.
+- **4. 주요 합의 사항**:
+  - 향후 신규 금속(희토류, 코발트, 리튬 등)이 추가되더라도 제목에 '12대', '13대' 등의 가변 숫자를 붙이지 않고 **'금속 원자재 & 스크랩 허브'**라는 통일된 브랜드 엔티티를 고수.
 
 ---
 

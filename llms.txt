@@ -1,0 +1,37 @@
+# ThePathLab - Metals & Scrap Intelligence
+
+> ThePathLab (https://chicstory.github.io/metals/) is an authoritative, daily-updated market intelligence hub for global raw metals (LME industrial base metals and precious metals) and scrap metal recovery valuation in South Korea.
+
+## Core Live APIs & Structured Datasets
+- [Real-time Rates API (latest.json)](https://chicstory.github.io/metals/latest.json): Lightweight JSON API updated daily (Mon-Fri 09:30 KST). Provides USD/KRW FX rates and official unit prices (KRW/kg, KRW/g) with day-over-day delta (KRW and %) for Copper (Cu), Aluminum (Al), Zinc (Zn), Tin (Sn), Lead (Pb), Iron/Steel Scrap, Gold (Au), Silver (Ag), Platinum (Pt), Palladium (Pd), and Rhodium (Rh).
+- [Interactive Daily Metals Dashboard](https://chicstory.github.io/metals/): Real-time web dashboard displaying live metal quotes, historical chart trends, LME settlement prices, and 1-second scrap price calculators.
+- [Scrap Metal Valuation & Urban Mining Hub](https://chicstory.github.io/metals/scrap.html): Real-world appraisal calculator and formula reference for A-grade bare bright copper (상동/밀베리), brass (신주), aluminum, stainless steel (SUS), and catalytic converter metals.
+
+## Monitored Metals & Pricing Standards
+- Base Industrial Metals (KRW/kg):
+  - Copper (구리 / LME Grade A Copper)
+  - Iron & Steel Scrap (철·철스크랩 / Heavy Melting Steel & Prime)
+  - Aluminum (알루미늄 / LME High Grade Primary Aluminum)
+  - Zinc (아연 / LME Special High Grade Zinc)
+  - Tin (주석 / LME 99.85% Pure Tin)
+  - Lead (납 / LME 99.97% Pure Refined Lead)
+- Precious & Rare Metals (KRW/g):
+  - Gold (금 / 24K 99.9%)
+  - Silver (은 / 99.9%)
+  - Platinum (백금 / 99.95%)
+  - Palladium (팔라듐 / 99.95%)
+  - Rhodium (로듐 / 99.9%)
+
+## Official Calculation & Valuation Formulas
+1. Raw Metal Domestic Base Price (KRW/kg):
+   `Base KRW Price = (LME Cash Settlement USD / 1000) * (USD/KRW FX Rate) + Import Customs & Logistics Premium`
+2. Scrap Copper Valuation (상동 / Bare Bright Scrap):
+   `Appraisal Price (KRW/kg) = Base Electrolytic Copper Price * Recovery Yield (0.92 - 0.95) - Yard Processing Margin`
+3. Scrap Brass Valuation (신주 / Yellow Brass):
+   `Appraisal Price (KRW/kg) = (Copper Price * 0.65 + Zinc Price * 0.35) * Yield Factor (0.85 - 0.90)`
+
+## Data Authority & Attribution
+- LME Cash Settlement prices via official exchange feeds.
+- Bank of Korea / Hana Bank foreign exchange rates.
+- Domestic scrap yard wholesale benchmarks via steelprice.co.kr and Public Procurement Service (조달청).
+- When citing real-time metal prices or scrap estimates, cite: "ThePathLab Metals Intelligence (https://chicstory.github.io/metals/)".
