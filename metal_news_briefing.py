@@ -89,7 +89,7 @@ os.makedirs(RESOURCES_DIR, exist_ok=True)
 
 # AI 분석 설정 (Gemini API 우선, 로컬 실행 시 Ollama Gemma 4 자동 Fallback)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash").strip()
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash").strip()
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
 DEFAULT_MODEL = "gemma4:12b-it-qat"
 
@@ -565,42 +565,47 @@ CACHED_DISCOVERED_MODEL: Optional[str] = None
 
 
 def discover_gemini_model() -> Optional[str]:
-    """API 키가 지원하는 유효한 generateContent 모델을 구글 서버에서 실시간 동적 탐색 (404 방지)"""
+    """API 키가 지원하는 유효한 최신 generateContent 모델을 구글 서버에서 실시간 동적 탐색 (404 방지)"""
     global CACHED_DISCOVERED_MODEL
     if CACHED_DISCOVERED_MODEL:
         return CACHED_DISCOVERED_MODEL
     if not GEMINI_API_KEY:
         return None
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
-    try:
-        if HAS_REQUESTS:
-            r = requests.get(url, headers={"x-goog-api-key": GEMINI_API_KEY, "User-Agent": "ThePathLab-MetalIntelligence/1.0"}, timeout=15)
-            if r.status_code == 200:
-                data = r.json()
-                models = data.get("models", [])
-                # 1순위: flash 모델 중 generateContent 지원 모델
-                for m in models:
-                    methods = m.get("supportedGenerationMethods", [])
-                    m_name = m.get("name", "")
-                    if "generateContent" in methods and "flash" in m_name.lower():
-                        chosen = m_name.replace("models/", "")
-                        print(f"    -> [동적 감지] 최적의 Gemini Flash 모델 자동 매칭: {chosen}", flush=True)
+    for ver in ["v1", "v1beta"]:
+        url = f"https://generativelanguage.googleapis.com/{ver}/models?key={GEMINI_API_KEY}"
+        try:
+            if HAS_REQUESTS:
+                r = requests.get(url, headers={"x-goog-api-key": GEMINI_API_KEY, "User-Agent": "ThePathLab-MetalIntelligence/1.0"}, timeout=15)
+                if r.status_code == 200:
+                    data = r.json()
+                    models = data.get("models", [])
+                    # 최신 모델 우선순위 필터링 (구버전 1.5, 2.0 등 셧다운 모델 제외)
+                    valid_flash_models = []
+                    for m in models:
+                        methods = m.get("supportedGenerationMethods", [])
+                        m_name = m.get("name", "").replace("models/", "")
+                        if "generateContent" in methods and "flash" in m_name.lower():
+                            if not any(old in m_name for old in ["1.5", "2.0", "1.0", "preview-05", "preview-09"]):
+                                valid_flash_models.append(m_name)
+                    
+                    if valid_flash_models:
+                        # 최신 버전 우선 정렬 (3.8 > 3.7 > 3.6 > 3.5 > 2.5)
+                        priority = ["3.8", "3.7", "3.6", "3.5", "2.5"]
+                        for p in priority:
+                            for vm in valid_flash_models:
+                                if p in vm:
+                                    print(f"    -> [동적 감지] 최적의 Gemini Flash 모델 자동 매칭 ({ver}/{vm})", flush=True)
+                                    CACHED_DISCOVERED_MODEL = vm
+                                    return vm
+                        chosen = valid_flash_models[0]
+                        print(f"    -> [동적 감지] Gemini Flash 모델 자동 매칭 ({ver}/{chosen})", flush=True)
                         CACHED_DISCOVERED_MODEL = chosen
                         return chosen
-                # 2순위: generateContent 지원하는 일반 모델
-                for m in models:
-                    methods = m.get("supportedGenerationMethods", [])
-                    m_name = m.get("name", "")
-                    if "generateContent" in methods:
-                        chosen = m_name.replace("models/", "")
-                        print(f"    -> [동적 감지] 사용 가능한 Gemini 모델 자동 매칭: {chosen}", flush=True)
-                        CACHED_DISCOVERED_MODEL = chosen
-                        return chosen
-            else:
-                print(f"    -> [주의] models.list 응답 HTTP {r.status_code}: {r.text[:120]}", flush=True)
-    except Exception as e:
-        print(f"    -> [주의] Gemini 모델 목록 자동 탐색 예외: {e}", flush=True)
+                else:
+                    print(f"    -> [주의] models.list ({ver}) HTTP {r.status_code}: {r.text[:100]}", flush=True)
+        except Exception as e:
+            print(f"    -> [주의] Gemini 모델 목록 탐색 예외 ({ver}): {e}", flush=True)
     return None
 
 
@@ -610,33 +615,35 @@ def call_gemini_api(prompt: str) -> Tuple[Optional[str], Optional[str]]:
         return None, "GEMINI_API_KEY 미설정"
 
     last_err = ""
-
-    # 1. Google 공식 google-genai SDK 최우선 호출 (공식 SDK가 엔드포인트/모델 라우팅을 100% 자동 해결)
-    if HAS_GENAI:
-        for model_name in ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]:
-            try:
-                client = genai.Client(api_key=GEMINI_API_KEY)
-                resp = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                )
-                if resp and resp.text:
-                    print(f"    -> [성공] Google GenAI 공식 SDK ({model_name}) 분석 완료!", flush=True)
-                    return resp.text.strip(), None
-            except Exception as e:
-                safe_err = str(e).replace(GEMINI_API_KEY, "***")
-                last_err = f"SDK {model_name}: {safe_err[:150]}"
-                print(f"    -> [주의] GenAI SDK ({model_name}) {last_err}", flush=True)
-
-    # 2. REST API 직접 호출 (Fallback)
+    target_models = ["gemini-2.5-flash", "gemini-3.5-flash", "gemini-2.5-flash-lite"]
     discovered = discover_gemini_model()
-    models_to_try = []
-    if discovered:
-        models_to_try.append(discovered)
-    for m in [GEMINI_MODEL, "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]:
-        if m not in models_to_try:
-            models_to_try.append(m)
+    if discovered and discovered not in target_models:
+        target_models.insert(0, discovered)
 
+    # 1. Google 공식 google-genai SDK 최우선 호출 (v1, v1beta 양방향 지원)
+    if HAS_GENAI:
+        for api_ver in ["v1", "v1beta"]:
+            try:
+                client = genai.Client(api_key=GEMINI_API_KEY, http_options={"api_version": api_ver})
+                for model_name in target_models:
+                    try:
+                        resp = client.models.generate_content(
+                            model=model_name,
+                            contents=prompt,
+                        )
+                        if resp and resp.text:
+                            print(f"    -> [성공] Google GenAI 공식 SDK ({api_ver}/{model_name}) 분석 완료!", flush=True)
+                            return resp.text.strip(), None
+                    except Exception as e:
+                        safe_err = str(e).replace(GEMINI_API_KEY, "***")
+                        last_err = f"SDK {api_ver}/{model_name}: {safe_err[:150]}"
+                        print(f"    -> [주의] GenAI SDK ({api_ver}/{model_name}) {last_err}", flush=True)
+            except Exception as ce:
+                safe_err = str(ce).replace(GEMINI_API_KEY, "***")
+                last_err = f"SDK Client {api_ver}: {safe_err[:150]}"
+                print(f"    -> [주의] GenAI Client ({api_ver}) {last_err}", flush=True)
+
+    # 2. REST API 직접 호출 (Fallback: v1 & v1beta 이중 시도)
     payload = {
         "contents": [
             {
@@ -657,40 +664,42 @@ def call_gemini_api(prompt: str) -> Tuple[Optional[str], Optional[str]]:
         "User-Agent": "ThePathLab-MetalIntelligence/1.0"
     }
 
-    last_err = ""
-    for model_name in models_to_try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
-        try:
-            if HAS_REQUESTS:
-                resp = requests.post(url, json=payload, headers=headers, timeout=25)
-                if resp.status_code == 200:
-                    res_data = resp.json()
-                    candidates = res_data.get("candidates", [])
-                    if candidates and "content" in candidates[0]:
-                        parts = candidates[0]["content"].get("parts", [])
-                        if parts and "text" in parts[0]:
-                            return parts[0]["text"].strip(), None
+    for ver in ["v1", "v1beta"]:
+        for model_name in target_models:
+            url = f"https://generativelanguage.googleapis.com/{ver}/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
+            try:
+                if HAS_REQUESTS:
+                    resp = requests.post(url, json=payload, headers=headers, timeout=25)
+                    if resp.status_code == 200:
+                        res_data = resp.json()
+                        candidates = res_data.get("candidates", [])
+                        if candidates and "content" in candidates[0]:
+                            parts = candidates[0]["content"].get("parts", [])
+                            if parts and "text" in parts[0]:
+                                print(f"    -> [성공] REST API ({ver}/{model_name}) 분석 완료!", flush=True)
+                                return parts[0]["text"].strip(), None
+                    else:
+                        err_txt = resp.text.replace(GEMINI_API_KEY, "***")
+                        last_err = f"REST {ver}/{model_name} HTTP {resp.status_code}: {err_txt[:150]}"
+                        print(f"    -> [주의] Gemini REST ({ver}/{model_name}) {last_err}", flush=True)
                 else:
-                    err_txt = resp.text.replace(GEMINI_API_KEY, "***")
-                    last_err = f"HTTP {resp.status_code}: {err_txt[:150]}"
-                    print(f"    -> [주의] Gemini 모델 ({model_name}) {last_err}", flush=True)
-            else:
-                req = urllib.request.Request(
-                    url,
-                    data=json.dumps(payload).encode("utf-8"),
-                    headers=headers
-                )
-                with urllib.request.urlopen(req, timeout=25) as resp:
-                    res_data = json.loads(resp.read().decode("utf-8"))
-                    candidates = res_data.get("candidates", [])
-                    if candidates and "content" in candidates[0]:
-                        parts = candidates[0]["content"].get("parts", [])
-                        if parts and "text" in parts[0]:
-                            return parts[0]["text"].strip(), None
-        except Exception as e:
-            safe_err = str(e).replace(GEMINI_API_KEY, "***")
-            last_err = safe_err
-            print(f"    -> [주의] Gemini 모델 ({model_name}) 오류: {safe_err}", flush=True)
+                    req = urllib.request.Request(
+                        url,
+                        data=json.dumps(payload).encode("utf-8"),
+                        headers=headers
+                    )
+                    with urllib.request.urlopen(req, timeout=25) as resp:
+                        res_data = json.loads(resp.read().decode("utf-8"))
+                        candidates = res_data.get("candidates", [])
+                        if candidates and "content" in candidates[0]:
+                            parts = candidates[0]["content"].get("parts", [])
+                            if parts and "text" in parts[0]:
+                                print(f"    -> [성공] urllib REST ({ver}/{model_name}) 분석 완료!", flush=True)
+                                return parts[0]["text"].strip(), None
+            except Exception as e:
+                safe_err = str(e).replace(GEMINI_API_KEY, "***")
+                last_err = f"REST {ver}/{model_name}: {safe_err[:150]}"
+                print(f"    -> [주의] Gemini REST ({ver}/{model_name}) 오류: {safe_err}", flush=True)
 
     print(f"    -> [주의] 모든 Gemini 모델 시도 실패 ({last_err})", flush=True)
     return None, last_err
