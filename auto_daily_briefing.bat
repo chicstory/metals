@@ -48,10 +48,12 @@ set "PORTAL_DIR=%~dp0..\chicstory.github.io"
 if exist "%PORTAL_DIR%\index.html" (
     echo [%date% %time%] 오피넷 전국 평균 유가 자동 수집 중... >> "%LOG_FILE%"
     python "%PORTAL_DIR%\autocost\fuel_collector.py" >> "%LOG_FILE%" 2>&1
+    echo [%date% %time%] 미국 1억 파이프라인 52주 신저가 레이더 갱신 중... >> "%LOG_FILE%"
+    python "%PORTAL_DIR%\radar\radar_builder.py" >> "%LOG_FILE%" 2>&1
     echo [%date% %time%] 메인 포털(chicstory.github.io) 자동 배포 진행 중... >> "%LOG_FILE%"
     pushd "%PORTAL_DIR%"
-    git add index.html sitemap.xml rss.xml robots.txt ads.txt autocost/ >> "%LOG_FILE%" 2>&1
-    git commit -m "Auto sync portal daily metal briefing, fuel price & SEO: %date%" >> "%LOG_FILE%" 2>&1
+    git add index.html sitemap.xml rss.xml robots.txt ads.txt autocost/ radar/ >> "%LOG_FILE%" 2>&1
+    git commit -m "Auto sync portal daily metal briefing, fuel price, US stock radar & SEO: %date%" >> "%LOG_FILE%" 2>&1
     git push origin main >> "%LOG_FILE%" 2>&1
     popd
     echo [%date% %time%] [포털 배포 완료] 메인 포털 동기화 완료! (https://chicstory.github.io/) >> "%LOG_FILE%"

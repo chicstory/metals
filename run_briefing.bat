@@ -31,10 +31,13 @@ echo =======================================================
 set "PORTAL_DIR=%~dp0..\chicstory.github.io"
 if exist "%PORTAL_DIR%\index.html" (
     echo.
+    echo [안내] 미국 1억 파이프라인 52주 신저가 레이더 갱신 중...
+    python "%PORTAL_DIR%\radar\radar_builder.py"
+    echo.
     echo [안내] 메인 포털(chicstory.github.io) 배포 진행 중...
     pushd "%PORTAL_DIR%"
-    git add index.html sitemap.xml rss.xml robots.txt ads.txt
-    git commit -m "Auto sync portal daily metal briefing & SEO: %date%" > nul 2>&1
+    git add index.html sitemap.xml rss.xml robots.txt ads.txt autocost/ radar/
+    git commit -m "Auto sync portal daily metal briefing, US stock radar & SEO: %date%" > nul 2>&1
     git push origin main
     popd
     echo =======================================================
