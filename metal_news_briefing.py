@@ -44,6 +44,12 @@ from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 from typing import Dict, List, Any, Optional, Tuple
 
+try:
+    import requests
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
+
 # PIL 이미지 처리 라이브러리
 try:
     from PIL import Image
@@ -549,17 +555,15 @@ def collect_metal_news(days: int = 2) -> Dict[str, List[Dict[str, Any]]]:
     return classified
 
 
-def call_gemini_api(prompt: str) -> Optional[str]:
-    """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (urllib 기반 경량 호출 & Header 인증으로 키 노출 원천 차단)"""
+def call_gemini_api(prompt: str) -> Tuple[Optional[str], Optional[str]]:
+    """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (requests 기반 & Header/Query 이중 지원)"""
     if not GEMINI_API_KEY:
-        return None
+        return None, "GEMINI_API_KEY 미설정"
 
-    # 안정적인 순서로 모델 후보군 순차 시도
     models_to_try = [GEMINI_MODEL]
-    if "gemini-1.5-flash" not in models_to_try:
-        models_to_try.append("gemini-1.5-flash")
-    if "gemini-2.0-flash" not in models_to_try:
-        models_to_try.append("gemini-2.0-flash")
+    for m in ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"]:
+        if m not in models_to_try:
+            models_to_try.append(m)
 
     payload = {
         "contents": [
@@ -578,36 +582,46 @@ def call_gemini_api(prompt: str) -> Optional[str]:
     headers = {
         "Content-Type": "application/json",
         "x-goog-api-key": GEMINI_API_KEY,
+        "User-Agent": "ThePathLab-MetalIntelligence/1.0"
     }
 
+    last_err = ""
     for model_name in models_to_try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
         try:
-            req = urllib.request.Request(
-                url,
-                data=json.dumps(payload).encode("utf-8"),
-                headers=headers
-            )
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                res_data = json.loads(resp.read().decode("utf-8"))
-                candidates = res_data.get("candidates", [])
-                if candidates and "content" in candidates[0]:
-                    parts = candidates[0]["content"].get("parts", [])
-                    if parts and "text" in parts[0]:
-                        return parts[0]["text"].strip()
-        except urllib.error.HTTPError as he:
-            try:
-                err_body = he.read().decode("utf-8")
-                safe_body = err_body.replace(GEMINI_API_KEY, "***")
-            except Exception:
-                safe_body = str(he)
-            print(f"    -> [주의] Gemini 모델 ({model_name}) HTTP {he.code} 응답: {safe_body[:200]}", flush=True)
+            if HAS_REQUESTS:
+                resp = requests.post(url, json=payload, headers=headers, timeout=25)
+                if resp.status_code == 200:
+                    res_data = resp.json()
+                    candidates = res_data.get("candidates", [])
+                    if candidates and "content" in candidates[0]:
+                        parts = candidates[0]["content"].get("parts", [])
+                        if parts and "text" in parts[0]:
+                            return parts[0]["text"].strip(), None
+                else:
+                    err_txt = resp.text.replace(GEMINI_API_KEY, "***")
+                    last_err = f"HTTP {resp.status_code}: {err_txt[:150]}"
+                    print(f"    -> [주의] Gemini 모델 ({model_name}) {last_err}", flush=True)
+            else:
+                req = urllib.request.Request(
+                    url,
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers=headers
+                )
+                with urllib.request.urlopen(req, timeout=25) as resp:
+                    res_data = json.loads(resp.read().decode("utf-8"))
+                    candidates = res_data.get("candidates", [])
+                    if candidates and "content" in candidates[0]:
+                        parts = candidates[0]["content"].get("parts", [])
+                        if parts and "text" in parts[0]:
+                            return parts[0]["text"].strip(), None
         except Exception as e:
-            err_msg = str(e).replace(GEMINI_API_KEY, "***") if GEMINI_API_KEY else str(e)
-            print(f"    -> [주의] Gemini API 호출 오류 ({err_msg})", flush=True)
+            safe_err = str(e).replace(GEMINI_API_KEY, "***")
+            last_err = safe_err
+            print(f"    -> [주의] Gemini 모델 ({model_name}) 오류: {safe_err}", flush=True)
 
-    print(f"    -> [주의] 모든 Gemini 모델 시도 실패, Ollama Fallback 시도...", flush=True)
-    return None
+    print(f"    -> [주의] 모든 Gemini 모델 시도 실패 ({last_err})", flush=True)
+    return None, last_err
 
 
 def call_ai_analysis(metal_name: str, articles: List[Dict[str, Any]]) -> str:
@@ -646,12 +660,20 @@ def call_ai_analysis(metal_name: str, articles: List[Dict[str, Any]]) -> str:
 """
 
     # 1. Google Gemini API 우선 시도 (클라우드 GitHub Actions 및 빠른 실행)
+    gemini_err = None
     if GEMINI_API_KEY:
-        gemini_result = call_gemini_api(prompt)
+        gemini_result, gemini_err = call_gemini_api(prompt)
         if gemini_result:
             return gemini_result
+    else:
+        gemini_err = "GEMINI_API_KEY 미설정"
 
-    # 2. 로컬 Ollama Gemma 4 실행 (로컬 PC 전용 Fallback)
+    # GitHub Actions 가상머신 환경인 경우 Ollama 부재로 인한 불필요한 대기를 방지하고 정확한 원인 반환
+    is_github_actions = bool(os.environ.get("GITHUB_ACTIONS"))
+    if is_github_actions:
+        return f"[오류] 클라우드 Gemini API 분석 실패 ({gemini_err})\n(GitHub Secrets GEMINI_API_KEY의 유효성을 확인해 주세요.)"
+
+    # 2. 로컬 PC 환경인 경우 로컬 Ollama Gemma 4 실행 (Fallback)
     payload = {
         "model": DEFAULT_MODEL,
         "prompt": prompt,
