@@ -46,7 +46,7 @@ jobs:
             echo "No changes detected to commit."
           else
             git commit -m "Auto update daily metal briefing & scrap: $(date +'%Y-%m-%d') [skip ci]"
-            git pull --rebase origin main || true
+            git pull --rebase -X theirs origin main || git rebase --abort || true
             git push origin main
           fi
 
