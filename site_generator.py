@@ -151,7 +151,7 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
             sec_match = sec_pattern.search(md_content)
             if sec_match:
                 sec_body = sec_match.group(1)
-                ai_match = re.search(r'### 🔍 시장 분석 및 향후 여파 코멘트 \(Gemma 4\)\n\n(.*?)(?=\n---|\Z)', sec_body, re.DOTALL)
+                ai_match = re.search(r'### 🔍 시장 분석 및 향후 여파 코멘트[^\n]*\n\n(.*?)(?=\n---|\Z)', sec_body, re.DOTALL)
                 if ai_match:
                     ai_content = ai_match.group(1).strip()
                 art_matches = re.findall(r'- \*\*\[(.*?)\]\((.*?)\)\*\*\n\s+- \*\*출처\*\*: (.*?) \| \*\*일시\*\*: (.*?)(?:\n\s+- \*\*요약\*\*: (.*?))?(?=\n-|\n###|\Z)', sec_body, re.DOTALL)
@@ -376,6 +376,7 @@ def build_website_index() -> str:
                 </div>
                 <img src="{m['chart_img_path']}" alt="{m['name_kr']} 1년 시세 차트" loading="lazy">
             </div>"""
+        ai_badge_label = "Gemini Flash" if (os.environ.get("GEMINI_API_KEY") or "gemini" in m.get("ai_content", "").lower()) else "Gemma 4"
 
         cards_html.append(f"""
         <article id="card-{m['key']}" class="metal-card" data-cat="{m['cat']}">
@@ -416,7 +417,7 @@ def build_website_index() -> str:
                 <div class="card-ai">
                     <div class="ai-header">
                         <h4>🔍 AI 시장 및 스크랩 여파 분석</h4>
-                        <span class="ai-tag">Gemma 4</span>
+                        <span class="ai-tag">{ai_badge_label}</span>
                     </div>
                     <div class="ai-body">
                         {''.join(ai_p)}
@@ -2582,7 +2583,7 @@ def build_website_index() -> str:
         <section>
             <div class="section-header">
                 <h2 class="section-title">📈 9대 자원별 1년 시세 추이 및 AI 시장·스크랩 여파 분석</h2>
-                <div class="text-sub" style="font-size: 13px;">Trading Economics 종가 차트 & Gemma 4 로컬 AI 모델 분석</div>
+                <div class="text-sub" style="font-size: 13px;">Trading Economics 종가 차트 & AI 수석 애널리스트 심층 시장 분석</div>
             </div>
             
             <div class="metal-cards">
@@ -2712,8 +2713,8 @@ def build_website_index() -> str:
                 <div class="guide-tip-item">
                     <div class="guide-tip-icon">🤖</div>
                     <div class="guide-tip-content">
-                        <strong>Gemma 4 AI 시장 분석 & 뉴스</strong>
-                        <p>해외 원자재 전문 매체 기사를 실시간 크롤링하여 로컬 Gemma 4 AI가 핵심 요약 및 국내 제조·스크랩 시장 향후 여파를 코멘트합니다.</p>
+                        <strong>AI 수석 애널리스트 시장 분석 & 뉴스</strong>
+                        <p>해외 원자재 전문 매체 기사를 실시간 크롤링하여 Google Gemini 및 오픈소스 AI가 핵심 요약 및 국내 제조·스크랩 시장 향후 여파를 코멘트합니다.</p>
                     </div>
                 </div>
                 <div class="guide-tip-footer">
