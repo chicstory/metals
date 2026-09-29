@@ -480,12 +480,21 @@
             width: 100%; border-collapse: collapse; text-align: left;
         }
         .scrap-table th {
-            padding: 13px 18px; font-size: 12.5px; font-weight: 700; color: #94a3b8;
+            padding: 11px 8px; font-size: 12.5px; font-weight: 700; color: #94a3b8;
             background: rgba(15, 23, 42, 0.7); border-bottom: 1px solid var(--border);
-            text-transform: uppercase; letter-spacing: 0.03em;
+            letter-spacing: 0.02em; text-align: center; vertical-align: middle;
+        }
+        .th-main-title {
+            font-size: 13.5px; font-weight: 800; color: #f1f5f9; line-height: 1.25; white-space: nowrap;
+        }
+        .th-sub-note {
+            font-size: 11px; font-weight: 600; color: #94a3b8; margin-top: 2px; white-space: nowrap;
+        }
+        .th-badge-wrap {
+            margin-top: 5px; display: block;
         }
         .scrap-table td {
-            padding: 15px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 14px; vertical-align: middle;
         }
         .scrap-table tr:hover { background: rgba(255, 255, 255, 0.025); }
@@ -501,18 +510,18 @@
         .badge-tin { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
 
         .name-header-row {
-            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;
+            display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;
         }
-        .name-main { font-weight: 800; color: #fff; font-size: 15px; }
-        .name-sub { font-size: 12px; color: var(--text-muted); }
+        .name-main { font-weight: 800; color: #fff; font-size: 14.5px; white-space: nowrap; }
 
         /* Info Toggle Button */
         .btn-info-toggle {
-            display: inline-flex; align-items: center; gap: 4px;
-            padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 3px;
+            padding: 2.5px 7px; border-radius: 5px; font-size: 11px; font-weight: 700;
             background: rgba(56, 189, 248, 0.12); color: #38bdf8;
             border: 1px solid rgba(56, 189, 248, 0.3); cursor: pointer;
-            transition: all 0.15s ease; min-height: 24px; vertical-align: middle;
+            transition: all 0.15s ease; min-height: 22px; vertical-align: middle;
+            white-space: nowrap; flex-shrink: 0;
         }
         .btn-info-toggle:hover {
             background: rgba(56, 189, 248, 0.25); color: #fff; border-color: #38bdf8;
@@ -546,12 +555,18 @@
         .scrap-detail-text {
             flex: 1; min-width: 0;
         }
+        .scrap-detail-title-wrap {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 5px;
+        }
         .scrap-detail-title {
-            display: block; font-size: 12px; color: #94a3b8; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px;
+            font-size: 14px; color: #fff; font-weight: 800;
+        }
+        .scrap-detail-subtitle {
+            font-size: 12px; font-weight: 600; color: #93c5fd; background: rgba(59, 130, 246, 0.15);
+            padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.25);
         }
         .scrap-detail-desc {
-            font-size: 13.5px; color: #f1f5f9; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere;
+            font-size: 13.5px; color: #cbd5e1; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere;
         }
         .btn-detail-close {
             background: none; border: none; color: #94a3b8; cursor: pointer;
@@ -593,6 +608,9 @@
         .col-th-wholesale.active-column {
             background: rgba(245, 158, 11, 0.24) !important;
             border-bottom: 2px solid #f59e0b !important;
+        }
+        .col-th-wholesale.active-column .th-main-title,
+        .col-th-wholesale.active-column .th-sub-note {
             color: #fbbf24 !important;
         }
         .col-retail.active-column {
@@ -602,6 +620,9 @@
         .col-th-retail.active-column {
             background: rgba(56, 189, 248, 0.24) !important;
             border-bottom: 2px solid #38bdf8 !important;
+        }
+        .col-th-retail.active-column .th-main-title,
+        .col-th-retail.active-column .th-sub-note {
             color: #38bdf8 !important;
         }
         .dimmed-column {
@@ -613,7 +634,7 @@
             padding: 2px 7px;
             border-radius: 9999px;
             font-weight: 800;
-            margin-left: 5px;
+            display: inline-block;
             vertical-align: middle;
             animation: pulse-glow 2s infinite ease-in-out;
         }
@@ -649,18 +670,28 @@
         @media (max-width: 768px) {
             .calc-grid-layout { grid-template-columns: 1fr; }
             .hero-title { font-size: 24px; }
-            .scrap-table th { padding: 10px 8px; font-size: 11.5px; }
-            .scrap-table td { padding: 10px 8px; font-size: 13px; }
-            .col-badge { width: 68px; padding-left: 8px !important; }
-            .badge { font-size: 10.5px; padding: 3px 6px; }
-            .name-main { font-size: 13.5px; }
-            .name-sub { font-size: 11px; }
-            .btn-info-toggle { font-size: 10px; padding: 2px 5px; min-height: 20px; }
-            .col-price { font-size: 14px; }
-            .btn-calc-pick { padding: 4px 8px; font-size: 11px; min-height: 28px; }
-            .scrap-detail-td { padding: 4px 8px 12px 8px !important; }
-            .scrap-detail-box { padding: 10px 12px; gap: 8px; font-size: 12px; }
-            .scrap-detail-desc { font-size: 12.5px; }
+            .scrap-table th { padding: 8px 3px; }
+            .scrap-table td { padding: 8px 3px; font-size: 13px; }
+            .th-main-title { font-size: 11.5px; }
+            .th-sub-note { font-size: 9.5px; }
+            .th-badge-wrap { margin-top: 3px; }
+            .badge-mode-active { font-size: 8.5px; padding: 1.5px 4.5px; }
+            .col-badge, .col-th-badge { width: 48px; text-align: center; padding-left: 3px !important; }
+            .badge { font-size: 9.5px; padding: 2px 4px; }
+            .col-name, .col-th-name { min-width: 80px; }
+            .name-main { font-size: 12.5px; }
+            .btn-info-toggle { font-size: 9px; padding: 1.5px 4px; min-height: 19px; }
+            .col-wholesale, .col-th-wholesale { min-width: 76px; text-align: center; }
+            .col-retail, .col-th-retail { min-width: 76px; text-align: center; }
+            .col-price { font-size: 12.5px; text-align: center; }
+            .unit { font-size: 9.5px; }
+            .col-action, .col-th-action { width: 46px; text-align: center; }
+            .btn-calc-pick { padding: 3px 5px; font-size: 10px; min-height: 24px; }
+            .scrap-detail-td { padding: 4px 6px 10px 6px !important; }
+            .scrap-detail-box { padding: 8px 10px; gap: 8px; font-size: 12px; }
+            .scrap-detail-title { font-size: 13px; }
+            .scrap-detail-subtitle { font-size: 11px; }
+            .scrap-detail-desc { font-size: 12px; }
         }
 
         .field-group { margin-bottom: 16px; }
@@ -1088,11 +1119,26 @@
                 <table class="scrap-table">
                     <thead>
                         <tr>
-                            <th>구분</th>
-                            <th>품목명 (등급)</th>
-                            <th class="col-th-wholesale active-column">도매 단가 (1톤↑) <span class="badge-mode-active" id="th-badge-wholesale">✓ 선택</span></th>
-                            <th class="col-th-retail dimmed-column">소매 단가 (고물상) <span class="badge-mode-active" id="th-badge-retail" style="display:none;">✓ 선택</span></th>
-                            <th class="col-action">정산</th>
+                            <th class="col-th-badge">
+                                <div class="th-main-title">구분</div>
+                            </th>
+                            <th class="col-th-name">
+                                <div class="th-main-title">품목명</div>
+                                <div class="th-sub-note">(등급)</div>
+                            </th>
+                            <th class="col-th-wholesale active-column">
+                                <div class="th-main-title">도매 단가</div>
+                                <div class="th-sub-note">(1톤↑)</div>
+                                <div class="th-badge-wrap"><span class="badge-mode-active" id="th-badge-wholesale">✓ 선택</span></div>
+                            </th>
+                            <th class="col-th-retail dimmed-column">
+                                <div class="th-main-title">소매 단가</div>
+                                <div class="th-sub-note">(고물상)</div>
+                                <div class="th-badge-wrap"><span class="badge-mode-active" id="th-badge-retail" style="display:none;">✓ 선택</span></div>
+                            </th>
+                            <th class="col-th-action">
+                                <div class="th-main-title">정산</div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1108,7 +1154,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">신품 강판 압연 부스러기</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 445 <span class="unit">원/kg</span>
@@ -1127,8 +1172,11 @@
                 <div class="scrap-detail-box badge-border-steel">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">자동차·가전공장 프레스 신품 강판 (순도 99%↑, 불순물 제로 최상급)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">생철 A</strong>
+                            <span class="scrap-detail-subtitle">신품 강판 압연 부스러기</span>
+                        </div>
+                        <div class="scrap-detail-desc">자동차·가전공장 프레스 신품 강판 (순도 99%↑, 불순물 제로 최상급)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_prime')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1148,7 +1196,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">두께 6mm 이상 대형 철골</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 399 <span class="unit">원/kg</span>
@@ -1167,8 +1214,11 @@
                 <div class="scrap-detail-box badge-border-steel">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">두께 6mm 이상 H빔, 형강, 철골, 강관, 레일, 중장비 프레임</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">중량 A</strong>
+                            <span class="scrap-detail-subtitle">두께 6mm 이상 대형 철골</span>
+                        </div>
+                        <div class="scrap-detail-desc">두께 6mm 이상 H빔, 형강, 철골, 강관, 레일, 중장비 프레임</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_heavy_a')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1188,7 +1238,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">두께 3~6mm 기계류·샤시</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 368 <span class="unit">원/kg</span>
@@ -1207,8 +1256,11 @@
                 <div class="scrap-detail-box badge-border-steel">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">두께 3~6mm 기계 부품, 농기계, 자동차 하체 샤시, 배관 파이프</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">중량 B</strong>
+                            <span class="scrap-detail-subtitle">두께 3~6mm 기계류·샤시</span>
+                        </div>
+                        <div class="scrap-detail-desc">두께 3~6mm 기계 부품, 농기계, 자동차 하체 샤시, 배관 파이프</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_heavy_b')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1228,7 +1280,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">두께 1~3mm 박판·가전 외판</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 346 <span class="unit">원/kg</span>
@@ -1247,8 +1298,11 @@
                 <div class="scrap-detail-box badge-border-steel">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">두께 1~3mm 가전제품 외판, 캐비닛, 차체 껍데기, 드럼통, 철판</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">경량 A</strong>
+                            <span class="scrap-detail-subtitle">두께 1~3mm 박판·가전 외판</span>
+                        </div>
+                        <div class="scrap-detail-desc">두께 1~3mm 가전제품 외판, 캐비닛, 차체 껍데기, 드럼통, 철판</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_light_a')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1268,7 +1322,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">절삭 쇳가루·가공 칩</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 315 <span class="unit">원/kg</span>
@@ -1287,8 +1340,11 @@
                 <div class="scrap-detail-box badge-border-steel">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">공작기계 절삭 가공 쇳가루, 드릴 분철 (절삭유·수분 함유)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">선반설 (분철)</strong>
+                            <span class="scrap-detail-subtitle">절삭 쇳가루·가공 칩</span>
+                        </div>
+                        <div class="scrap-detail-desc">공작기계 절삭 가공 쇳가루, 드릴 분철 (절삭유·수분 함유)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_chips')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1308,7 +1364,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">피복 벗긴 고순도 나동선</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 18,610 <span class="unit">원/kg</span>
@@ -1327,8 +1382,11 @@
                 <div class="scrap-detail-box badge-border-copper">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">피복을 벗긴 순도 99.9% 이상의 반짝이는 굵은 동선 (최고가)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">A동 (꽈배기동)</strong>
+                            <span class="scrap-detail-subtitle">피복 벗긴 고순도 나동선</span>
+                        </div>
+                        <div class="scrap-detail-desc">피복을 벗긴 순도 99.9% 이상의 반짝이는 굵은 동선 (최고가)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('cu_twist')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1348,7 +1406,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">동파이프·부스바·변압기동</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 17,435 <span class="unit">원/kg</span>
@@ -1367,8 +1424,11 @@
                 <div class="scrap-detail-box badge-border-copper">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">에어컨 배관 파이프, 배전반 부스바 (약간의 산화 피막이나 땜 흔적)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">상동 (파이프·판동)</strong>
+                            <span class="scrap-detail-subtitle">동파이프·부스바·변압기동</span>
+                        </div>
+                        <div class="scrap-detail-desc">에어컨 배관 파이프, 배전반 부스바 (약간의 산화 피막이나 땜 흔적)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('cu_pipe')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1388,7 +1448,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">모터선·에나멜선·도금동</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 15,868 <span class="unit">원/kg</span>
@@ -1407,8 +1466,11 @@
                 <div class="scrap-detail-box badge-border-copper">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">에나멜 코팅선, 모터 분해선, 주석 도금선, 불순물이 섞인 잡동</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">파동 (하동·잡선)</strong>
+                            <span class="scrap-detail-subtitle">모터선·에나멜선·도금동</span>
+                        </div>
+                        <div class="scrap-detail-desc">에나멜 코팅선, 모터 분해선, 주석 도금선, 불순물이 섞인 잡동</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('cu_mixed')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1428,7 +1490,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">황동판·동단조·최상급 신주</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 12,738 <span class="unit">원/kg</span>
@@ -1447,8 +1508,11 @@
                 <div class="scrap-detail-box badge-border-brass">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">도금이나 이물질이 전혀 없는 순수 황동 판재·단조품 (Cu 65% + Zn 35% 최고가 신주)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">노베 신주 (황동 판재)</strong>
+                            <span class="scrap-detail-subtitle">황동판·동단조·최상급 신주</span>
+                        </div>
+                        <div class="scrap-detail-desc">도금이나 이물질이 전혀 없는 순수 황동 판재·단조품 (Cu 65% + Zn 35% 최고가 신주)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('brass_nobe')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1468,7 +1532,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">황동 절봉·볼트·너트·가공품</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 11,908 <span class="unit">원/kg</span>
@@ -1487,8 +1550,11 @@
                 <div class="scrap-detail-box badge-border-brass">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">공작기계 선반 가공용 신주봉, 볼트, 너트, 부속품 (Cu 60% + Zn 40% 표준 신주)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">절봉 신주 (황동 봉·볼트)</strong>
+                            <span class="scrap-detail-subtitle">황동 절봉·볼트·너트·가공품</span>
+                        </div>
+                        <div class="scrap-detail-desc">공작기계 선반 가공용 신주봉, 볼트, 너트, 부속품 (Cu 60% + Zn 40% 표준 신주)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('brass_rod')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1508,7 +1574,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">수도꼭지·계량기·위생도기</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 10,246 <span class="unit">원/kg</span>
@@ -1527,8 +1592,11 @@
                 <div class="scrap-detail-box badge-border-brass">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">수도꼭지, 수전금구, 밸브 주물류 (철 부속 및 이물질 분리품)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">주물 신주 (수도꼭지·밸브)</strong>
+                            <span class="scrap-detail-subtitle">수도꼭지·계량기·위생도기</span>
+                        </div>
+                        <div class="scrap-detail-desc">수도꼭지, 수전금구, 밸브 주물류 (철 부속 및 이물질 분리품)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('brass_cast')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1548,7 +1616,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">비자성 스테인리스 (18-8)</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 1,621 <span class="unit">원/kg</span>
@@ -1567,8 +1634,11 @@
                 <div class="scrap-detail-box badge-border-sus">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">니켈 8% + 크롬 18% 함유. 자석이 붙지 않는 주방 싱크대, 배관 (고철 대비 3.7배)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">스텐 (SUS 304)</strong>
+                            <span class="scrap-detail-subtitle">비자성 스테인리스 (18-8)</span>
+                        </div>
+                        <div class="scrap-detail-desc">니켈 8% + 크롬 18% 함유. 자석이 붙지 않는 주방 싱크대, 배관 (고철 대비 3.7배)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('sus_304')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1588,7 +1658,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">A356 고품위 순수 알루미늄 휠</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 4,039 <span class="unit">원/kg</span>
@@ -1607,8 +1676,11 @@
                 <div class="scrap-detail-box badge-border-aluminum">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">타이어·밸런스납을 완벽 분리한 순수 자동차 휠 (알루미늄 스크랩 최고가)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">자동차 알루미늄 휠</strong>
+                            <span class="scrap-detail-subtitle">A356 고품위 순수 알루미늄 휠</span>
+                        </div>
+                        <div class="scrap-detail-desc">타이어·밸런스납을 완벽 분리한 순수 자동차 휠 (알루미늄 스크랩 최고가)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_wheel')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1628,7 +1700,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">실린더 블록·헤드·변속기 케이스</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 3,732 <span class="unit">원/kg</span>
@@ -1647,8 +1718,11 @@
                 <div class="scrap-detail-box badge-border-aluminum">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">내부 철 부속을 분리한 자동차 엔진 블록, 헤드, 미션 케이스 (1톤 트럭 벌크 기준)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">엔진·미션 케이스 (주물 A급)</strong>
+                            <span class="scrap-detail-subtitle">실린더 블록·헤드·변속기 케이스</span>
+                        </div>
+                        <div class="scrap-detail-desc">내부 철 부속을 분리한 자동차 엔진 블록, 헤드, 미션 케이스 (1톤 트럭 벌크 기준)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_engine')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1668,7 +1742,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">창호 샤시·압출 프로파일</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 3,600 <span class="unit">원/kg</span>
@@ -1687,8 +1760,11 @@
                 <div class="scrap-detail-box badge-border-aluminum">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">유리·고무·철심을 제거한 백색/은색 압출 창호 프로파일 (6063 순수재)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">알루미늄 샤시 (A급)</strong>
+                            <span class="scrap-detail-subtitle">창호 샤시·압출 프로파일</span>
+                        </div>
+                        <div class="scrap-detail-desc">유리·고무·철심을 제거한 백색/은색 압출 창호 프로파일 (6063 순수재)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_sash')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1708,7 +1784,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">음료 캔 압축물</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 2,195 <span class="unit">원/kg</span>
@@ -1727,8 +1802,11 @@
                 <div class="scrap-detail-box badge-border-aluminum">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">분리수거 음료 캔 압축물 (도색 잉크 산화 소각 손실 20% 감가 반영)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">알루미늄 캔 (UBC)</strong>
+                            <span class="scrap-detail-subtitle">음료 캔 압축물</span>
+                        </div>
+                        <div class="scrap-detail-desc">분리수거 음료 캔 압축물 (도색 잉크 산화 소각 손실 20% 감가 반영)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_can')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1748,7 +1826,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">도어캐치·안전벨트 버클·도어록</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 3,557 <span class="unit">원/kg</span>
@@ -1767,8 +1844,11 @@
                 <div class="scrap-detail-box badge-border-zinc">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">자동차 도어핸들, 안전벨트 버클, 도어록, 가전기기 아연 주물 (Zamak 비철 고단가)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">아연 다이캐스팅 (징크 A급)</strong>
+                            <span class="scrap-detail-subtitle">도어캐치·안전벨트 버클·도어록</span>
+                        </div>
+                        <div class="scrap-detail-desc">자동차 도어핸들, 안전벨트 버클, 도어록, 가전기기 아연 주물 (Zamak 비철 고단가)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('zinc_cast')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -1788,7 +1868,6 @@
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">무연 땜납·엔진 베어링 메탈</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 56,897 <span class="unit">원/kg</span>
@@ -1807,8 +1886,11 @@
                 <div class="scrap-detail-box badge-border-tin">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">전자 기판 무연 땜납(Sn 96%↑) 및 대형 엔진 크랭크샤프트 베어링 메탈 (최고가 비철)</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">주석 솔더·화이트메탈</strong>
+                            <span class="scrap-detail-subtitle">무연 땜납·엔진 베어링 메탈</span>
+                        </div>
+                        <div class="scrap-detail-desc">전자 기판 무연 땜납(Sn 96%↑) 및 대형 엔진 크랭크샤프트 베어링 메탈 (최고가 비철)</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('tin_solder')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>

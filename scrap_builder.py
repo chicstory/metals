@@ -338,7 +338,6 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
                         <i class="bi-info-circle"></i> 규격
                     </button>
                 </div>
-                <div class="name-sub">{it['name_sub']}</div>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 {it['wholesale_price']:,} <span class="unit">원/kg</span>
@@ -357,8 +356,11 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
                 <div class="scrap-detail-box badge-border-{it['cat']}">
                     <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
                     <div class="scrap-detail-text">
-                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
-                        <span class="scrap-detail-desc">{it['desc']}</span>
+                        <div class="scrap-detail-title-wrap">
+                            <strong class="scrap-detail-title">{it['name']}</strong>
+                            <span class="scrap-detail-subtitle">{it['name_sub']}</span>
+                        </div>
+                        <div class="scrap-detail-desc">{it['desc']}</div>
                     </div>
                     <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('{it['id']}')" aria-label="닫기" title="닫기">
                         <i class="bi-x-lg"></i>
@@ -860,12 +862,21 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
             width: 100%; border-collapse: collapse; text-align: left;
         }}
         .scrap-table th {{
-            padding: 13px 18px; font-size: 12.5px; font-weight: 700; color: #94a3b8;
+            padding: 11px 8px; font-size: 12.5px; font-weight: 700; color: #94a3b8;
             background: rgba(15, 23, 42, 0.7); border-bottom: 1px solid var(--border);
-            text-transform: uppercase; letter-spacing: 0.03em;
+            letter-spacing: 0.02em; text-align: center; vertical-align: middle;
+        }}
+        .th-main-title {{
+            font-size: 13.5px; font-weight: 800; color: #f1f5f9; line-height: 1.25; white-space: nowrap;
+        }}
+        .th-sub-note {{
+            font-size: 11px; font-weight: 600; color: #94a3b8; margin-top: 2px; white-space: nowrap;
+        }}
+        .th-badge-wrap {{
+            margin-top: 5px; display: block;
         }}
         .scrap-table td {{
-            padding: 15px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 14px; vertical-align: middle;
         }}
         .scrap-table tr:hover {{ background: rgba(255, 255, 255, 0.025); }}
@@ -881,18 +892,18 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         .badge-tin {{ background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }}
 
         .name-header-row {{
-            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;
+            display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;
         }}
-        .name-main {{ font-weight: 800; color: #fff; font-size: 15px; }}
-        .name-sub {{ font-size: 12px; color: var(--text-muted); }}
+        .name-main {{ font-weight: 800; color: #fff; font-size: 14.5px; white-space: nowrap; }}
 
         /* Info Toggle Button */
         .btn-info-toggle {{
-            display: inline-flex; align-items: center; gap: 4px;
-            padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 3px;
+            padding: 2.5px 7px; border-radius: 5px; font-size: 11px; font-weight: 700;
             background: rgba(56, 189, 248, 0.12); color: #38bdf8;
             border: 1px solid rgba(56, 189, 248, 0.3); cursor: pointer;
-            transition: all 0.15s ease; min-height: 24px; vertical-align: middle;
+            transition: all 0.15s ease; min-height: 22px; vertical-align: middle;
+            white-space: nowrap; flex-shrink: 0;
         }}
         .btn-info-toggle:hover {{
             background: rgba(56, 189, 248, 0.25); color: #fff; border-color: #38bdf8;
@@ -926,12 +937,18 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         .scrap-detail-text {{
             flex: 1; min-width: 0;
         }}
+        .scrap-detail-title-wrap {{
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 5px;
+        }}
         .scrap-detail-title {{
-            display: block; font-size: 12px; color: #94a3b8; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px;
+            font-size: 14px; color: #fff; font-weight: 800;
+        }}
+        .scrap-detail-subtitle {{
+            font-size: 12px; font-weight: 600; color: #93c5fd; background: rgba(59, 130, 246, 0.15);
+            padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.25);
         }}
         .scrap-detail-desc {{
-            font-size: 13.5px; color: #f1f5f9; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere;
+            font-size: 13.5px; color: #cbd5e1; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere;
         }}
         .btn-detail-close {{
             background: none; border: none; color: #94a3b8; cursor: pointer;
@@ -973,6 +990,9 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         .col-th-wholesale.active-column {{
             background: rgba(245, 158, 11, 0.24) !important;
             border-bottom: 2px solid #f59e0b !important;
+        }}
+        .col-th-wholesale.active-column .th-main-title,
+        .col-th-wholesale.active-column .th-sub-note {{
             color: #fbbf24 !important;
         }}
         .col-retail.active-column {{
@@ -982,6 +1002,9 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         .col-th-retail.active-column {{
             background: rgba(56, 189, 248, 0.24) !important;
             border-bottom: 2px solid #38bdf8 !important;
+        }}
+        .col-th-retail.active-column .th-main-title,
+        .col-th-retail.active-column .th-sub-note {{
             color: #38bdf8 !important;
         }}
         .dimmed-column {{
@@ -993,7 +1016,7 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
             padding: 2px 7px;
             border-radius: 9999px;
             font-weight: 800;
-            margin-left: 5px;
+            display: inline-block;
             vertical-align: middle;
             animation: pulse-glow 2s infinite ease-in-out;
         }}
@@ -1029,18 +1052,28 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         @media (max-width: 768px) {{
             .calc-grid-layout {{ grid-template-columns: 1fr; }}
             .hero-title {{ font-size: 24px; }}
-            .scrap-table th {{ padding: 10px 8px; font-size: 11.5px; }}
-            .scrap-table td {{ padding: 10px 8px; font-size: 13px; }}
-            .col-badge {{ width: 68px; padding-left: 8px !important; }}
-            .badge {{ font-size: 10.5px; padding: 3px 6px; }}
-            .name-main {{ font-size: 13.5px; }}
-            .name-sub {{ font-size: 11px; }}
-            .btn-info-toggle {{ font-size: 10px; padding: 2px 5px; min-height: 20px; }}
-            .col-price {{ font-size: 14px; }}
-            .btn-calc-pick {{ padding: 4px 8px; font-size: 11px; min-height: 28px; }}
-            .scrap-detail-td {{ padding: 4px 8px 12px 8px !important; }}
-            .scrap-detail-box {{ padding: 10px 12px; gap: 8px; font-size: 12px; }}
-            .scrap-detail-desc {{ font-size: 12.5px; }}
+            .scrap-table th {{ padding: 8px 3px; }}
+            .scrap-table td {{ padding: 8px 3px; font-size: 13px; }}
+            .th-main-title {{ font-size: 11.5px; }}
+            .th-sub-note {{ font-size: 9.5px; }}
+            .th-badge-wrap {{ margin-top: 3px; }}
+            .badge-mode-active {{ font-size: 8.5px; padding: 1.5px 4.5px; }}
+            .col-badge, .col-th-badge {{ width: 48px; text-align: center; padding-left: 3px !important; }}
+            .badge {{ font-size: 9.5px; padding: 2px 4px; }}
+            .col-name, .col-th-name {{ min-width: 80px; }}
+            .name-main {{ font-size: 12.5px; }}
+            .btn-info-toggle {{ font-size: 9px; padding: 1.5px 4px; min-height: 19px; }}
+            .col-wholesale, .col-th-wholesale {{ min-width: 76px; text-align: center; }}
+            .col-retail, .col-th-retail {{ min-width: 76px; text-align: center; }}
+            .col-price {{ font-size: 12.5px; text-align: center; }}
+            .unit {{ font-size: 9.5px; }}
+            .col-action, .col-th-action {{ width: 46px; text-align: center; }}
+            .btn-calc-pick {{ padding: 3px 5px; font-size: 10px; min-height: 24px; }}
+            .scrap-detail-td {{ padding: 4px 6px 10px 6px !important; }}
+            .scrap-detail-box {{ padding: 8px 10px; gap: 8px; font-size: 12px; }}
+            .scrap-detail-title {{ font-size: 13px; }}
+            .scrap-detail-subtitle {{ font-size: 11px; }}
+            .scrap-detail-desc {{ font-size: 12px; }}
         }}
 
         .field-group {{ margin-bottom: 16px; }}
@@ -1468,11 +1501,26 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
                 <table class="scrap-table">
                     <thead>
                         <tr>
-                            <th>구분</th>
-                            <th>품목명 (등급)</th>
-                            <th class="col-th-wholesale active-column">도매 단가 (1톤↑) <span class="badge-mode-active" id="th-badge-wholesale">✓ 선택</span></th>
-                            <th class="col-th-retail dimmed-column">소매 단가 (고물상) <span class="badge-mode-active" id="th-badge-retail" style="display:none;">✓ 선택</span></th>
-                            <th class="col-action">정산</th>
+                            <th class="col-th-badge">
+                                <div class="th-main-title">구분</div>
+                            </th>
+                            <th class="col-th-name">
+                                <div class="th-main-title">품목명</div>
+                                <div class="th-sub-note">(등급)</div>
+                            </th>
+                            <th class="col-th-wholesale active-column">
+                                <div class="th-main-title">도매 단가</div>
+                                <div class="th-sub-note">(1톤↑)</div>
+                                <div class="th-badge-wrap"><span class="badge-mode-active" id="th-badge-wholesale">✓ 선택</span></div>
+                            </th>
+                            <th class="col-th-retail dimmed-column">
+                                <div class="th-main-title">소매 단가</div>
+                                <div class="th-sub-note">(고물상)</div>
+                                <div class="th-badge-wrap"><span class="badge-mode-active" id="th-badge-retail" style="display:none;">✓ 선택</span></div>
+                            </th>
+                            <th class="col-th-action">
+                                <div class="th-main-title">정산</div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
