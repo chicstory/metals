@@ -18,11 +18,12 @@
     - Cron 스케줄 `0 0 * * *` (매일 UTC 00:00 = 한국 시간 KST 09:00 정각) 설정.
     - Selenium 헤드리스 크롬 및 의존성(`requirements.txt`) 자동 설치 후 `metal_news_briefing.py` 실행 (LME/조달청 시세 + Gemini 분석 + `index.html` + `scrap.html` + `latest.json` + SEO 피드 일괄 생성).
     - `github-actions[bot]` 계정으로 변경된 정적 자산 자동 `git add & commit & push`.
-  - **`scrap.html` 모바일 인포 토글 UI 구축 (`scrap_builder.py`)**:
+  - **`scrap.html` 모바일 인포 토글 UI 구축 및 3단계 스택 헤더 (`scrap_builder.py`)**:
     - 기존 표의 긴 '실무 규격 및 주요 발생처' 열을 테이블 메인 헤더에서 분리하여 5개 핵심 열(`구분`, `품목명`, `도매단가`, `소매단가`, `정산`)로 슬림화.
-    - 품목명 옆에 직관적인 `[ℹ️ 규격]` 토글 버튼(`btn-info-toggle`) 배치.
-    - 클릭 시 해당 품목 바로 아래에 전용 아코디언 행(`scrap-detail-row`)이 부드럽게 펼쳐지며 실무 규격 및 발생처 상세 정보를 노출.
-    - 모바일 미디어 쿼리(`@media (max-width: 768px)`) 최적화로 행 높이 40px 내외 콤팩트 유지 및 가로 오버플로우 완벽 차단.
+    - 품목명 셀 내부의 부연설명(`name_sub`)을 메인 행에서 완전히 제거하고, 품목명 바로 옆 `[ℹ️ 규격]` 토글 버튼(`btn-info-toggle`) 배치 (메인 행 높이 40px 미만 슬림화).
+    - `[ℹ️ 규격]` 클릭 시 열리는 전용 아코디언 행(`scrap-detail-row`) 내부에 품목명, 등급 규격명(`name_sub`), 상세설명(`desc`)을 일목요연하게 노출.
+    - 표 상단 헤더의 가로 찌그러짐을 없애기 위해 `도매 단가` / `(1톤↑)` / `✓ 선택` 및 `소매 단가` / `(고물상)` / `✓ 선택`을 3단계 세로 스택 블록(`th-main-title`, `th-sub-note`, `th-badge-wrap`)으로 분리.
+    - 모바일 미디어 쿼리(`@media (max-width: 768px)`) 최적화로 가로 오버플로우 제로 및 한눈에 들어오는 핀테크 모바일 UI 완성.
 - **3. 결과 & 검증**:
   - GitHub Actions 클라우드 환경에서 `Google GenAI 공식 SDK (v1/gemini-3.5-flash-lite)` 실시간 분석 정상 가동 확인.
   - `scrap.html` 및 `index.html` 무결점 클라우드 자동 커밋 & 배포 완주 확인.
