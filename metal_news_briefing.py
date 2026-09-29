@@ -555,13 +555,60 @@ def collect_metal_news(days: int = 2) -> Dict[str, List[Dict[str, Any]]]:
     return classified
 
 
+CACHED_DISCOVERED_MODEL: Optional[str] = None
+
+
+def discover_gemini_model() -> Optional[str]:
+    """API 키가 지원하는 유효한 generateContent 모델을 구글 서버에서 실시간 동적 탐색 (404 방지)"""
+    global CACHED_DISCOVERED_MODEL
+    if CACHED_DISCOVERED_MODEL:
+        return CACHED_DISCOVERED_MODEL
+    if not GEMINI_API_KEY:
+        return None
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
+    try:
+        if HAS_REQUESTS:
+            r = requests.get(url, headers={"x-goog-api-key": GEMINI_API_KEY, "User-Agent": "ThePathLab-MetalIntelligence/1.0"}, timeout=15)
+            if r.status_code == 200:
+                data = r.json()
+                models = data.get("models", [])
+                # 1순위: flash 모델 중 generateContent 지원 모델
+                for m in models:
+                    methods = m.get("supportedGenerationMethods", [])
+                    m_name = m.get("name", "")
+                    if "generateContent" in methods and "flash" in m_name.lower():
+                        chosen = m_name.replace("models/", "")
+                        print(f"    -> [동적 감지] 최적의 Gemini Flash 모델 자동 매칭: {chosen}", flush=True)
+                        CACHED_DISCOVERED_MODEL = chosen
+                        return chosen
+                # 2순위: generateContent 지원하는 일반 모델
+                for m in models:
+                    methods = m.get("supportedGenerationMethods", [])
+                    m_name = m.get("name", "")
+                    if "generateContent" in methods:
+                        chosen = m_name.replace("models/", "")
+                        print(f"    -> [동적 감지] 사용 가능한 Gemini 모델 자동 매칭: {chosen}", flush=True)
+                        CACHED_DISCOVERED_MODEL = chosen
+                        return chosen
+            else:
+                print(f"    -> [주의] models.list 응답 HTTP {r.status_code}: {r.text[:120]}", flush=True)
+    except Exception as e:
+        print(f"    -> [주의] Gemini 모델 목록 자동 탐색 예외: {e}", flush=True)
+    return None
+
+
 def call_gemini_api(prompt: str) -> Tuple[Optional[str], Optional[str]]:
     """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (requests 기반 & Header/Query 이중 지원)"""
     if not GEMINI_API_KEY:
         return None, "GEMINI_API_KEY 미설정"
 
-    models_to_try = [GEMINI_MODEL]
-    for m in ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"]:
+    # 구글 API 서버에서 실시간 지원되는 유효한 모델 우선 탐색
+    discovered = discover_gemini_model()
+    models_to_try = []
+    if discovered:
+        models_to_try.append(discovered)
+    for m in [GEMINI_MODEL, "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
         if m not in models_to_try:
             models_to_try.append(m)
 
