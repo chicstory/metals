@@ -77,7 +77,7 @@ os.makedirs(RESOURCES_DIR, exist_ok=True)
 
 # AI 분석 설정 (Gemini API 우선, 로컬 실행 시 Ollama Gemma 4 자동 Fallback)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash").strip()
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash").strip()
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
 DEFAULT_MODEL = "gemma4:12b-it-qat"
 
@@ -554,8 +554,13 @@ def call_gemini_api(prompt: str) -> Optional[str]:
     if not GEMINI_API_KEY:
         return None
 
-    # URL 쿼리 파라미터가 아닌 x-goog-api-key HTTP 헤더를 사용하여 에러 로그/URL 상에 키가 절대 남지 않도록 보안 처리
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+    # 안정적인 순서로 모델 후보군 순차 시도
+    models_to_try = [GEMINI_MODEL]
+    if "gemini-1.5-flash" not in models_to_try:
+        models_to_try.append("gemini-1.5-flash")
+    if "gemini-2.0-flash" not in models_to_try:
+        models_to_try.append("gemini-2.0-flash")
+
     payload = {
         "contents": [
             {
@@ -575,23 +580,33 @@ def call_gemini_api(prompt: str) -> Optional[str]:
         "x-goog-api-key": GEMINI_API_KEY,
     }
 
-    try:
-        req = urllib.request.Request(
-            url,
-            data=json.dumps(payload).encode("utf-8"),
-            headers=headers
-        )
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            res_data = json.loads(resp.read().decode("utf-8"))
-            candidates = res_data.get("candidates", [])
-            if candidates and "content" in candidates[0]:
-                parts = candidates[0]["content"].get("parts", [])
-                if parts and "text" in parts[0]:
-                    return parts[0]["text"].strip()
-    except Exception as e:
-        # 혹시 모를 에러 출력에서도 키가 절대 노출되지 않도록 마스킹 필터링
-        err_msg = str(e).replace(GEMINI_API_KEY, "***") if GEMINI_API_KEY else str(e)
-        print(f"    -> [주의] Gemini API 호출 오류 ({err_msg}), Ollama Fallback 시도...", flush=True)
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
+        try:
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers=headers
+            )
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                res_data = json.loads(resp.read().decode("utf-8"))
+                candidates = res_data.get("candidates", [])
+                if candidates and "content" in candidates[0]:
+                    parts = candidates[0]["content"].get("parts", [])
+                    if parts and "text" in parts[0]:
+                        return parts[0]["text"].strip()
+        except urllib.error.HTTPError as he:
+            try:
+                err_body = he.read().decode("utf-8")
+                safe_body = err_body.replace(GEMINI_API_KEY, "***")
+            except Exception:
+                safe_body = str(he)
+            print(f"    -> [주의] Gemini 모델 ({model_name}) HTTP {he.code} 응답: {safe_body[:200]}", flush=True)
+        except Exception as e:
+            err_msg = str(e).replace(GEMINI_API_KEY, "***") if GEMINI_API_KEY else str(e)
+            print(f"    -> [주의] Gemini API 호출 오류 ({err_msg})", flush=True)
+
+    print(f"    -> [주의] 모든 Gemini 모델 시도 실패, Ollama Fallback 시도...", flush=True)
     return None
 
 
