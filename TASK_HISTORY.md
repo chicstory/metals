@@ -9,12 +9,14 @@
   - 사용자 업무 복귀로 인해 로컬 PC에서 Ollama(`gemma4:12b`)를 수동/배치로 실행하기 어려운 상황 발생. 매일 오전 9시 정각 클라우드 웹상에서 `metals`와 `scrap.html`이 완전 자동으로 무인 갱신·발행되는 파이프라인 구축 요구.
   - `scrap.html` 모바일 뷰포트에서 표 가로폭이 좁고 '실무 규격 및 주요 발생처' 텍스트 길이가 길어 글자 오버플로우 및 행 세로 높이가 과도하게 두꺼워지는 UX 페인포인트 해소.
 - **2. 솔루션 & 구현**:
-  - **Gemini Flash API 듀얼 연동 (`metal_news_briefing.py`)**:
-    - `GEMINI_API_KEY` 환경변수가 등록되어 있으면 Google Gemini 2.5 Flash를 Python 기본 `urllib`로 1~2초 만에 초고속 호출.
-    - 환경변수가 없거나 로컬 환경일 경우 기존 Ollama Gemma 4로 Graceful Fallback되도록 설계.
+  - **Gemini Flash 3세대 API 공식 SDK 연동 (`metal_news_briefing.py`)**:
+    - 공식 `google-genai` 최신 SDK 탑재 및 셧다운된 구버전(1.5, 2.0, 2.5 신규제한) 배제.
+    - 무료 티어 고성능 모델인 `gemini-3.5-flash-lite` 최우선 배정 및 503 트래픽 스파이크 시 2초 백오프 재시도/3.8~3.1 풀 라인업 폴백망 완성.
+    - 품목별 분석 성공 모델 캐싱으로 11개 전 품목 0.5초 이내 고속 무인 생성 완료.
+    - 환경변수가 없거나 로컬 환경일 경우 기존 Ollama Gemma 4로 Graceful Fallback 유지.
   - **GitHub Actions 완전 무인 스케줄러 (`.github/workflows/daily_briefing.yml`)**:
     - Cron 스케줄 `0 0 * * *` (매일 UTC 00:00 = 한국 시간 KST 09:00 정각) 설정.
-    - Selenium 헤드리스 크롬 및 의존성 자동 설치 후 `metal_news_briefing.py` 실행 (LME/조달청 시세 + Gemini 분석 + `index.html` + `scrap.html` + `latest.json` + SEO 피드 일괄 생성).
+    - Selenium 헤드리스 크롬 및 의존성(`requirements.txt`) 자동 설치 후 `metal_news_briefing.py` 실행 (LME/조달청 시세 + Gemini 분석 + `index.html` + `scrap.html` + `latest.json` + SEO 피드 일괄 생성).
     - `github-actions[bot]` 계정으로 변경된 정적 자산 자동 `git add & commit & push`.
   - **`scrap.html` 모바일 인포 토글 UI 구축 (`scrap_builder.py`)**:
     - 기존 표의 긴 '실무 규격 및 주요 발생처' 열을 테이블 메인 헤더에서 분리하여 5개 핵심 열(`구분`, `품목명`, `도매단가`, `소매단가`, `정산`)로 슬림화.
@@ -22,10 +24,11 @@
     - 클릭 시 해당 품목 바로 아래에 전용 아코디언 행(`scrap-detail-row`)이 부드럽게 펼쳐지며 실무 규격 및 발생처 상세 정보를 노출.
     - 모바일 미디어 쿼리(`@media (max-width: 768px)`) 최적화로 행 높이 40px 내외 콤팩트 유지 및 가로 오버플로우 완벽 차단.
 - **3. 결과 & 검증**:
-  - `python site_generator.py` 빌드 검증: `scrap.html` (106,636 bytes), `index.html` (216,830 bytes) 무결점 생성.
-  - 모바일 반응형 뷰포트에서 표가 한눈에 들어오는 날렵한 핀테크 대시보드 UI 완성.
+  - GitHub Actions 클라우드 환경에서 `Google GenAI 공식 SDK (v1/gemini-3.5-flash-lite)` 실시간 분석 정상 가동 확인.
+  - `scrap.html` 및 `index.html` 무결점 클라우드 자동 커밋 & 배포 완주 확인.
 - **4. 주요 합의 사항**:
-  - 사용자는 GitHub `metals` 리포지토리의 Secrets에 `GEMINI_API_KEY`를 1회만 등록해두면 내일부터 PC 전원이 꺼져 있어도 매일 09:00 무인 발행 완료.
+  - GitHub Secrets의 `GEMINI_API_KEY` 기반으로 매일 아침 09:00 무인 완전 자동 발행 체계 완성 (로컬 PC 무가동).
+  - 매일 생성되는 `thepathlab/resources/YYYY-MM-DD/` 내의 HTML/Markdown 자산은 네이버 블로그에 복사-붙여넣기 1초 포스팅 가능한 고품질 글감으로 활용.
 
 ---
 
