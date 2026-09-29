@@ -50,6 +50,12 @@ try:
 except ImportError:
     HAS_REQUESTS = False
 
+try:
+    from google import genai
+    HAS_GENAI = True
+except ImportError:
+    HAS_GENAI = False
+
 # PIL 이미지 처리 라이브러리
 try:
     from PIL import Image
@@ -599,16 +605,35 @@ def discover_gemini_model() -> Optional[str]:
 
 
 def call_gemini_api(prompt: str) -> Tuple[Optional[str], Optional[str]]:
-    """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (requests 기반 & Header/Query 이중 지원)"""
+    """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (공식 google-genai SDK 최우선 & REST Fallback)"""
     if not GEMINI_API_KEY:
         return None, "GEMINI_API_KEY 미설정"
 
-    # 구글 API 서버에서 실시간 지원되는 유효한 모델 우선 탐색
+    last_err = ""
+
+    # 1. Google 공식 google-genai SDK 최우선 호출 (공식 SDK가 엔드포인트/모델 라우팅을 100% 자동 해결)
+    if HAS_GENAI:
+        for model_name in ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]:
+            try:
+                client = genai.Client(api_key=GEMINI_API_KEY)
+                resp = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                )
+                if resp and resp.text:
+                    print(f"    -> [성공] Google GenAI 공식 SDK ({model_name}) 분석 완료!", flush=True)
+                    return resp.text.strip(), None
+            except Exception as e:
+                safe_err = str(e).replace(GEMINI_API_KEY, "***")
+                last_err = f"SDK {model_name}: {safe_err[:150]}"
+                print(f"    -> [주의] GenAI SDK ({model_name}) {last_err}", flush=True)
+
+    # 2. REST API 직접 호출 (Fallback)
     discovered = discover_gemini_model()
     models_to_try = []
     if discovered:
         models_to_try.append(discovered)
-    for m in [GEMINI_MODEL, "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
+    for m in [GEMINI_MODEL, "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]:
         if m not in models_to_try:
             models_to_try.append(m)
 
