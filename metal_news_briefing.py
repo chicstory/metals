@@ -75,7 +75,9 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 RESOURCES_DIR = os.path.join(SCRIPT_DIR, "resources")
 os.makedirs(RESOURCES_DIR, exist_ok=True)
 
-# Ollama 설정
+# AI 분석 설정 (Gemini API 우선, 로컬 실행 시 Ollama Gemma 4 자동 Fallback)
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash").strip()
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
 DEFAULT_MODEL = "gemma4:12b-it-qat"
 
@@ -125,6 +127,32 @@ TARGET_METALS = {
         "keywords": ["aluminum", "aluminium", "bauxite", "alumina", "aluminum smelter", "aluminum price"],
         "primary_query": '(aluminum OR aluminium OR bauxite OR alumina)',
         "broad_query": '(aluminum OR aluminium) (price OR market OR smelter)',
+    },
+    "zinc": {
+        "name_kr": "아연",
+        "name_en": "Zinc",
+        "emoji": "🛡️",
+        "te_slug": "zinc",
+        "category": "metal",           # USD/T -> 원/kg
+        "type_label": "비철금속",
+        "unit_raw": "USD/T",
+        "unit_krw": "원/kg",
+        "keywords": ["zinc", "zinc price", "zinc smelter", "lme zinc", "galvanizing", "zamak", "korea zinc", "고려아연"],
+        "primary_query": '(zinc OR "lme zinc" OR "zinc price" OR "korea zinc" OR "zinc smelter")',
+        "broad_query": 'zinc metal (market OR price)',
+    },
+    "tin": {
+        "name_kr": "주석",
+        "name_en": "Tin",
+        "emoji": "🥫",
+        "te_slug": "tin",
+        "category": "metal",           # USD/T -> 원/kg
+        "type_label": "비철금속",
+        "unit_raw": "USD/T",
+        "unit_krw": "원/kg",
+        "keywords": ["tin", "tin price", "tin smelter", "lme tin", "solder", "indonesia tin", "refined tin"],
+        "primary_query": '(tin OR "lme tin" OR "tin price" OR "solder" OR "tin smelter")',
+        "broad_query": 'tin metal (market OR price)',
     },
     "lead": {
         "name_kr": "납",
@@ -519,8 +547,46 @@ def collect_metal_news(days: int = 2) -> Dict[str, List[Dict[str, Any]]]:
     return classified
 
 
-def call_gemma_analysis(metal_name: str, articles: List[Dict[str, Any]]) -> str:
-    """로컬 Gemma 4 (Ollama)를 호출하여 기사 요약 및 향후 시장 여파 분석 코멘트 생성"""
+def call_gemini_api(prompt: str) -> Optional[str]:
+    """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (urllib 기반 경량 호출)"""
+    if not GEMINI_API_KEY:
+        return None
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
+    payload = {
+        "contents": [
+            {
+                "parts": [
+                    {"text": prompt}
+                ]
+            }
+        ],
+        "generationConfig": {
+            "temperature": 0.3,
+            "maxOutputTokens": 1000
+        }
+    }
+
+    try:
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            res_data = json.loads(resp.read().decode("utf-8"))
+            candidates = res_data.get("candidates", [])
+            if candidates and "content" in candidates[0]:
+                parts = candidates[0]["content"].get("parts", [])
+                if parts and "text" in parts[0]:
+                    return parts[0]["text"].strip()
+    except Exception as e:
+        print(f"    -> [주의] Gemini API 호출 오류 ({e}), Ollama Fallback 시도...", flush=True)
+    return None
+
+
+def call_ai_analysis(metal_name: str, articles: List[Dict[str, Any]]) -> str:
+    """AI를 호출하여 기사 요약 및 향후 시장 여파 분석 코멘트 생성 (Gemini API ➔ 로컬 Gemma 4 Ollama 자동 Fallback)"""
     if not articles:
         return (
             "**1. 이슈 판정**: **[특이 이슈 없음]**\n\n"
@@ -554,6 +620,13 @@ def call_gemma_analysis(metal_name: str, articles: List[Dict[str, Any]]) -> str:
    - **자동차 부품 및 스크랩 유통 영향**: (국내 고철/비철 유통 단가, 폐차 부품 매입·매매가, 재생/재활용 시장에 미칠 실무적 파급 효과)
 """
 
+    # 1. Google Gemini API 우선 시도 (클라우드 GitHub Actions 및 빠른 실행)
+    if GEMINI_API_KEY:
+        gemini_result = call_gemini_api(prompt)
+        if gemini_result:
+            return gemini_result
+
+    # 2. 로컬 Ollama Gemma 4 실행 (로컬 PC 전용 Fallback)
     payload = {
         "model": DEFAULT_MODEL,
         "prompt": prompt,
@@ -573,7 +646,11 @@ def call_gemma_analysis(metal_name: str, articles: List[Dict[str, Any]]) -> str:
             result = json.loads(resp.read().decode("utf-8"))
             return result.get("response", "").strip()
     except Exception as e:
-        return f"[오류] 로컬 Gemma 4 모델 호출 실패 ({e})\n(Ollama가 켜져 있는지 확인해 주세요.)"
+        return f"[오류] AI 분석 모델 호출 실패 ({e})\n(GEMINI_API_KEY 환경변수 등록 또는 로컬 Ollama 상태를 확인해 주세요.)"
+
+
+# 기존 코드 호환용 alias
+call_gemma_analysis = call_ai_analysis
 
 
 def markdown_to_html_simple(md_text: str) -> str:
@@ -1146,7 +1223,8 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
     print(f"  - 저장 폴더: thepathlab/resources/{today_str}/", flush=True)
     print(f"  - 기준 일시: {now_kst} (최근 {days}일 이내 기사)", flush=True)
     print(f"  - 적용 환율: 1 USD = {usd_krw_rate:,.1f}원 ({exchange_source})", flush=True)
-    print(f"  - AI 분석  : {DEFAULT_MODEL} (Local Ollama)", flush=True)
+    ai_engine_disp = f"Google Gemini Flash ({GEMINI_MODEL})" if GEMINI_API_KEY else f"{DEFAULT_MODEL} (Local Ollama)"
+    print(f"  - AI 분석  : {ai_engine_disp}", flush=True)
     print(f"  - 차트 소스: Trading Economics (1년 종가)", flush=True)
     print(f"  - 국내 가격: 조달청(PPS) 비축물자 누리집", flush=True)
     print(f"  - 산출 방식: 네이버 블로그 복사용 HTML 대시보드 + 마크다운 + CSV 저장", flush=True)
@@ -1177,7 +1255,9 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
         prev_dates.sort(reverse=True)
         if prev_dates:
             prev_d = prev_dates[0]
-            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"9대자원_환산시세_{prev_d}.csv")
+            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"11대자원_환산시세_{prev_d}.csv")
+            if not os.path.exists(prev_csv_file):
+                prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"9대자원_환산시세_{prev_d}.csv")
             if not os.path.exists(prev_csv_file):
                 prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
             if os.path.exists(prev_csv_file):
@@ -1368,26 +1448,28 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
         except Exception:
             pass
 
-    # 6. CSV 파일 저장: 9대자원_환산시세_YYYY-MM-DD.csv
-    csv_filename = f"9대자원_환산시세_{today_str}.csv"
+    # 6. CSV 파일 저장: 11대자원_환산시세_YYYY-MM-DD.csv (및 9대자원 호환 저장)
+    csv_filename = f"11대자원_환산시세_{today_str}.csv"
     csv_path = os.path.join(date_folder, csv_filename)
+    csv_legacy_path = os.path.join(date_folder, f"9대자원_환산시세_{today_str}.csv")
     try:
-        with open(csv_path, "w", encoding="utf-8-sig", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                "날짜", "구분", "자원명", "영문명", "국제종가", "국제단위",
-                "적용환율(원/달러)", "환율출처", "환산단위", "원화시장단가(원)",
-                "스크랩추정_70%(원)", "스크랩추정_80%(원)"
-            ])
-            for r in csv_rows:
-                writer.writerow(r)
-        print(f"    -> [CSV 완료] 시세 환산 데이터 저장: {csv_filename}", flush=True)
+        for p in [csv_path, csv_legacy_path]:
+            with open(p, "w", encoding="utf-8-sig", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow([
+                    "날짜", "구분", "자원명", "영문명", "국제종가", "국제단위",
+                    "적용환율(원/달러)", "환율출처", "환산단위", "원화시장단가(원)",
+                    "스크랩추정_70%(원)", "스크랩추정_80%(원)"
+                ])
+                for r in csv_rows:
+                    writer.writerow(r)
+        print(f"    -> [CSV 완료] 11대 금속 시세 환산 데이터 저장: {csv_filename}", flush=True)
     except Exception as e:
         print(f"[경고] CSV 저장 실패: {e}", file=sys.stderr, flush=True)
 
     # 7. 단일 통합 브리핑 마크다운 파일 조립
     doc_lines = [
-        f"# 📊 9대 금속·원자재 일일 통합 브리핑 ({today_str})",
+        f"# 📊 11대 금속·원자재 일일 통합 브리핑 ({today_str})",
         f"",
         f"> **발행일시**: {today_str} ({now_kst})  ",
         f"> **문서 목적**: 블로그 포스팅 작성 참고용 원자재 시황·뉴스 요약 & 여파 분석 리포트  ",
@@ -1412,7 +1494,7 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
 
     # 💰 원화 환산 시장가 및 스크랩 매입 추정가 테이블 (복사용)
     doc_lines.extend([
-        f"## 💰 9대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가 (복사용)",
+        f"## 💰 11대 금속·원자재 원화 환산 시장가 및 스크랩 매입 추정가 (복사용)",
         f"",
         f"> **적용 환율**: **1 USD = {usd_krw_rate:,.1f}원** (출처: {exchange_source})  ",
         f"> **환산 기준 안내**:  ",

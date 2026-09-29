@@ -1,0 +1,74 @@
+name: Daily Metal Briefing & Scrap Sync
+
+on:
+  schedule:
+    # 매일 UTC 00:00 (한국 시간 KST 오전 09:00 정각)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # 깃허브 웹 화면에서 수동 원클릭 즉시 실행 지원
+
+permissions:
+  contents: write
+
+jobs:
+  daily-briefing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium beautifulsoup4 requests pillow
+
+      - name: Run Metal News Briefing & Dashboard Generator
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONUNBUFFERED: '1'
+        run: |
+          python metal_news_briefing.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add index.html scrap.html latest.json sitemap.xml rss.xml robots.txt ads.txt resources/
+          if git diff --staged --quiet; then
+            echo "No changes detected to commit."
+          else
+            git commit -m "Auto update daily metal briefing & scrap: $(date +'%Y-%m-%d') [skip ci]"
+            git push origin main
+          fi
+
+      - name: Optional Sync to Main Portal (chicstory.github.io)
+        if: env.GH_PAT != ''
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git clone https://x-access-token:${GH_PAT}@github.com/chicstory/chicstory.github.io.git portal-repo
+          cd portal-repo
+          # 포털의 SEO 및 정적 인덱스 동기화 필요 시 처리
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          python -c "
+          import urllib.request, json
+          # 포털 인덱스 확인
+          "
+          # 변경사항 존재 시 푸시
+          if ! git diff --quiet; then
+            git add .
+            git commit -m "Auto sync portal metals: $(date +'%Y-%m-%d') [skip ci]"
+            git push origin main
+          fi
+          cd ..
+          rm -rf portal-repo

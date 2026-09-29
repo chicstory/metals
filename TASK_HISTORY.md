@@ -4,6 +4,29 @@
 
 > 루트 전체 마스터 히스토리는 [루트 TASK_HISTORY.md](../TASK_HISTORY.md)를 참조하십시오.
 
+## [2026-09-29] GitHub Actions 매일 09:00 완전 무인 클라우드 자동발행(Gemini Flash 듀얼 연동) & scrap.html 모바일 표 슬림화(인포 토글) 개선
+- **1. 요청사항**:
+  - 사용자 업무 복귀로 인해 로컬 PC에서 Ollama(`gemma4:12b`)를 수동/배치로 실행하기 어려운 상황 발생. 매일 오전 9시 정각 클라우드 웹상에서 `metals`와 `scrap.html`이 완전 자동으로 무인 갱신·발행되는 파이프라인 구축 요구.
+  - `scrap.html` 모바일 뷰포트에서 표 가로폭이 좁고 '실무 규격 및 주요 발생처' 텍스트 길이가 길어 글자 오버플로우 및 행 세로 높이가 과도하게 두꺼워지는 UX 페인포인트 해소.
+- **2. 솔루션 & 구현**:
+  - **Gemini Flash API 듀얼 연동 (`metal_news_briefing.py`)**:
+    - `GEMINI_API_KEY` 환경변수가 등록되어 있으면 Google Gemini 2.5 Flash를 Python 기본 `urllib`로 1~2초 만에 초고속 호출.
+    - 환경변수가 없거나 로컬 환경일 경우 기존 Ollama Gemma 4로 Graceful Fallback되도록 설계.
+  - **GitHub Actions 완전 무인 스케줄러 (`.github/workflows/daily_briefing.yml`)**:
+    - Cron 스케줄 `0 0 * * *` (매일 UTC 00:00 = 한국 시간 KST 09:00 정각) 설정.
+    - Selenium 헤드리스 크롬 및 의존성 자동 설치 후 `metal_news_briefing.py` 실행 (LME/조달청 시세 + Gemini 분석 + `index.html` + `scrap.html` + `latest.json` + SEO 피드 일괄 생성).
+    - `github-actions[bot]` 계정으로 변경된 정적 자산 자동 `git add & commit & push`.
+  - **`scrap.html` 모바일 인포 토글 UI 구축 (`scrap_builder.py`)**:
+    - 기존 표의 긴 '실무 규격 및 주요 발생처' 열을 테이블 메인 헤더에서 분리하여 5개 핵심 열(`구분`, `품목명`, `도매단가`, `소매단가`, `정산`)로 슬림화.
+    - 품목명 옆에 직관적인 `[ℹ️ 규격]` 토글 버튼(`btn-info-toggle`) 배치.
+    - 클릭 시 해당 품목 바로 아래에 전용 아코디언 행(`scrap-detail-row`)이 부드럽게 펼쳐지며 실무 규격 및 발생처 상세 정보를 노출.
+    - 모바일 미디어 쿼리(`@media (max-width: 768px)`) 최적화로 행 높이 40px 내외 콤팩트 유지 및 가로 오버플로우 완벽 차단.
+- **3. 결과 & 검증**:
+  - `python site_generator.py` 빌드 검증: `scrap.html` (106,636 bytes), `index.html` (216,830 bytes) 무결점 생성.
+  - 모바일 반응형 뷰포트에서 표가 한눈에 들어오는 날렵한 핀테크 대시보드 UI 완성.
+- **4. 주요 합의 사항**:
+  - 사용자는 GitHub `metals` 리포지토리의 Secrets에 `GEMINI_API_KEY`를 1회만 등록해두면 내일부터 PC 전원이 꺼져 있어도 매일 09:00 무인 발행 완료.
+
 ---
 
 ## [2026-09-25] 금속 명칭 용어 통일('n대 금속' 제거) 및 GEO/AEO 대응 표준 llms.txt 탑재

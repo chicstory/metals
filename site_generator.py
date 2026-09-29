@@ -31,20 +31,29 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
     if not os.path.exists(date_folder):
         return None
 
-    csv_filename = f"9대자원_환산시세_{date_str}.csv"
+    csv_filename = f"11대자원_환산시세_{date_str}.csv"
     csv_path = os.path.join(date_folder, csv_filename)
+    if not os.path.exists(csv_path):
+        csv_filename = f"9대자원_환산시세_{date_str}.csv"
+        csv_path = os.path.join(date_folder, csv_filename)
     if not os.path.exists(csv_path):
         csv_filename = f"7대자원_환산시세_{date_str}.csv"
         csv_path = os.path.join(date_folder, csv_filename)
 
-    md_filename = f"[통합브리핑] 9대_금속원자재_{date_str}.md"
+    md_filename = f"[통합브리핑] 11대_금속원자재_{date_str}.md"
     md_path = os.path.join(date_folder, md_filename)
+    if not os.path.exists(md_path):
+        md_filename = f"[통합브리핑] 9대_금속원자재_{date_str}.md"
+        md_path = os.path.join(date_folder, md_filename)
     if not os.path.exists(md_path):
         md_filename = f"[통합브리핑] 7대_금속원자재_{date_str}.md"
         md_path = os.path.join(date_folder, md_filename)
 
-    html_filename = f"[통합브리핑] 9대_금속원자재_{date_str}.html"
+    html_filename = f"[통합브리핑] 11대_금속원자재_{date_str}.html"
     html_path = os.path.join(date_folder, html_filename)
+    if not os.path.exists(html_path):
+        html_filename = f"[통합브리핑] 9대_금속원자재_{date_str}.html"
+        html_path = os.path.join(date_folder, html_filename)
     if not os.path.exists(html_path):
         html_filename = f"[통합브리핑] 7대_금속원자재_{date_str}.html"
         html_path = os.path.join(date_folder, html_filename)
@@ -72,17 +81,19 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         with open(md_path, "r", encoding="utf-8") as f:
             md_content = f.read()
 
-    # 옵션 2: 산업금속 ➡️ 귀금속 순서
+    # 옵션 2: 산업금속 ➡️ 귀금속 순서 (11대 금속)
     METALS_META = [
         {"key": "copper", "idx": 1, "name_kr": "구리", "name_en": "Copper", "emoji": "🥉", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
         {"key": "iron_scrap", "idx": 2, "name_kr": "철·철스크랩", "name_en": "Steel Scrap", "emoji": "🏗️", "cat": "steel", "type_label": "철·스크랩", "unit_krw": "원/kg"},
         {"key": "aluminum", "idx": 3, "name_kr": "알루미늄", "name_en": "Aluminum", "emoji": "🥫", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
-        {"key": "lead", "idx": 4, "name_kr": "납", "name_en": "Lead", "emoji": "🔋", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
-        {"key": "gold", "idx": 5, "name_kr": "금", "name_en": "Gold", "emoji": "🥇", "cat": "precious", "type_label": "귀금속", "unit_krw": "원/g"},
-        {"key": "silver", "idx": 6, "name_kr": "은", "name_en": "Silver", "emoji": "🥈", "cat": "precious", "type_label": "귀금속", "unit_krw": "원/g"},
-        {"key": "platinum", "idx": 7, "name_kr": "백금", "name_en": "Platinum", "emoji": "💍", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
-        {"key": "palladium", "idx": 8, "name_kr": "팔라듐", "name_en": "Palladium", "emoji": "🚗", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
-        {"key": "rhodium", "idx": 9, "name_kr": "로듐", "name_en": "Rhodium", "emoji": "💎", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
+        {"key": "zinc", "idx": 4, "name_kr": "아연", "name_en": "Zinc", "emoji": "🛡️", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
+        {"key": "tin", "idx": 5, "name_kr": "주석", "name_en": "Tin", "emoji": "🥫", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
+        {"key": "lead", "idx": 6, "name_kr": "납", "name_en": "Lead", "emoji": "🔋", "cat": "nonferrous", "type_label": "비철금속", "unit_krw": "원/kg"},
+        {"key": "gold", "idx": 7, "name_kr": "금", "name_en": "Gold", "emoji": "🥇", "cat": "precious", "type_label": "귀금속", "unit_krw": "원/g"},
+        {"key": "silver", "idx": 8, "name_kr": "은", "name_en": "Silver", "emoji": "🥈", "cat": "precious", "type_label": "귀금속", "unit_krw": "원/g"},
+        {"key": "platinum", "idx": 9, "name_kr": "백금", "name_en": "Platinum", "emoji": "💍", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
+        {"key": "palladium", "idx": 10, "name_kr": "팔라듐", "name_en": "Palladium", "emoji": "🚗", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
+        {"key": "rhodium", "idx": 11, "name_kr": "로듐", "name_en": "Rhodium", "emoji": "💎", "cat": "pgm", "type_label": "PGM (백금족)", "unit_krw": "원/g"},
     ]
 
     # 전일 CSV 로드 (전일대비 가격 변화량 및 환율 변동 동시 반영용)
@@ -92,7 +103,9 @@ def load_date_data(date_str: str) -> Optional[Dict[str, Any]]:
         c_idx = all_archived.index(date_str)
         if c_idx + 1 < len(all_archived):
             prev_d = all_archived[c_idx + 1]
-            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"9대자원_환산시세_{prev_d}.csv")
+            prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"11대자원_환산시세_{prev_d}.csv")
+            if not os.path.exists(prev_csv_file):
+                prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"9대자원_환산시세_{prev_d}.csv")
             if not os.path.exists(prev_csv_file):
                 prev_csv_file = os.path.join(RESOURCES_DIR, prev_d, f"7대자원_환산시세_{prev_d}.csv")
             if os.path.exists(prev_csv_file):
@@ -415,7 +428,9 @@ def build_website_index() -> str:
     # 3. 아카이브 데이터 구조화 (캘린더 및 스크롤 박스용 - 팔라듐 대신 금 표시)
     archived_data_list = []
     for d in archived_dates:
-        c_path = os.path.join(RESOURCES_DIR, d, f"9대자원_환산시세_{d}.csv")
+        c_path = os.path.join(RESOURCES_DIR, d, f"11대자원_환산시세_{d}.csv")
+        if not os.path.exists(c_path):
+            c_path = os.path.join(RESOURCES_DIR, d, f"9대자원_환산시세_{d}.csv")
         if not os.path.exists(c_path):
             c_path = os.path.join(RESOURCES_DIR, d, f"7대자원_환산시세_{d}.csv")
         rate_val = 1344.4
@@ -453,10 +468,14 @@ def build_website_index() -> str:
                                 rh_raw = val
                             except Exception:
                                 pass
-        report_filename = f"[통합브리핑] 9대_금속원자재_{d}.html"
+        report_filename = f"[통합브리핑] 11대_금속원자재_{d}.html"
+        if not os.path.exists(os.path.join(RESOURCES_DIR, d, report_filename)):
+            report_filename = f"[통합브리핑] 9대_금속원자재_{d}.html"
         if not os.path.exists(os.path.join(RESOURCES_DIR, d, report_filename)):
             report_filename = f"[통합브리핑] 7대_금속원자재_{d}.html"
-        csv_filename = f"9대자원_환산시세_{d}.csv"
+        csv_filename = f"11대자원_환산시세_{d}.csv"
+        if not os.path.exists(os.path.join(RESOURCES_DIR, d, csv_filename)):
+            csv_filename = f"9대자원_환산시세_{d}.csv"
         if not os.path.exists(os.path.join(RESOURCES_DIR, d, csv_filename)):
             csv_filename = f"7대자원_환산시세_{d}.csv"
 

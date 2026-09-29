@@ -323,7 +323,7 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         except Exception as e:
             print(f"[scrap_builder] 검증기 호출 중 경고: {e}")
 
-    # 테이블 행 렌더링 (도매 기본 active, 소매 dimmed)
+    # 테이블 행 렌더링 (도매 기본 active, 소매 dimmed, 인포 토글 아코디언 탑재)
     table_rows_html = ""
     for it in scrap_market["all_items"]:
         table_rows_html += f"""
@@ -332,11 +332,13 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
                 <span class="badge badge-{it['cat']}">{it['cat_label']}</span>
             </td>
             <td class="col-name">
-                <div class="name-main">{it['name']}</div>
+                <div class="name-header-row">
+                    <span class="name-main">{it['name']}</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('{it['id']}')" title="실무규격 및 주요 발생처 보기" aria-label="{it['name']} 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">{it['name_sub']}</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">{it['desc']}</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 {it['wholesale_price']:,} <span class="unit">원/kg</span>
@@ -348,6 +350,20 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
                 <button type="button" class="btn-calc-pick" onclick="pickScrapItem('{it['id']}')">
                     🧮 계산
                 </button>
+            </td>
+        </tr>
+        <tr class="scrap-detail-row" id="detail-{it['id']}" style="display: none;" data-cat="{it['cat']}">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-{it['cat']}">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">{it['desc']}</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('{it['id']}')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
             </td>
         </tr>
         """
@@ -864,16 +880,85 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         .badge-zinc {{ background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }}
         .badge-tin {{ background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }}
 
-        .name-main {{ font-weight: 800; color: #fff; font-size: 15px; margin-bottom: 2px; }}
+        .name-header-row {{
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;
+        }}
+        .name-main {{ font-weight: 800; color: #fff; font-size: 15px; }}
         .name-sub {{ font-size: 12px; color: var(--text-muted); }}
-        .text-desc {{ font-size: 13px; color: #cbd5e1; }}
+
+        /* Info Toggle Button */
+        .btn-info-toggle {{
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;
+            background: rgba(56, 189, 248, 0.12); color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3); cursor: pointer;
+            transition: all 0.15s ease; min-height: 24px; vertical-align: middle;
+        }}
+        .btn-info-toggle:hover {{
+            background: rgba(56, 189, 248, 0.25); color: #fff; border-color: #38bdf8;
+        }}
+        .btn-info-toggle.active {{
+            background: #38bdf8; color: #0f172a; border-color: #38bdf8;
+        }}
+
+        /* Collapsible Detail Row */
+        .scrap-detail-row {{
+            background: rgba(15, 23, 42, 0.45);
+        }}
+        .scrap-detail-td {{
+            padding: 4px 16px 14px 16px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }}
+        .scrap-detail-box {{
+            background: rgba(30, 41, 59, 0.85); border-radius: 10px; padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: flex-start; gap: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            animation: fadeInDetail 0.2s ease-out;
+        }}
+        @keyframes fadeInDetail {{
+            from {{ opacity: 0; transform: translateY(-4px); }}
+            to {{ opacity: 1; transform: translateY(0); }}
+        }}
+        .scrap-detail-icon {{
+            color: #38bdf8; font-size: 16px; margin-top: 1px; flex-shrink: 0;
+        }}
+        .scrap-detail-text {{
+            flex: 1; min-width: 0;
+        }}
+        .scrap-detail-title {{
+            display: block; font-size: 12px; color: #94a3b8; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px;
+        }}
+        .scrap-detail-desc {{
+            font-size: 13.5px; color: #f1f5f9; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere;
+        }}
+        .btn-detail-close {{
+            background: none; border: none; color: #94a3b8; cursor: pointer;
+            padding: 4px 6px; border-radius: 6px; font-size: 14px;
+            transition: color 0.15s ease, background 0.15s ease;
+        }}
+        .btn-detail-close:hover {{
+            background: rgba(255, 255, 255, 0.1); color: #fff;
+        }}
+
+        /* Category accent borders for detail box */
+        .badge-border-steel {{ border-left: 3px solid #60a5fa !important; }}
+        .badge-border-copper {{ border-left: 3px solid #fbbf24 !important; }}
+        .badge-border-brass {{ border-left: 3px solid #facc15 !important; }}
+        .badge-border-sus {{ border-left: 3px solid #cbd5e1 !important; }}
+        .badge-border-aluminum {{ border-left: 3px solid #34d399 !important; }}
+        .badge-border-zinc {{ border-left: 3px solid #38bdf8 !important; }}
+        .badge-border-tin {{ border-left: 3px solid #c084fc !important; }}
+
         .font-mono {{ font-family: "JetBrains Mono", monospace; }}
         .col-price {{ font-size: 16px; white-space: nowrap; }}
         .unit {{ font-size: 12px; font-weight: 400; color: var(--text-sub); }}
         .btn-calc-pick {{
-            padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+            padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
             background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.35);
-            color: #93c5fd; cursor: pointer; transition: 0.2s;
+            color: #93c5fd; cursor: pointer; transition: 0.2s; white-space: nowrap;
+            min-height: 32px;
         }}
         .btn-calc-pick:hover {{ background: var(--primary); color: #fff; }}
 
@@ -944,7 +1029,18 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         @media (max-width: 768px) {{
             .calc-grid-layout {{ grid-template-columns: 1fr; }}
             .hero-title {{ font-size: 24px; }}
-            .scrap-table th:nth-child(3), .scrap-table td:nth-child(3) {{ display: none; }}
+            .scrap-table th {{ padding: 10px 8px; font-size: 11.5px; }}
+            .scrap-table td {{ padding: 10px 8px; font-size: 13px; }}
+            .col-badge {{ width: 68px; padding-left: 8px !important; }}
+            .badge {{ font-size: 10.5px; padding: 3px 6px; }}
+            .name-main {{ font-size: 13.5px; }}
+            .name-sub {{ font-size: 11px; }}
+            .btn-info-toggle {{ font-size: 10px; padding: 2px 5px; min-height: 20px; }}
+            .col-price {{ font-size: 14px; }}
+            .btn-calc-pick {{ padding: 4px 8px; font-size: 11px; min-height: 28px; }}
+            .scrap-detail-td {{ padding: 4px 8px 12px 8px !important; }}
+            .scrap-detail-box {{ padding: 10px 12px; gap: 8px; font-size: 12px; }}
+            .scrap-detail-desc {{ font-size: 12.5px; }}
         }}
 
         .field-group {{ margin-bottom: 16px; }}
@@ -1374,7 +1470,6 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
                         <tr>
                             <th>구분</th>
                             <th>품목명 (등급)</th>
-                            <th>실무 규격 및 주요 발생처</th>
                             <th class="col-th-wholesale active-column">도매 단가 (1톤↑) <span class="badge-mode-active" id="th-badge-wholesale">✓ 선택</span></th>
                             <th class="col-th-retail dimmed-column">소매 단가 (고물상) <span class="badge-mode-active" id="th-badge-retail" style="display:none;">✓ 선택</span></th>
                             <th class="col-action">정산</th>
@@ -1519,6 +1614,24 @@ def build_scrap_landing_page(latest_date: str, data: Dict[str, Any], scrap_marke
         function tplChangeLang(lang) {{
             if (lang === 'ko') return;
             alert(lang.toUpperCase() + ' 다국어 모드는 포털 홈(https://chicstory.github.io/) 및 엔진 백과에서 지원 중입니다.');
+        }}
+
+        function toggleScrapInfo(id) {{
+            const detailRow = document.getElementById('detail-' + id);
+            if (!detailRow) return;
+            const isHidden = (detailRow.style.display === 'none' || !detailRow.style.display);
+            detailRow.style.display = isHidden ? 'table-row' : 'none';
+
+            const btn = document.querySelector(`tr[data-id="${{id}}"] .btn-info-toggle`);
+            if (btn) {{
+                if (isHidden) {{
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="bi-info-circle-fill"></i> 닫기';
+                }} else {{
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="bi-info-circle"></i> 규격';
+                }}
+            }}
         }}
 
         function initScrapPage() {{

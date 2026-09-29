@@ -500,16 +500,85 @@
         .badge-zinc { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
         .badge-tin { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
 
-        .name-main { font-weight: 800; color: #fff; font-size: 15px; margin-bottom: 2px; }
+        .name-header-row {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px;
+        }
+        .name-main { font-weight: 800; color: #fff; font-size: 15px; }
         .name-sub { font-size: 12px; color: var(--text-muted); }
-        .text-desc { font-size: 13px; color: #cbd5e1; }
+
+        /* Info Toggle Button */
+        .btn-info-toggle {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;
+            background: rgba(56, 189, 248, 0.12); color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3); cursor: pointer;
+            transition: all 0.15s ease; min-height: 24px; vertical-align: middle;
+        }
+        .btn-info-toggle:hover {
+            background: rgba(56, 189, 248, 0.25); color: #fff; border-color: #38bdf8;
+        }
+        .btn-info-toggle.active {
+            background: #38bdf8; color: #0f172a; border-color: #38bdf8;
+        }
+
+        /* Collapsible Detail Row */
+        .scrap-detail-row {
+            background: rgba(15, 23, 42, 0.45);
+        }
+        .scrap-detail-td {
+            padding: 4px 16px 14px 16px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .scrap-detail-box {
+            background: rgba(30, 41, 59, 0.85); border-radius: 10px; padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: flex-start; gap: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            animation: fadeInDetail 0.2s ease-out;
+        }
+        @keyframes fadeInDetail {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .scrap-detail-icon {
+            color: #38bdf8; font-size: 16px; margin-top: 1px; flex-shrink: 0;
+        }
+        .scrap-detail-text {
+            flex: 1; min-width: 0;
+        }
+        .scrap-detail-title {
+            display: block; font-size: 12px; color: #94a3b8; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px;
+        }
+        .scrap-detail-desc {
+            font-size: 13.5px; color: #f1f5f9; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere;
+        }
+        .btn-detail-close {
+            background: none; border: none; color: #94a3b8; cursor: pointer;
+            padding: 4px 6px; border-radius: 6px; font-size: 14px;
+            transition: color 0.15s ease, background 0.15s ease;
+        }
+        .btn-detail-close:hover {
+            background: rgba(255, 255, 255, 0.1); color: #fff;
+        }
+
+        /* Category accent borders for detail box */
+        .badge-border-steel { border-left: 3px solid #60a5fa !important; }
+        .badge-border-copper { border-left: 3px solid #fbbf24 !important; }
+        .badge-border-brass { border-left: 3px solid #facc15 !important; }
+        .badge-border-sus { border-left: 3px solid #cbd5e1 !important; }
+        .badge-border-aluminum { border-left: 3px solid #34d399 !important; }
+        .badge-border-zinc { border-left: 3px solid #38bdf8 !important; }
+        .badge-border-tin { border-left: 3px solid #c084fc !important; }
+
         .font-mono { font-family: "JetBrains Mono", monospace; }
         .col-price { font-size: 16px; white-space: nowrap; }
         .unit { font-size: 12px; font-weight: 400; color: var(--text-sub); }
         .btn-calc-pick {
-            padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+            padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
             background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.35);
-            color: #93c5fd; cursor: pointer; transition: 0.2s;
+            color: #93c5fd; cursor: pointer; transition: 0.2s; white-space: nowrap;
+            min-height: 32px;
         }
         .btn-calc-pick:hover { background: var(--primary); color: #fff; }
 
@@ -580,7 +649,18 @@
         @media (max-width: 768px) {
             .calc-grid-layout { grid-template-columns: 1fr; }
             .hero-title { font-size: 24px; }
-            .scrap-table th:nth-child(3), .scrap-table td:nth-child(3) { display: none; }
+            .scrap-table th { padding: 10px 8px; font-size: 11.5px; }
+            .scrap-table td { padding: 10px 8px; font-size: 13px; }
+            .col-badge { width: 68px; padding-left: 8px !important; }
+            .badge { font-size: 10.5px; padding: 3px 6px; }
+            .name-main { font-size: 13.5px; }
+            .name-sub { font-size: 11px; }
+            .btn-info-toggle { font-size: 10px; padding: 2px 5px; min-height: 20px; }
+            .col-price { font-size: 14px; }
+            .btn-calc-pick { padding: 4px 8px; font-size: 11px; min-height: 28px; }
+            .scrap-detail-td { padding: 4px 8px 12px 8px !important; }
+            .scrap-detail-box { padding: 10px 12px; gap: 8px; font-size: 12px; }
+            .scrap-detail-desc { font-size: 12.5px; }
         }
 
         .field-group { margin-bottom: 16px; }
@@ -1010,7 +1090,6 @@
                         <tr>
                             <th>구분</th>
                             <th>품목명 (등급)</th>
-                            <th>실무 규격 및 주요 발생처</th>
                             <th class="col-th-wholesale active-column">도매 단가 (1톤↑) <span class="badge-mode-active" id="th-badge-wholesale">✓ 선택</span></th>
                             <th class="col-th-retail dimmed-column">소매 단가 (고물상) <span class="badge-mode-active" id="th-badge-retail" style="display:none;">✓ 선택</span></th>
                             <th class="col-action">정산</th>
@@ -1023,11 +1102,13 @@
                 <span class="badge badge-steel">철스크랩</span>
             </td>
             <td class="col-name">
-                <div class="name-main">생철 A</div>
+                <div class="name-header-row">
+                    <span class="name-main">생철 A</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('steel_prime')" title="실무규격 및 주요 발생처 보기" aria-label="생철 A 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">신품 강판 압연 부스러기</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">자동차·가전공장 프레스 신품 강판 (순도 99%↑, 불순물 제로 최상급)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 444 <span class="unit">원/kg</span>
@@ -1041,17 +1122,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-steel_prime" style="display: none;" data-cat="steel">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-steel">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">자동차·가전공장 프레스 신품 강판 (순도 99%↑, 불순물 제로 최상급)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_prime')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="steel" data-id="steel_heavy_a">
             <td class="col-badge">
                 <span class="badge badge-steel">철스크랩</span>
             </td>
             <td class="col-name">
-                <div class="name-main">중량 A</div>
+                <div class="name-header-row">
+                    <span class="name-main">중량 A</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('steel_heavy_a')" title="실무규격 및 주요 발생처 보기" aria-label="중량 A 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">두께 6mm 이상 대형 철골</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">두께 6mm 이상 H빔, 형강, 철골, 강관, 레일, 중장비 프레임</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 398 <span class="unit">원/kg</span>
@@ -1065,17 +1162,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-steel_heavy_a" style="display: none;" data-cat="steel">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-steel">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">두께 6mm 이상 H빔, 형강, 철골, 강관, 레일, 중장비 프레임</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_heavy_a')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="steel" data-id="steel_heavy_b">
             <td class="col-badge">
                 <span class="badge badge-steel">철스크랩</span>
             </td>
             <td class="col-name">
-                <div class="name-main">중량 B</div>
+                <div class="name-header-row">
+                    <span class="name-main">중량 B</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('steel_heavy_b')" title="실무규격 및 주요 발생처 보기" aria-label="중량 B 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">두께 3~6mm 기계류·샤시</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">두께 3~6mm 기계 부품, 농기계, 자동차 하체 샤시, 배관 파이프</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 367 <span class="unit">원/kg</span>
@@ -1089,17 +1202,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-steel_heavy_b" style="display: none;" data-cat="steel">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-steel">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">두께 3~6mm 기계 부품, 농기계, 자동차 하체 샤시, 배관 파이프</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_heavy_b')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="steel" data-id="steel_light_a">
             <td class="col-badge">
                 <span class="badge badge-steel">철스크랩</span>
             </td>
             <td class="col-name">
-                <div class="name-main">경량 A</div>
+                <div class="name-header-row">
+                    <span class="name-main">경량 A</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('steel_light_a')" title="실무규격 및 주요 발생처 보기" aria-label="경량 A 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">두께 1~3mm 박판·가전 외판</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">두께 1~3mm 가전제품 외판, 캐비닛, 차체 껍데기, 드럼통, 철판</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 345 <span class="unit">원/kg</span>
@@ -1113,17 +1242,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-steel_light_a" style="display: none;" data-cat="steel">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-steel">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">두께 1~3mm 가전제품 외판, 캐비닛, 차체 껍데기, 드럼통, 철판</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_light_a')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="steel" data-id="steel_chips">
             <td class="col-badge">
                 <span class="badge badge-steel">철스크랩</span>
             </td>
             <td class="col-name">
-                <div class="name-main">선반설 (분철)</div>
+                <div class="name-header-row">
+                    <span class="name-main">선반설 (분철)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('steel_chips')" title="실무규격 및 주요 발생처 보기" aria-label="선반설 (분철) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">절삭 쇳가루·가공 칩</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">공작기계 절삭 가공 쇳가루, 드릴 분철 (절삭유·수분 함유)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 315 <span class="unit">원/kg</span>
@@ -1137,17 +1282,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-steel_chips" style="display: none;" data-cat="steel">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-steel">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">공작기계 절삭 가공 쇳가루, 드릴 분철 (절삭유·수분 함유)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('steel_chips')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="copper" data-id="cu_twist">
             <td class="col-badge">
                 <span class="badge badge-copper">구리(동)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">A동 (꽈배기동)</div>
+                <div class="name-header-row">
+                    <span class="name-main">A동 (꽈배기동)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('cu_twist')" title="실무규격 및 주요 발생처 보기" aria-label="A동 (꽈배기동) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">피복 벗긴 고순도 나동선</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">피복을 벗긴 순도 99.9% 이상의 반짝이는 굵은 동선 (최고가)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 18,666 <span class="unit">원/kg</span>
@@ -1161,17 +1322,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-cu_twist" style="display: none;" data-cat="copper">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-copper">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">피복을 벗긴 순도 99.9% 이상의 반짝이는 굵은 동선 (최고가)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('cu_twist')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="copper" data-id="cu_pipe">
             <td class="col-badge">
                 <span class="badge badge-copper">구리(동)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">상동 (파이프·판동)</div>
+                <div class="name-header-row">
+                    <span class="name-main">상동 (파이프·판동)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('cu_pipe')" title="실무규격 및 주요 발생처 보기" aria-label="상동 (파이프·판동) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">동파이프·부스바·변압기동</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">에어컨 배관 파이프, 배전반 부스바 (약간의 산화 피막이나 땜 흔적)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 17,487 <span class="unit">원/kg</span>
@@ -1185,17 +1362,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-cu_pipe" style="display: none;" data-cat="copper">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-copper">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">에어컨 배관 파이프, 배전반 부스바 (약간의 산화 피막이나 땜 흔적)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('cu_pipe')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="copper" data-id="cu_mixed">
             <td class="col-badge">
                 <span class="badge badge-copper">구리(동)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">파동 (하동·잡선)</div>
+                <div class="name-header-row">
+                    <span class="name-main">파동 (하동·잡선)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('cu_mixed')" title="실무규격 및 주요 발생처 보기" aria-label="파동 (하동·잡선) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">모터선·에나멜선·도금동</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">에나멜 코팅선, 모터 분해선, 주석 도금선, 불순물이 섞인 잡동</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 15,915 <span class="unit">원/kg</span>
@@ -1209,17 +1402,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-cu_mixed" style="display: none;" data-cat="copper">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-copper">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">에나멜 코팅선, 모터 분해선, 주석 도금선, 불순물이 섞인 잡동</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('cu_mixed')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="brass" data-id="brass_nobe">
             <td class="col-badge">
                 <span class="badge badge-brass">황동(신주)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">노베 신주 (황동 판재)</div>
+                <div class="name-header-row">
+                    <span class="name-main">노베 신주 (황동 판재)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('brass_nobe')" title="실무규격 및 주요 발생처 보기" aria-label="노베 신주 (황동 판재) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">황동판·동단조·최상급 신주</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">도금이나 이물질이 전혀 없는 순수 황동 판재·단조품 (Cu 65% + Zn 35% 최고가 신주)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 12,777 <span class="unit">원/kg</span>
@@ -1233,17 +1442,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-brass_nobe" style="display: none;" data-cat="brass">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-brass">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">도금이나 이물질이 전혀 없는 순수 황동 판재·단조품 (Cu 65% + Zn 35% 최고가 신주)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('brass_nobe')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="brass" data-id="brass_rod">
             <td class="col-badge">
                 <span class="badge badge-brass">황동(신주)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">절봉 신주 (황동 봉·볼트)</div>
+                <div class="name-header-row">
+                    <span class="name-main">절봉 신주 (황동 봉·볼트)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('brass_rod')" title="실무규격 및 주요 발생처 보기" aria-label="절봉 신주 (황동 봉·볼트) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">황동 절봉·볼트·너트·가공품</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">공작기계 선반 가공용 신주봉, 볼트, 너트, 부속품 (Cu 60% + Zn 40% 표준 신주)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 11,944 <span class="unit">원/kg</span>
@@ -1257,17 +1482,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-brass_rod" style="display: none;" data-cat="brass">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-brass">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">공작기계 선반 가공용 신주봉, 볼트, 너트, 부속품 (Cu 60% + Zn 40% 표준 신주)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('brass_rod')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="brass" data-id="brass_cast">
             <td class="col-badge">
                 <span class="badge badge-brass">황동(신주)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">주물 신주 (수도꼭지·밸브)</div>
+                <div class="name-header-row">
+                    <span class="name-main">주물 신주 (수도꼭지·밸브)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('brass_cast')" title="실무규격 및 주요 발생처 보기" aria-label="주물 신주 (수도꼭지·밸브) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">수도꼭지·계량기·위생도기</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">수도꼭지, 수전금구, 밸브 주물류 (철 부속 및 이물질 분리품)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 10,277 <span class="unit">원/kg</span>
@@ -1281,17 +1522,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-brass_cast" style="display: none;" data-cat="brass">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-brass">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">수도꼭지, 수전금구, 밸브 주물류 (철 부속 및 이물질 분리품)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('brass_cast')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="sus" data-id="sus_304">
             <td class="col-badge">
                 <span class="badge badge-sus">스테인리스</span>
             </td>
             <td class="col-name">
-                <div class="name-main">스텐 (SUS 304)</div>
+                <div class="name-header-row">
+                    <span class="name-main">스텐 (SUS 304)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('sus_304')" title="실무규격 및 주요 발생처 보기" aria-label="스텐 (SUS 304) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">비자성 스테인리스 (18-8)</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">니켈 8% + 크롬 18% 함유. 자석이 붙지 않는 주방 싱크대, 배관 (고철 대비 3.7배)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 1,617 <span class="unit">원/kg</span>
@@ -1305,17 +1562,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-sus_304" style="display: none;" data-cat="sus">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-sus">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">니켈 8% + 크롬 18% 함유. 자석이 붙지 않는 주방 싱크대, 배관 (고철 대비 3.7배)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('sus_304')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="aluminum" data-id="al_wheel">
             <td class="col-badge">
                 <span class="badge badge-aluminum">알루미늄</span>
             </td>
             <td class="col-name">
-                <div class="name-main">자동차 알루미늄 휠</div>
+                <div class="name-header-row">
+                    <span class="name-main">자동차 알루미늄 휠</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('al_wheel')" title="실무규격 및 주요 발생처 보기" aria-label="자동차 알루미늄 휠 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">A356 고품위 순수 알루미늄 휠</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">타이어·밸런스납을 완벽 분리한 순수 자동차 휠 (알루미늄 스크랩 최고가)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 4,065 <span class="unit">원/kg</span>
@@ -1329,17 +1602,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-al_wheel" style="display: none;" data-cat="aluminum">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-aluminum">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">타이어·밸런스납을 완벽 분리한 순수 자동차 휠 (알루미늄 스크랩 최고가)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_wheel')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="aluminum" data-id="al_engine">
             <td class="col-badge">
                 <span class="badge badge-aluminum">알루미늄</span>
             </td>
             <td class="col-name">
-                <div class="name-main">엔진·미션 케이스 (주물 A급)</div>
+                <div class="name-header-row">
+                    <span class="name-main">엔진·미션 케이스 (주물 A급)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('al_engine')" title="실무규격 및 주요 발생처 보기" aria-label="엔진·미션 케이스 (주물 A급) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">실린더 블록·헤드·변속기 케이스</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">내부 철 부속을 분리한 자동차 엔진 블록, 헤드, 미션 케이스 (1톤 트럭 벌크 기준)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 3,756 <span class="unit">원/kg</span>
@@ -1353,17 +1642,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-al_engine" style="display: none;" data-cat="aluminum">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-aluminum">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">내부 철 부속을 분리한 자동차 엔진 블록, 헤드, 미션 케이스 (1톤 트럭 벌크 기준)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_engine')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="aluminum" data-id="al_sash">
             <td class="col-badge">
                 <span class="badge badge-aluminum">알루미늄</span>
             </td>
             <td class="col-name">
-                <div class="name-main">알루미늄 샤시 (A급)</div>
+                <div class="name-header-row">
+                    <span class="name-main">알루미늄 샤시 (A급)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('al_sash')" title="실무규격 및 주요 발생처 보기" aria-label="알루미늄 샤시 (A급) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">창호 샤시·압출 프로파일</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">유리·고무·철심을 제거한 백색/은색 압출 창호 프로파일 (6063 순수재)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 3,624 <span class="unit">원/kg</span>
@@ -1377,17 +1682,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-al_sash" style="display: none;" data-cat="aluminum">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-aluminum">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">유리·고무·철심을 제거한 백색/은색 압출 창호 프로파일 (6063 순수재)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_sash')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="aluminum" data-id="al_can">
             <td class="col-badge">
                 <span class="badge badge-aluminum">알루미늄</span>
             </td>
             <td class="col-name">
-                <div class="name-main">알루미늄 캔 (UBC)</div>
+                <div class="name-header-row">
+                    <span class="name-main">알루미늄 캔 (UBC)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('al_can')" title="실무규격 및 주요 발생처 보기" aria-label="알루미늄 캔 (UBC) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">음료 캔 압축물</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">분리수거 음료 캔 압축물 (도색 잉크 산화 소각 손실 20% 감가 반영)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 2,210 <span class="unit">원/kg</span>
@@ -1401,17 +1722,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-al_can" style="display: none;" data-cat="aluminum">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-aluminum">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">분리수거 음료 캔 압축물 (도색 잉크 산화 소각 손실 20% 감가 반영)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('al_can')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="zinc" data-id="zinc_cast">
             <td class="col-badge">
                 <span class="badge badge-zinc">아연(징크)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">아연 다이캐스팅 (징크 A급)</div>
+                <div class="name-header-row">
+                    <span class="name-main">아연 다이캐스팅 (징크 A급)</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('zinc_cast')" title="실무규격 및 주요 발생처 보기" aria-label="아연 다이캐스팅 (징크 A급) 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">도어캐치·안전벨트 버클·도어록</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">자동차 도어핸들, 안전벨트 버클, 도어록, 가전기기 아연 주물 (Zamak 비철 고단가)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 3,569 <span class="unit">원/kg</span>
@@ -1425,17 +1762,33 @@
                 </button>
             </td>
         </tr>
+        <tr class="scrap-detail-row" id="detail-zinc_cast" style="display: none;" data-cat="zinc">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-zinc">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">자동차 도어핸들, 안전벨트 버클, 도어록, 가전기기 아연 주물 (Zamak 비철 고단가)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('zinc_cast')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
         
         <tr class="scrap-row" data-cat="tin" data-id="tin_solder">
             <td class="col-badge">
                 <span class="badge badge-tin">주석(Sn)</span>
             </td>
             <td class="col-name">
-                <div class="name-main">주석 솔더·화이트메탈</div>
+                <div class="name-header-row">
+                    <span class="name-main">주석 솔더·화이트메탈</span>
+                    <button type="button" class="btn-info-toggle" onclick="toggleScrapInfo('tin_solder')" title="실무규격 및 주요 발생처 보기" aria-label="주석 솔더·화이트메탈 규격 정보 보기">
+                        <i class="bi-info-circle"></i> 규격
+                    </button>
+                </div>
                 <div class="name-sub">무연 땜납·엔진 베어링 메탈</div>
-            </td>
-            <td class="col-desc">
-                <span class="text-desc">전자 기판 무연 땜납(Sn 96%↑) 및 대형 엔진 크랭크샤프트 베어링 메탈 (최고가 비철)</span>
             </td>
             <td class="col-price col-wholesale font-mono font-bold text-amber active-column">
                 57,610 <span class="unit">원/kg</span>
@@ -1447,6 +1800,20 @@
                 <button type="button" class="btn-calc-pick" onclick="pickScrapItem('tin_solder')">
                     🧮 계산
                 </button>
+            </td>
+        </tr>
+        <tr class="scrap-detail-row" id="detail-tin_solder" style="display: none;" data-cat="tin">
+            <td colspan="5" class="scrap-detail-td">
+                <div class="scrap-detail-box badge-border-tin">
+                    <div class="scrap-detail-icon"><i class="bi-info-circle-fill"></i></div>
+                    <div class="scrap-detail-text">
+                        <strong class="scrap-detail-title">실무 규격 및 주요 발생처</strong>
+                        <span class="scrap-detail-desc">전자 기판 무연 땜납(Sn 96%↑) 및 대형 엔진 크랭크샤프트 베어링 메탈 (최고가 비철)</span>
+                    </div>
+                    <button type="button" class="btn-detail-close" onclick="toggleScrapInfo('tin_solder')" aria-label="닫기" title="닫기">
+                        <i class="bi-x-lg"></i>
+                    </button>
+                </div>
             </td>
         </tr>
         
@@ -1642,6 +2009,24 @@
         function tplChangeLang(lang) {
             if (lang === 'ko') return;
             alert(lang.toUpperCase() + ' 다국어 모드는 포털 홈(https://chicstory.github.io/) 및 엔진 백과에서 지원 중입니다.');
+        }
+
+        function toggleScrapInfo(id) {
+            const detailRow = document.getElementById('detail-' + id);
+            if (!detailRow) return;
+            const isHidden = (detailRow.style.display === 'none' || !detailRow.style.display);
+            detailRow.style.display = isHidden ? 'table-row' : 'none';
+
+            const btn = document.querySelector(`tr[data-id="${id}"] .btn-info-toggle`);
+            if (btn) {
+                if (isHidden) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="bi-info-circle-fill"></i> 닫기';
+                } else {
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="bi-info-circle"></i> 규격';
+                }
+            }
         }
 
         function initScrapPage() {
