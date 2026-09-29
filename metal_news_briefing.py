@@ -609,23 +609,32 @@ def discover_gemini_model() -> Optional[str]:
     return None
 
 
+LAST_SUCCESSFUL_MODEL: str = "gemini-3.5-flash-lite"
+
+
 def call_gemini_api(prompt: str) -> Tuple[Optional[str], Optional[str]]:
     """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (공식 google-genai SDK 최우선 & REST Fallback)"""
+    global LAST_SUCCESSFUL_MODEL
     if not GEMINI_API_KEY:
         return None, "GEMINI_API_KEY 미설정"
 
     last_err = ""
+    # 쾌적한 처리량과 대기열 제로를 위해 실시간 검증된 3.5-flash-lite를 최우선 배치
     target_models = [
+        "gemini-3.5-flash-lite",
         "gemini-3.8-flash",
         "gemini-3.7-flash",
         "gemini-3.6-flash",
         "gemini-3.5-flash",
-        "gemini-3.5-flash-lite",
         "gemini-3.1-flash-lite",
     ]
+    if LAST_SUCCESSFUL_MODEL and LAST_SUCCESSFUL_MODEL in target_models:
+        target_models.remove(LAST_SUCCESSFUL_MODEL)
+        target_models.insert(0, LAST_SUCCESSFUL_MODEL)
+
     discovered = discover_gemini_model()
     if discovered and discovered not in target_models:
-        target_models.insert(0, discovered)
+        target_models.append(discovered)
 
     # 1. Google 공식 google-genai SDK 최우선 호출 (503/429 시 2초 백오프 재시도 탑재)
     if HAS_GENAI:
@@ -640,6 +649,7 @@ def call_gemini_api(prompt: str) -> Tuple[Optional[str], Optional[str]]:
                                 contents=prompt,
                             )
                             if resp and resp.text:
+                                LAST_SUCCESSFUL_MODEL = model_name
                                 print(f"    -> [성공] Google GenAI 공식 SDK ({api_ver}/{model_name}) 분석 완료!", flush=True)
                                 return resp.text.strip(), None
                         except Exception as e:
