@@ -46,7 +46,10 @@ jobs:
             echo "No changes detected to commit."
           else
             git commit -m "Auto update daily metal briefing & scrap: $(date +'%Y-%m-%d') [skip ci]"
-            git pull --rebase -X theirs origin main || git rebase --abort || true
+            # 작업 중 남은 미스테이징 잔여 파일 정리 후 최신 원격 변경분과 안전 병합
+            git stash --include-untracked || true
+            git fetch origin main
+            git rebase -X theirs origin/main || git rebase --abort || true
             git push origin main
           fi
 
