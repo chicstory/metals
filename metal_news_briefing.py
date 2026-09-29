@@ -548,11 +548,12 @@ def collect_metal_news(days: int = 2) -> Dict[str, List[Dict[str, Any]]]:
 
 
 def call_gemini_api(prompt: str) -> Optional[str]:
-    """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (urllib 기반 경량 호출)"""
+    """Google Gemini Flash API를 직접 호출하여 실시간 시장 분석 코멘트 생성 (urllib 기반 경량 호출 & Header 인증으로 키 노출 원천 차단)"""
     if not GEMINI_API_KEY:
         return None
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
+    # URL 쿼리 파라미터가 아닌 x-goog-api-key HTTP 헤더를 사용하여 에러 로그/URL 상에 키가 절대 남지 않도록 보안 처리
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
     payload = {
         "contents": [
             {
@@ -567,11 +568,16 @@ def call_gemini_api(prompt: str) -> Optional[str]:
         }
     }
 
+    headers = {
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_API_KEY,
+    }
+
     try:
         req = urllib.request.Request(
             url,
             data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json"}
+            headers=headers
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             res_data = json.loads(resp.read().decode("utf-8"))
@@ -581,7 +587,9 @@ def call_gemini_api(prompt: str) -> Optional[str]:
                 if parts and "text" in parts[0]:
                     return parts[0]["text"].strip()
     except Exception as e:
-        print(f"    -> [주의] Gemini API 호출 오류 ({e}), Ollama Fallback 시도...", flush=True)
+        # 혹시 모를 에러 출력에서도 키가 절대 노출되지 않도록 마스킹 필터링
+        err_msg = str(e).replace(GEMINI_API_KEY, "***") if GEMINI_API_KEY else str(e)
+        print(f"    -> [주의] Gemini API 호출 오류 ({err_msg}), Ollama Fallback 시도...", flush=True)
     return None
 
 
