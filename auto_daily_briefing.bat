@@ -74,6 +74,42 @@ if exist "%AUTOISSUE_DIR%\index.html" (
     popd
 )
 
+:: 3-3. 러닝 분석기(RunAnalyz - runanalyz.com) 스트라바 러닝 데이터 자동 수집 및 배포
+set "SHOEF_DIR=%~dp0..\shoef"
+if exist "%SHOEF_DIR%\strava_sync.py" (
+    echo [%date% %time%] RunAnalyz 스트라바 러닝 데이터 자동 수집 중... >> "%LOG_FILE%"
+    python "%SHOEF_DIR%\strava_sync.py" >> "%LOG_FILE%" 2>&1
+    if !ERRORLEVEL! EQU 0 (
+        echo [%date% %time%] RunAnalyz 빌드 및 동기화(sync_runanalyz.py) 실행 중... >> "%LOG_FILE%"
+        python "%SHOEF_DIR%\sync_runanalyz.py" >> "%LOG_FILE%" 2>&1
+        if exist "%SHOEF_DIR%\runanalyz\.git" (
+            echo [%date% %time%] runanalyz.com GitHub 배포 진행 중... >> "%LOG_FILE%"
+            pushd "%SHOEF_DIR%\runanalyz"
+            git add . >> "%LOG_FILE%" 2>&1
+            git commit -m "Auto daily Strava running sync & deploy: %date%" >> "%LOG_FILE%" 2>&1
+            git push origin main >> "%LOG_FILE%" 2>&1
+            popd
+            echo [%date% %time%] [RunAnalyz 배포 완료] https://runanalyz.com/ >> "%LOG_FILE%"
+        )
+    )
+)
+
+:: 3-4. MetalsTerminal (metalsterminal) 12종 시세·스크랩·AI 리포트 매일 자동 동기화
+set "TERMINAL_DIR=%~dp0..\metalsterminal"
+if exist "%TERMINAL_DIR%\pipeline.py" (
+    echo [%date% %time%] MetalsTerminal 매일 자동 AI 리포트 & 시세 동기화 중... >> "%LOG_FILE%"
+    pushd "%TERMINAL_DIR%"
+    python "%TERMINAL_DIR%\pipeline.py" >> "%LOG_FILE%" 2>&1
+    if !ERRORLEVEL! EQU 0 (
+        git add data/ articles/ index.html price.html scrap.html report.html pipeline.py TASK_HISTORY.md >> "%LOG_FILE%" 2>&1
+        git commit -m "Auto daily MetalsTerminal AI briefing: %date%" >> "%LOG_FILE%" 2>&1
+        echo [%date% %time%] [MetalsTerminal 배포 완료] 로컬 및 데이터 파이프라인 동기화 완료! >> "%LOG_FILE%"
+    ) else (
+        echo [%date% %time%] [주의] MetalsTerminal 파이프라인 실행 중 오류 발생. >> "%LOG_FILE%"
+    )
+    popd
+)
+
 :: 4. 30분(1800초) 뒤 PC 종료 예약
 :: (취소하고 싶을 때는 명령 프롬프트나 실행창(Win+R)에서 shutdown /a 입력)
 echo [%date% %time%] 30분(1800초) 후 PC 자동 종료가 예약되었습니다. >> "%LOG_FILE%"
