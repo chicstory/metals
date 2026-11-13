@@ -450,25 +450,25 @@ def build_website_index() -> str:
                     except Exception:
                         pass
                     for cr in c_rows:
-                        if cr.get("자원명") == "철·철스크랩":
-                            steel_p = f"{int(float(cr['원화시장단가(원)'])):,}원/kg"
-                        elif cr.get("자원명") == "구리":
-                            copper_p = f"{int(float(cr['원화시장단가(원)'])):,}원/kg"
-                        elif cr.get("자원명") == "금":
-                            gold_p = f"{int(float(cr['원화시장단가(원)'])):,}원/g"
-                        elif cr.get("자원명") == "팔라듐":
-                            try:
-                                val = int(float(cr['원화시장단가(원)']))
-                                pd_p = f"{val:,}원/g"
-                                pd_raw = val
-                            except Exception:
-                                pass
-                        elif cr.get("자원명") == "로듐":
-                            try:
-                                val = int(float(cr['원화시장단가(원)']))
-                                rh_raw = val
-                            except Exception:
-                                pass
+                        try:
+                            raw_v = cr.get("원화시장단가(원)")
+                            if raw_v in [None, "", "-", "N/A"]:
+                                continue
+                            val = int(float(raw_v))
+                        except Exception:
+                            continue
+                        name = cr.get("자원명")
+                        if name == "철·철스크랩":
+                            steel_p = f"{val:,}원/kg"
+                        elif name == "구리":
+                            copper_p = f"{val:,}원/kg"
+                        elif name == "금":
+                            gold_p = f"{val:,}원/g"
+                        elif name == "팔라듐":
+                            pd_p = f"{val:,}원/g"
+                            pd_raw = val
+                        elif name == "로듐":
+                            rh_raw = val
         report_filename = f"[통합브리핑] 11대_금속원자재_{d}.html"
         if not os.path.exists(os.path.join(RESOURCES_DIR, d, report_filename)):
             report_filename = f"[통합브리핑] 9대_금속원자재_{d}.html"

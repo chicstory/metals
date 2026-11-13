@@ -1723,7 +1723,9 @@ def generate_all_metal_briefings(days: Optional[int] = None) -> str:
         from site_generator import build_website_index
         build_website_index()
     except Exception as e:
+        import traceback
         print(f"[경고] 메인 웹사이트 index.html 생성 실패: {e}", file=sys.stderr, flush=True)
+        traceback.print_exc(file=sys.stderr)
 
     print(f"\n" + "=" * 68, flush=True)
     print(f" ✨ 9대 금속·원자재 단일 통합 브리핑 파일 생성 완료!", flush=True)

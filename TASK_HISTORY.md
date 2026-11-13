@@ -4,6 +4,17 @@
 
 > 루트 전체 마스터 히스토리는 [루트 TASK_HISTORY.md](../TASK_HISTORY.md)를 참조하십시오.
 
+## [2026-11-14] `site_generator.py` 과거 CSV 파싱 예외 방어 및 에러 스택 로깅 보강
+- **1. 요청사항**:
+  - `thapathlab.com/metals` (`latest.json`, `index.html`)가 2026-10-08 이후 클라우드 자동 발행 시 갱신되지 않고 멈춰 있던 원인 파악 및 수정.
+- **2. 솔루션 & 구현**:
+  - `site_generator.py`: 과거 아카이브 CSV 순회 시 `철·철스크랩`, `구리`, `금`의 `원화시장단가(원)` 파싱부에 `try/except` 및 빈 값(`None`, `""`, `"-"`, `"N/A"`) 방어 로직 추가.
+  - `metal_news_briefing.py`: `build_website_index()` 실패 시 `traceback.print_exc` 출력 추가하여 추후 원인 추적 용이화.
+- **3. 결과 & 검증**:
+  - `py_compile` 구문 검증 통과. (원격 `chicstory/metals` 반영을 위해 git push 및 GitHub Actions 재실행 필요)
+
+---
+
 ## [2026-09-29] GitHub Actions 매일 09:00 완전 무인 클라우드 자동발행(Gemini Flash 듀얼 연동) & scrap.html 모바일 표 슬림화(인포 토글) 개선
 - **1. 요청사항**:
   - 사용자 업무 복귀로 인해 로컬 PC에서 Ollama(`gemma4:12b`)를 수동/배치로 실행하기 어려운 상황 발생. 매일 오전 9시 정각 클라우드 웹상에서 `metals`와 `scrap.html`이 완전 자동으로 무인 갱신·발행되는 파이프라인 구축 요구.
